@@ -1,0 +1,37 @@
+		<h1 align="center">Subject Records</h1>
+<form>
+	     <div id="container">
+
+
+		<a style="float:left" href="/">(Return)</a>
+		<a class="pull-right btn btn-success "  type="submit" href="/subjects/add"><i class="icon icon-plus"></i></a>
+
+	<?php if (empty($this->subjects)): ?>
+			<div class="alert alert-info">No subject yet</div>
+	<?php else: ?>
+	<table class="table table-bordered table-condensed table-striped">
+			<tr>
+				<th>id</th>
+				<th>subject</th>
+				<th>lecUnit</th>
+				<th>labUnit</th>
+				<th>subjectUnit</th>
+			</tr>	
+		<?php foreach ($this->subjects as $details):?>
+	<tr>
+		<td align="center" ><?php echo $details['subject_id']; ?></td>
+		<td align="center"><?php echo $details['subject']; ?></td>
+		<td	align="center"><?php echo $details['subject_unit']; ?></td>
+		<td style="width: 1px; wrap: nowrap;"><a href='/subjects/edit?subject_id={$details.subject_id}'
+			class="btn btn-danger" title="edit Subject"> <i class="icon icon-edit"></i>
+			</a></td>
+		<td style="width: 1px; wrap: nowrap;"><a href='subjects/delete?subject_id={$details.subject_id}' 
+			class="btn btn-danger" title="Delete Subject"> <i class="icon icon-remove"></i></a></td>
+	</tr>
+	<?php endforeach;?>
+	</table>
+	<?php endif; ?>
+	</div>
+
+</form>
+

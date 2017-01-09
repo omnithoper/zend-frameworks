@@ -1,0 +1,1 @@
+<?php include 'application/index.php' ?>

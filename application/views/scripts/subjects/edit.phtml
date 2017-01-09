@@ -1,0 +1,26 @@
+
+<form  method ="POST">
+	<nav id="searchStudent">
+		<div id="container">
+			<h1>Edit Subject</h1>
+			<?php if (!empty($edit.error)): ?>
+				<div>
+					{$edit.error}
+				</div>
+			<?php endif ?>
+			<h3 id="input"></h3> 
+			<input type="hidden" name="subject_id" value="{$view.subject_id}" />
+			<input id="subject" type="text" name="subject" value="<?php $this->subjects['subjects'] ?>" 
+			onchange="checkInput();">Subject<br>
+			<input id="lec_unit" type="text" name="lec_unit" value="<?php $this->subjects['lec_unit'] ?>"  /> 
+			Lecture Unit<br/>
+			<input id="lab_unit" type="text" name="lab_unit"  value="<?php $this->subjects['lab_unit'] ?>" /> 
+			Laboratory Unit<br/>
+			<input id="subject_unit" type="text" name="subject_unit" value="<?php $this->subjects['subject_unit'] ?>"
+			onchange="checkInput();">Subject Unit<br>
+			<input id="button_save" type="submit" name="edit" value="save" disabled>
+			<a style="float:right" href="/subjects">(Return)</a>
+		</div>
+	</nav>		
+</form>
+	<script type='text/javascript' src='../../js/subjectEdit.js'></script>
