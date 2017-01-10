@@ -1,8 +1,8 @@
 <?php
-class StudentsController extends BaseController {
+class StudentsController extends Zend_Controller_Action  {
 	public function indexAction() {
 		$student = new Student();
-		$students = $student->getViewStudentPaid(); 
+		$students = $student->getViewStudents(); 
 		$this->assign('student', $students);
 
 	}
@@ -74,7 +74,7 @@ class StudentsController extends BaseController {
 		$pdf->Output();
 
 	}
-
+/*
 	public function dispatch($controllerName, $actionName){
 
 		if (empty($controllerName)) {
@@ -86,4 +86,5 @@ class StudentsController extends BaseController {
 
 		$this->render($controllerName.'/'.$actionName.'.'.'phtml');
 	}
+	*/
 }

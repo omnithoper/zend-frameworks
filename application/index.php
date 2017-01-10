@@ -1,48 +1,26 @@
+ <?php
+// Define path to application directory
+defined('APPLICATION_PATH')
+    || define('APPLICATION_PATH', realpath(dirname(__FILE__) . '/../application'));
 
-<?php
+// Define application environment
+defined('APPLICATION_ENV')
+    || define('APPLICATION_ENV', (getenv('APPLICATION_ENV') ? getenv('APPLICATION_ENV') : 'production'));
 
-	date_default_timezone_set('UTC');
+// Ensure library/ is on include_path
+set_include_path(implode(PATH_SEPARATOR, array(
+    realpath(APPLICATION_PATH . '/../library'),
+    get_include_path(),
+)));
 
-	define('BASE_PATH', __DIR__);
-	set_include_path(get_include_path().PATH_SEPARATOR.__DIR__.DIRECTORY_SEPARATOR.'controllers'.PATH_SEPARATOR.__DIR__.DIRECTORY_SEPARATOR.'models');
+/** Zend_Application */
+require_once 'Zend/Application.php';
 
-	require '../public/smarty/Smarty.class.php'; 
-	session_start();
-
-	$baseUrl = 'http://zend.enrollement.com/';
-
-	$requestUrl = 'http://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
-	//var_dump($requestUrl);
-	//	var_dump($baseUrl);
-	$requestString = substr($requestUrl, strlen($baseUrl));
-//	$requestString = explode('/', $requestString);
-//	var_dump($requestString);
-
-	list($urlParams, $queryParams) = array_pad(explode('?', $requestString), 2, '');
-//	var_dump(array_pad(explode('?', $requestString), 2, ''));
-//	var_dump($urlParams);
-	$urlParams = explode('/', $urlParams);
-//	var_dump($queryParams);
-	parse_str($queryParams, $requestParams);
-	foreach ($requestParams as $field => $value) {
-		$_GET[$field] = $value;
-	}
-
-	$controllerTemplate = array_shift($urlParams);
-	$controllerName = empty($controllerTemplate)?'Index':$controllerTemplate;
-	$controllerName = ucfirst($controllerName.'Controller');
- // var_dump($controllerTemplate);
- // var_dump($controlName);
-	$actionTemplate = array_shift($urlParams);
-	$actionName = empty($actionTemplate)?'index':$actionTemplate;
-	$actionName = strtolower($actionName.'Action');
-//  var_dump($actionTemplate);
- // var_dump($actionName);
+// Create application, bootstrap, and run
+$application = new Zend_Application('dev','../application/configuration/application.ini');
 	spl_autoload_register(function ($class_name) {
 	    require_once $class_name . '.php';
 	});
 
-	$controller = new $controllerName();
-	$controller->$actionName();
-
-	$controller->dispatch($controllerTemplate, $actionTemplate);
+$application->bootstrap()
+            ->run();

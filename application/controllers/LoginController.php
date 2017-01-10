@@ -1,7 +1,7 @@
 <?php
 class LoginController {
 	public function indexAction() {
-		$config = parse_ini_file('application/configuration/application.ini');
+		$config = parse_ini_file('../application/configuration/application.ini');
 	//	$local = parse_ini_file('configuration/local.ini');
 	//	$config = array_merge($config, $local);
 
@@ -34,7 +34,7 @@ class LoginController {
 			$actionName = 'index';
 		}
 		
-		$config = parse_ini_file('application/configuration/application.ini');
+		$config = parse_ini_file('../application/configuration/application.ini');
 		//$local = parse_ini_file('configuration/local.ini');
 		//$config = array_merge($config, $local);
 

@@ -4,7 +4,7 @@ class Subject extends Zend_Db_Table_Abstract {
 	
 
 	function getViewSubjects() {
-		return $this->fetchAll();
+	return $this->fetchAll();
 	}
 
 	function getEditSubject($subject, $lecUnit, $labUnit, $subjectUnit, $subjectID) {
@@ -64,30 +64,24 @@ class Subject extends Zend_Db_Table_Abstract {
 				$result['subject_unit'] = $subjectUnit;
 			} 
 				return $result;
-		}		
-	function getAddSubject($subject, $lecUnit, $labUnit, $subjectUnit) {
+		}	/*	
+	function getAddSubject(array $data = array()) {
 	
+	// INSERT the new row to the database
+
 		
-		if (empty($subject)) {
-			return [
-			'error' => 'please input subject and unit'
-			];
-		}
-		if (empty($subjectUnit)) {
-			return [
-			'error' => 'please input subject and unit'
-			];
-		}
-	
-
-		$prepared = ("
-			INSERT INTO subjects(subject, lec_unit, lab_unit, subject_unit)
-			VALUES (?,?,?,?)
-		");	
-
-		header("Location: /subjects");
-
+		header("Location: /subjects");		
 	}
+	*/
+	function getDeleteSubject($subjectID) {
+
+		$row = $this->fetchRow('subject_id ='.$subjectID);
+
+		$row->delete();
+			header("Location: /subjects");		
+	
+	}
+
 		
 	/*
 	function getSubjects(){

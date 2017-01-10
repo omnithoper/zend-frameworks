@@ -14,17 +14,23 @@
 		$labUnit = Request::getParam('lab_unit');
 		$subjectUnit = Request::getParam('subject_unit');
 		
-		$result = [];
+		$data = array(
+		    'subject' => $subject,
+		    'lec_unit' => $lecUnit,
+		    'lab_unit' => $labUnit,
+		    'subject_unit' => $subjectUnit
+		);
+		 
 		$subjects = new Subject();
 
-		if (isset($_POST['save'])) {
-			$records = $subjects->getAddSubject($subject, $lecUnit, $labUnit, $subjectUnit);
+		$newRow = $subjects->createRow($data);
+		if (isset($_POST['save'])) {	 
+			// INSERT the new row to the database
+			$newRow->save();
+		header("Location: /subjects");	
 		}
-		
-
-		$this->view->subjects = $records;
-	}
-
+	
+	}	
 	public function editAction() {
 		$subjectID = Request::getParam('subject_id');
 		$subjectID = (empty($subjectID) && !empty($_POST['subject_id']))?$_POST['subject_id']:$subjectID;
@@ -47,10 +53,12 @@
 	}
 
 	function deleteAction() {
-	$subjectID = Request::getParam('subject_id');
+		$subjectID = Request::getParam('subject_id');
+		
+		$deleteObject = new Subject();
+		$deleteObject->getDeleteSubject($subjectID);
 	
-	$deleteObject = new Subject();
-	$delete = $deleteObject->getDeleteSubject($subjectID);
+
 	}
 	
 

@@ -1,14 +1,14 @@
 <?php
-class Student {
-	private $_db = null;
+class Student extends Zend_Db_Table_Abstract {
+	protected $_db = null;
 	
 	public function __construct() {
-		$this->_db = new DatabaseConnect();
+	 $this->_db = $this->describeTable();
 	}
 	
 	public function getViewStudents() {
 		$select = "SELECT * FROM student";
-		$student = $this->_db->connection->query($select);
+		$student = $this->_db->query($select);
 		
 		return $student;
 	}

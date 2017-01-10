@@ -1,1 +1,1 @@
-<?php include 'application/index.php' ?>
+<?php include '../application/index.php' ?>

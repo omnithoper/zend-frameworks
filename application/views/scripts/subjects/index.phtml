@@ -1,4 +1,6 @@
+		
 		<h1 align="center">Subject Records</h1>
+
 <form>
 	     <div id="container">
 
@@ -25,8 +27,8 @@
 		<td style="width: 1px; wrap: nowrap;"><a href='/subjects/edit?subject_id={$details.subject_id}'
 			class="btn btn-danger" title="edit Subject"> <i class="icon icon-edit"></i>
 			</a></td>
-		<td style="width: 1px; wrap: nowrap;"><a href='subjects/delete?subject_id={$details.subject_id}' 
-			class="btn btn-danger" title="Delete Subject"> <i class="icon icon-remove"></i></a></td>
+		<td style="width: 1px; wrap: nowrap;"><?php echo "<a href='/subjects/delete?subject_id=". $details['subject_id']. "'>delete</a>"?></td>
+
 	</tr>
 	<?php endforeach;?>
 	</table>
