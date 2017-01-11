@@ -1,24 +1,17 @@
 <?php
-class Settings {
-	private $_db = null;
+class Settings extends Zend_Db_Table_Abstract {
+
+	protected $_name = 'settings';
 	
-	public function __construct() {
-		$this->_db = new DatabaseConnect();
-	}
-	
-	public function getViewTotalPayment() {
-		$select = "SELECT * FROM settings ";
-		$tp = $this->_db->connection->query($select);
-		$result = $tp->fetch_all(MYSQLI_ASSOC);
-		return $tp;
+	public function getViewSettings() {
+		return $this->fetchAll();
 	}
 
-	public function getViewAllSemester($semesterID = NULL) {
-		$select = "SELECT * FROM semester ";
-		$result = $this->_db->connection->query($select);
-		$result = $result->fetch_all(MYSQLI_ASSOC);
-		return $result;
+	public function getViewAllSemester() {
+		return $this->fetchAll();
 	}
+	/*
+
 	
 	public function getViewSemester($semesterID = null){
 		if (empty($semesterID)) {
@@ -280,4 +273,5 @@ class Settings {
 		$results = $results->fetch_all(MYSQLI_ASSOC);
 		return $results;
 	}
+	*/
 }

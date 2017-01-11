@@ -1,0 +1,27 @@
+
+<nav id ="searchStudent">
+	<div id="container">
+	<form>
+		<a style="float:left" href="/">(Return)</a>
+	</form>
+		<table class="table table-bordered table-condensed table-striped">
+			<tr>
+				<th>Number Of Allowed Units</th>
+				<th>Price/Unit</th>
+				<th>Price/labunit</th>
+				<th>Price Of Misc</th>
+			</tr>
+			<?php foreach ($this->settings as $details):?>
+				<tr>
+				<td align="center"><?php echo $details['number_of_allowed_units']; ?></td>
+				<td align="center"><?php echo $details['price_per_unit']; ?></td>
+				<td align="center"><?php echo $details['price_per_lab_unit']; ?></td>
+				<td	align="center"><?php echo $details['price_of_misc']; ?></td>
+				</tr>
+			<?php endforeach;?>
+		</table>	
+	
+	</div>
+</nav>	
+
+

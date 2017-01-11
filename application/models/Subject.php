@@ -6,79 +6,48 @@ class Subject extends Zend_Db_Table_Abstract {
 	function getViewSubjects() {
 	return $this->fetchAll();
 	}
+	
+		
+	function getAddSubject($subject, $lecUnit, $labUnit, $subjectUnit) {
+
+
+		$data = array(
+		    'subject' => $subject,
+		    'lec_unit' => $lecUnit,
+		    'lab_unit' => $labUnit,
+		    'subject_unit' => $subjectUnit
+		);
+		
+		$newRow = $this->createRow($data);
+		$newRow->save();
+		header("Location: /subjects");	
+		
+	}
+
+
 
 	function getEditSubject($subject, $lecUnit, $labUnit, $subjectUnit, $subjectID) {
 				
-		
-		if (empty($subject)) {
-			return [
-			'error' => 'please input subject and unit'
-			];
-		}
-		if (empty($subjectUnit)) {
-			return [
-			'error' => 'please input subject and unit'
-			];
-		}
-
-		if ($prepared = prepare("UPDATE subjects SET subject = ?, lec_unit = ?, lab_unit = ?, subject_unit = ? WHERE subject_id=?;"))
-			{
-				$prepared->bind_param("siiii", $subject, $lecUnit, $labUnit, $subjectUnit, $subjectID);
-				$prepared->execute();
-				$prepared->close();
-			}
-			else {
-			var_dump($subject);
-			var_dump($subjectUnit);
-			var_dump($subjectID);
-			die();
-
-		}	
+		$data = array(
+		    'subject' => $subject,
+		    'lec_unit' => $lecUnit,
+		    'lab_unit' => $labUnit,
+		    'subject_unit' => $subjectUnit
+		);
 	
-			header("Location: /subjects");
-	}	
-		
-	function getViewSubject($subjectID){
-
-			$result = [];
-			if (!empty($subjectID)) {
-				$select = '
-					SELECT 
-						subject_id,
-						subject,
-						lec_unit,
-						lab_unit,
-						subject_unit
-					FROM subjects
-					WHERE subject_id = ?
-				';
-				$prepared = prepare($select);
-				$prepared->bind_param('i', $subjectID);
-				$prepared->execute();
-				$prepared->bind_result($subjectID, $subject, $lecUnit, $labUnit, $subjectUnit);
-				$prepared->fetch();
-				$result['subject_id'] = $subjectID;
-				$result['subject'] = $subject;
-				$result['lec_unit'] = $lecUnit;
-				$result['lab_unit'] = $labUnit;
-				$result['subject_unit'] = $subjectUnit;
-			} 
-				return $result;
-		}	/*	
-	function getAddSubject(array $data = array()) {
+		$where = $this->getAdapter()->quoteInto('subject_id = ? ', $subjectID);
 	
-	// INSERT the new row to the database
-
-		
-		header("Location: /subjects");		
+		$this->update($data, $where);		
+		header("Location: /subjects");	
 	}
-	*/
+	
+
 	function getDeleteSubject($subjectID) {
 
-		$row = $this->fetchRow('subject_id ='.$subjectID);
-
-		$row->delete();
-			header("Location: /subjects");		
+		$where = $this->getAdapter()->quoteInto('subject_id = ?', $subjectID);
+	 
+		$this->delete($where);	
+		header("Location: /subjects");		
 	
 	}
 

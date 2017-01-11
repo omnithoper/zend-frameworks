@@ -3,13 +3,8 @@
 	<nav id="searchStudent">
 		<div id="container">
 			<h1>Edit Subject</h1>
-			<?php if (!empty($edit.error)): ?>
-				<div>
-					{$edit.error}
-				</div>
-			<?php endif ?>
 			<h3 id="input"></h3> 
-			<input type="hidden" name="subject_id" value="{$view.subject_id}" />
+			<input type="hidden" name="subject_id" value=""/>
 			<input id="subject" type="text" name="subject" value="<?php $this->subjects['subjects'] ?>" 
 			onchange="checkInput();">Subject<br>
 			<input id="lec_unit" type="text" name="lec_unit" value="<?php $this->subjects['lec_unit'] ?>"  /> 

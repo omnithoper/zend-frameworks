@@ -18,15 +18,17 @@
 				<th>lecUnit</th>
 				<th>labUnit</th>
 				<th>subjectUnit</th>
+				<th>Edit</th>
+				<th>Delete</th>
 			</tr>	
 		<?php foreach ($this->subjects as $details):?>
 	<tr>
 		<td align="center" ><?php echo $details['subject_id']; ?></td>
 		<td align="center"><?php echo $details['subject']; ?></td>
+		<td	align="center"><?php echo $details['lec_unit']; ?></td>
+		<td	align="center"><?php echo $details['lab_unit']; ?></td>
 		<td	align="center"><?php echo $details['subject_unit']; ?></td>
-		<td style="width: 1px; wrap: nowrap;"><a href='/subjects/edit?subject_id={$details.subject_id}'
-			class="btn btn-danger" title="edit Subject"> <i class="icon icon-edit"></i>
-			</a></td>
+		<td style="width: 1px; wrap: nowrap;"><?php echo "<a href='/subjects/edit?subject_id=". $details['subject_id']. "'>edit</a>"?></td>
 		<td style="width: 1px; wrap: nowrap;"><?php echo "<a href='/subjects/delete?subject_id=". $details['subject_id']. "'>delete</a>"?></td>
 
 	</tr>
