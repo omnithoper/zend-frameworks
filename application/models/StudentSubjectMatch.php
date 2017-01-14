@@ -1,5 +1,5 @@
 <?php
-class StudentSubjectMatch extends Zend_Db_Table_Abstract {
+class StudentSubjectMatch {
 	private $_db = null;
 	
 	function __construct() {

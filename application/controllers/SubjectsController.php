@@ -1,8 +1,8 @@
 <?php
 	class SubjectsController extends Zend_Controller_Action {
 		public function indexAction() {
-		
-		$subjects = new Subject();
+
+		$subjects = new Application_Model_Subject();
 		$records = $subjects->getViewSubjects();
 	    $this->view->subjects = $records;
 
@@ -10,11 +10,11 @@
 	public function addAction(){
 
 		if (isset($_POST['save'])) {	 
-			$subject = Request::getParam('subject');
-			$lecUnit = Request::getParam('lec_unit');
-			$labUnit = Request::getParam('lab_unit');
-			$subjectUnit = Request::getParam('subject_unit');
-			$subjects = new Subject();
+			$subject = Application_Model_Request::getParam('subject');
+			$lecUnit = Application_Model_Request::getParam('lec_unit');
+			$labUnit = Application_Model_Request::getParam('lab_unit');
+			$subjectUnit = Application_Model_Request::getParam('subject_unit');
+			$subjects = new Application_Model_Subject();
 		    $subjects->getAddSubject($subject, $lecUnit, $labUnit, $subjectUnit);
 		
 		}
@@ -27,10 +27,10 @@
 		
 		$edit = [];
 		if (isset($_POST['edit'])) {
-			$subject = Request::getParam('subject');
-			$subjectUnit = Request::getParam('subject_unit');
-			$lecUnit = Request::getParam('lec_unit');
-			$labUnit = Request::getParam('lab_unit');
+			$subject = Application_Model_Request::getParam('subject');
+			$subjectUnit = Application_Model_Request::getParam('subject_unit');
+			$lecUnit = Application_Model_Request::getParam('lec_unit');
+			$labUnit = Application_Model_Request::getParam('lab_unit');
 			$subjects = new Subject();
 			$subjects->getEditSubject($subject, $lecUnit, $labUnit, $subjectUnit, $subjectID); 
 
@@ -38,9 +38,9 @@
 
 }
 	function deleteAction() {
-		$subjectID = Request::getParam('subject_id');
+		$subjectID = Application_Model_Request::getParam('subject_id');
 		
-		$deleteObject = new Subject();
+		$deleteObject = new Application_Model_Subject();
 		$deleteObject->getDeleteSubject($subjectID);
 	
 

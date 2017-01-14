@@ -21,9 +21,9 @@
 				</a>
 			</form>
 
-			{if (empty($student))}
+			<?php if (empty($this->students)): ?>
 				<div class="alert alert-info">No students yet</div>
-			{else}
+			<?php else: ?>
 				<table class="table table-bordered table-condensed table-striped"> 
 					<p id="delete"></p>
 					<tr>
@@ -33,32 +33,32 @@
 						<th>Status</th>
 						<th>Actions</th>
 					</tr>
-					{foreach from=$student item=details}
+					<?php foreach ($this->students as $details): ?>
 						<tr>
-						<td align="center">{$details.student_id}</td>
-						<td align="center">{$details.first_name}</td>
-						<td	align="center">{$details.last_name}</td>
-						<td align="center">{$details.payed}</td>
+						<td align="center"><?php echo $details['student_id']; ?></td>
+						<td align="center"><?php echo $details['first_name']; ?></td>
+						<td	align="center"><?php echo $details['last_name']; ?></td>
+						<td align="center"><?php echo $details['payed']; ?></td>
 						<td style="width: 1px; wrap: nowrap;" nowrap>
-							<a href='/students/edit?student_id={$details.student_id}' class="btn" title="edit Student"> 
+							<a href='/students/edit?student_id=<?php echo $details['student_id']; ?>' class="btn" title="edit Student"> 
 								<i class="icon icon-edit"></i>
 							</a>
 
-							<a id="href_delete"href='students/delete?student_id={$details.student_id}' 
+							<a id="href_delete"href='/students/delete?student_id=<?php echo $details['student_id']; ?>' 
 						class="btn btn-danger" title="Delete Student"> 
 								<i class="icon icon-remove"></i>
 							</a>
 
-							{if ($details.payed == 'paid')}
-								<a id="href_delete"href='students/download?student_id={$details.student_id}' 
+						<?php	if ($details['payed'] == 'paid'): ?>
+								<a id="href_delete"href='/students/download?student_id=<?php echo $details['student_id']; ?>' 
 								class="btn btn-success" title="download invoice"> 
 									<i class="icon icon-download"></i>
 								</a>
-							{/if}	
+							<?php endif; ?>
 						</td>
 						</tr>
-					{/foreach}
+					<?php endforeach; ?>
 				</table>
-			{/if}
+			<?php endif ?>
 		</div>
 	</nav>

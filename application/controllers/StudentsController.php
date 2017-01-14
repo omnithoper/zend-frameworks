@@ -1,10 +1,11 @@
 <?php
 class StudentsController extends Zend_Controller_Action  {
 	public function indexAction() {
-		$student = new Student();
+		$student = new Application_Model_Student();
 		$students = $student->getViewStudents(); 
-		$this->assign('student', $students);
-
+		#Zend_Debug::dump($students);
+		#die();
+		$this->view->students = $students;
 	}
 
 	public function addAction() {

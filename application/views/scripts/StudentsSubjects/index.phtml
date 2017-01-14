@@ -1,0 +1,89 @@
+
+		<script type='text/javascript' src='/js/student_enroly.js'></script>
+
+		<nav id="searchStudent">
+			<div id="container">
+				<form action="/studentsSubjects/" Method="POST">
+					<h1>Student Name</h1>
+					Name:<input type="text" name="studentName">
+					<input type="submit" name="search" value="search"/>
+					<a  class="pull-right" href="/">(return)</a></br>	
+					<? php if (!empty($students[1]) && empty($selectedStudent)): ?>
+						<ul>
+							<?php foreach $students as $student : ?>
+								<li>
+									{$student.last_name} {$student.first_name}
+									(<a type="submit" href="/studentsSubjects/?studentID={$student.student_id}">select</a>)
+								</li>
+							<?php endforeach; ?>
+						</ul>
+					<? php endif: ?>
+				</form>
+
+				<form method="post">
+						<?php if (!empty($selectedStudent)) ?>
+							SELECTED NAME:. <?php echo $selectedStudent['full_name'] ; ?></br>
+							<br />
+							<h1>Enroll to Subject</h1>
+							<input type="hidden" name="studentID" value="{$studentID}" />
+							<select id="subject_list" name="getSubjectID" onchange="checkSubjectName();">	
+								<option value="">(Select Subject)</option>
+								<?php foreach from=$subject as $subjects ?>
+									<option value="{$subjects.subject_id}"> {$subjects.subject}</option>	
+								<?php endforeach; ?>	
+							</select>	
+							<button id="button_save" type="submit" name="saveSubject" value="saveSubject" disabled>Save</button></br>
+						<?php endif; ?>
+						
+						<?php if (!empty($selectedStudent) && !empty($allSubject)): ?>
+							<h1>Student Enroll Subjects</br></h1>
+							<br />
+							<?php (!empty($error.message)) :>?>
+								<div class="alert alert-danger">
+								{$error.message}
+								{$error.status}
+								</div>
+							<?php endif; ?> 
+							<table class="table table-bordered table-condensed table-striped"> 
+								<tr>
+									<th>Subject ID</th>
+									<th>Subject</th>
+									<th>Subject UNIT</th>
+									<th style="width: 1px; white-space: nowrap;">&nbsp;</th>
+								</tr>
+								<?php foreach $allSubject as $subject: ?>
+									<tr>
+										<td>{$subject.subject_id}</td>
+										<td>{$subject.subject}</td>
+										<td>{$subject.subject_unit}</td>
+										<td style="width: 1px; wrap: nowrap;">
+											<a href="/studentsSubjects/?subjectID={$subject.subject_id}
+											&studentID={$subject.student_id}&action=delete" class="btn btn-danger" title="Delete Subject"><i class="icon icon-remove"></i></a>
+										</td>
+									</tr>
+								<?php endforeach ;?>
+								<tr>
+									<td colspan="2"><span class="pull-right">Total Units</span></td>
+									<td colspan="2">
+										<label for="Total">{$totalUnit}</label>
+									</td>
+								</tr>
+							</table>
+							<?php ($isStudentPayed[0].payed == 'not yet paid') ?>
+								<a id="payment"  href="/Cashier/?studentID={$studentID}&
+								studentName={$selectedStudent.full_name} " 
+								class="btn btn-success pull-right"  title="payment"  >pay</a>
+							
+								<div class="clearfix"></div>
+							<?php endif ?> 
+						<?php endif  ?>
+		
+				</form>
+				<footer>
+					<center>
+						copyright &copy Busasal.com
+					</center>
+				</footer>	
+			</div>		
+		</nav>
+

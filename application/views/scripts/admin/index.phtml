@@ -1,0 +1,28 @@
+
+<nav id ="searchStudent">
+	<div id="container">
+	<form>
+		<a style="float:left" href="/">(Return)</a>
+	</form>
+		<table class="table table-bordered table-condensed table-striped">
+			<a class="pull-right btn btn-success" 
+			href="/Admin/add">
+			<i class="icon-plus"></i></a>
+			<tr>
+				<th>User_id</th>
+				<th>User Name</th>
+				<th>Password</th>
+			</tr>
+				<?php foreach ($this->admin as $details):?>
+				<tr>
+				<td align="center"><?php echo $details['user_id']; ?></td>
+				<td align="center"><?php echo $details['username']; ?></td>
+				<td align="center"><?php echo $details['password']; ?></td>
+				<td style="width: 1px; wrap: nowrap;"><?php echo "<a href='/Admin/edit?user_id=". $details['user_id']. "'>edit</a>"?></td>
+				<td style="width: 1px; wrap: nowrap;"><?php echo "<a href='/Admin/delete?user_id=". $details['user_id']. "'>delete</a>"?></td>
+				</tr>
+			<?php endforeach;?>
+		</table>	
+	</div>
+</nav>	
+

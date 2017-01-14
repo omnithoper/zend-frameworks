@@ -1,7 +1,7 @@
 <?php
-class Settings extends Zend_Db_Table_Abstract {
+class Application_Model_Settings extends Zend_Db_Table_Abstract {
 
-	protected $_name = 'settings';
+	protected $_name = 'semester';
 	
 	public function getViewSettings() {
 		return $this->fetchAll();
@@ -259,7 +259,18 @@ class Settings extends Zend_Db_Table_Abstract {
 		}
 		return $result;
 	}
+	*/
 	public function getCurrentSemester() {
+		$date = date("Y-m-d");
+
+		$select = $this->select()
+			->from('semester', ['date_start', 'date_end'])
+			->setIntegrityCheck(false)
+			->where('"'.$date.'" BETWEEN date_start AND date_end')
+		;
+
+		return $this->fetchAll($select);
+
 		$date = date("Y-m-d");
 		$query = "
 			SELECT
@@ -273,5 +284,4 @@ class Settings extends Zend_Db_Table_Abstract {
 		$results = $results->fetch_all(MYSQLI_ASSOC);
 		return $results;
 	}
-	*/
 }

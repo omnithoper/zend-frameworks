@@ -1,11 +1,47 @@
 <?php
-class Admin {
-	private $_db = null;
+class Admin extends Zend_Db_Table_Abstract{
+	protected $_name = 'admin';
 	
-	public function __construct() {
-		$this->_db = new DatabaseConnect();
+
+	
+	public function getViewAdmin() {
+		return $this->fetchAll();
 	}
-	
+	public function getAddAdmin($userName, $password) {
+
+		$data = array(
+		    'username' => $userName,
+		    'password' => $password
+		);
+		
+		$newRow = $this->createRow($data);
+		$newRow->save();
+		
+		header("Location: /Admin/");			
+	}
+
+
+	public function getEditUser($userName, $password, $userID) {
+
+		$data = array(
+		    'username' => $userName,
+		    'password' => $password
+		);
+		
+		$where = $this->getAdapter()->quoteInto('user_id = ?', $userID);
+		$this->update($data, $where);	
+		
+		header("Location: /Admin/");
+	}
+
+	public function getDeleteUser($userID) {
+		$where = $this->getAdapter()->quoteInto('user_id = ?', $userID);
+	 
+		$this->delete($where);	
+		header("Location: /Admin/");
+	}
+
+	/*
 	public function getUserPassword($userName, $password) {
 		if (empty($userName)) {
 			return [
@@ -44,13 +80,6 @@ class Admin {
 		}
 	}   
 
-	public function getViewAdmin() {
-		$sql = "SELECT * FROM admin ";
-     	$result = $this->_db->connection->query($sql);
-      	$result = $result->fetch_all(MYSQLI_ASSOC);
-
-      	return $result;
-	}
 
 	public function getViewUser($userID = null) {
 		if (empty($userID)) {
@@ -160,4 +189,5 @@ class Admin {
 		}
 		return true;
 	}
+	*/
 }

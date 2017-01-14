@@ -1,16 +1,36 @@
 <?php
-class Student extends Zend_Db_Table_Abstract {
+class Application_Model_Student extends Zend_Db_Table {
 	protected $_db = null;
-	
-	public function __construct() {
-	 $this->_db = $this->describeTable();
-	}
+	protected $_name = 'student';
 	
 	public function getViewStudents() {
-		$select = "SELECT * FROM student";
-		$student = $this->_db->query($select);
-		
-		return $student;
+		$semesterObject = new Application_Model_Settings();
+		$semDate = $semesterObject->getCurrentSemester();
+		$dateStart = $semDate[0]['date_start'];
+		$dateEnd = $semDate[0]['date_end'];
+
+		$select = $this->select()
+			->from('student')
+			->setIntegrityCheck(false)
+			->joinLeft(
+				'payment', 
+				'student.student_id = payment.student_id AND payment.transaction_date BETWEEN "'.$dateStart.'" AND "'.$dateEnd.'"'
+			)
+		;
+
+		#echo $select; die();
+
+		$students = $this->fetchAll($select);
+		$result = [];
+		foreach ($students as $student){ 
+			$record = $student->toArray();
+			$record['payed'] ='not yet paid';	
+			if ($record['payment'] == 1)  {
+				$record['payed'] = 'paid';
+			}			
+			$result[] = $record;		
+		}	
+		return $result;
 	}
 
 	function getViewStudentPaid() {
