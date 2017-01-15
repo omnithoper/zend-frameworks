@@ -7,7 +7,15 @@ class Application_Model_Subject extends Zend_Db_Table_Abstract {
 	return $this->fetchAll();
 	}
 	
-		
+	public function getSubjectDetails($subjectID) {
+		$select = $this->select()
+			->from($this->_name)
+			->setIntegrityCheck(false)
+			->where('subject_id = ?', $subjectID)
+		;
+	
+		return $this->fetchRow($select)->toArray();
+	}	
 	function getAddSubject($subject, $lecUnit, $labUnit, $subjectUnit) {
 
 

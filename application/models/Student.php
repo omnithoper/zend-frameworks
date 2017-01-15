@@ -2,6 +2,15 @@
 class Application_Model_Student extends Zend_Db_Table {
 	protected $_db = null;
 	protected $_name = 'student';
+
+	public function getStudentDetails($studentID) {
+		$select = $this->select()
+			->from($this->_name)
+			->setIntegrityCheck(false)
+			->where('student_id = ?', $studentID)
+		;
+		return $this->fetchRow($select)->toArray();
+	}
 	
 	public function getViewStudents() {
 		$semesterObject = new Application_Model_Settings();
@@ -10,11 +19,19 @@ class Application_Model_Student extends Zend_Db_Table {
 		$dateEnd = $semDate[0]['date_end'];
 
 		$select = $this->select()
-			->from('student')
+			->from('student', [
+				'student_id',
+				'first_name',
+				'last_name'
+			])
 			->setIntegrityCheck(false)
 			->joinLeft(
 				'payment', 
-				'student.student_id = payment.student_id AND payment.transaction_date BETWEEN "'.$dateStart.'" AND "'.$dateEnd.'"'
+				'student.student_id = payment.student_id AND payment.transaction_date BETWEEN "'.$dateStart.'" AND "'.$dateEnd.'"',
+				[
+					'payment',
+					'transaction_date'
+				]
 			)
 		;
 
@@ -29,7 +46,7 @@ class Application_Model_Student extends Zend_Db_Table {
 				$record['payed'] = 'paid';
 			}			
 			$result[] = $record;		
-		}	
+		}
 		return $result;
 	}
 

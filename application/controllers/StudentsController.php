@@ -3,9 +3,18 @@ class StudentsController extends Zend_Controller_Action  {
 	public function indexAction() {
 		$student = new Application_Model_Student();
 		$students = $student->getViewStudents(); 
-		#Zend_Debug::dump($students);
-		#die();
+		
 		$this->view->students = $students;
+	}
+
+	public function detailsAction() {
+		
+		$studentID = Application_Model_Request::getParam('studentID');
+
+		$student = new Application_Model_Student();
+		$details = $student->getStudentDetails($studentID);
+		echo Zend_Json::encode($details);
+		exit;
 	}
 
 	public function addAction() {

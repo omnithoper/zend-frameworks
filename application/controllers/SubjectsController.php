@@ -1,12 +1,19 @@
 <?php
-	class SubjectsController extends Zend_Controller_Action {
-		public function indexAction() {
-
+class SubjectsController extends Zend_Controller_Action {
+	public function indexAction() {
 		$subjects = new Application_Model_Subject();
 		$records = $subjects->getViewSubjects();
 	    $this->view->subjects = $records;
+	}
+	public function detailsAction() {
+		
+		$subjectID = Application_Model_Request::getParam('subjectID');
 
-		}
+		$student = new Application_Model_Subject();
+		$details = $student->getSubjectDetails($subjectID);
+		echo Zend_Json::encode($details);
+		exit;
+	}	
 	public function addAction(){
 
 		if (isset($_POST['save'])) {	 
@@ -21,7 +28,7 @@
 	
 	}	
 	public function editAction() {
-		$subjectID = Request::getParam('subject_id');
+		$subjectID = Application_Model_Request::getParam('subject_id');
 		$subjectID = (empty($subjectID) && !empty($_POST['subject_id']))?$_POST['subject_id']:$subjectID;
 
 		
