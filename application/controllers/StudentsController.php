@@ -18,49 +18,56 @@ class StudentsController extends Zend_Controller_Action  {
 	}
 
 	public function addAction() {
-	
-		$firstName = Request::getParam('first_name');
-		$lastName = Request::getParam('last_name');
-
-		$addObject = new Student();
-		$result=[];
-		
+			
 		if (isset($_POST['save'])){
-			$result = $addObject->getAddStudent($firstName, $lastName);
+
+			$firstName = Application_Model_Request::getParam('first_name');
+			$lastName = Application_Model_Request::getParam('last_name');
+			$data = array(
+		    	'first_name' => $firstName,
+		    	'last_name' => $lastName
+			);
+	
+			$student = new Application_Model_Student();
+			$result = [];
+			$result = $student->getAddStudent($data, $firstName, $lastName);
+			$this->view->students = $result;
+			//var_dump($result['error']);
+		
 		}
-
-		$this->assign('result', $result);
-
-
-		}
+     }
 	public function editAction() {
-		$studentID = Request::getParam('student_id');
+		$studentID = Application_Model_Request::getParam('student_id');
 
-		$student = new Student();
-		$result = $student->getViewStudent($studentID);
+		$student = new Application_Model_Student();
+		$details = $student->getStudentDetails($studentID);
+		$this->view->student = $details;
 		
 		$edit = [];
-		if (Request::isPost()) {
-			$firstName = Request::getParam('first_name');
-			$lastName = Request::getParam('last_name');
-			$edit = $student->getEditStudent($firstName, $lastName, $studentID);
+		if (isset($_POST['edit'])){
+			$firstName = Application_Model_Request::getParam('first_name');
+			$lastName = Application_Model_Request::getParam('last_name');
 
-			header("Location: /students");
+			$data = array(
+		    	'first_name' => $firstName,
+		    	'last_name' => $lastName
+			);
+
+			$edit = $student->getEditStudent($data, $firstName, $lastName, $studentID);
+			$this->view->students = $edit;
+
 		}
-		
-		$this->assign('result', $result);
-		$this->assign('edit', $edit);
 
 	}
 	function deleteAction() {	
-		$studentID = Request::getParam('student_id');
-		$deleteObject = new Student();
+		$studentID = Application_Model_Request::getParam('student_id');
+		$deleteObject = new Application_Model_Student();
 		$delete = $deleteObject->getDeleteStudent($studentID);
 	}
 
 	function downloadAction() {
 		require '/lib/fpdf.php';
-		$studentID = Request::getParam('student_id');
+		$studentID = Application_Model_Request::getParam('student_id');
 		$paymentObject = new Payment();
 		$studentObject = new Student();
 		$name = $studentObject->getViewStudent($studentID);
@@ -84,17 +91,5 @@ class StudentsController extends Zend_Controller_Action  {
 		$pdf->Output();
 
 	}
-/*
-	public function dispatch($controllerName, $actionName){
 
-		if (empty($controllerName)) {
-			$controllerName = 'index';
-		}
-		if (empty($actionName)) {
-			$actionName = 'index';
-		}
-
-		$this->render($controllerName.'/'.$actionName.'.'.'phtml');
-	}
-	*/
 }

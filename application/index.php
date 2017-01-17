@@ -16,9 +16,8 @@ set_include_path(implode(PATH_SEPARATOR, array(
 
 /** Zend_Application */
 require_once 'Zend/Application.php';
-require_once 'Zend/Loader/Autoloader.php';
-Zend_Loader_Autoloader::getInstance();
-#require_once 'Zend/Config.php';
+//require_once 'Zend/Loader/Autoloader.php';
+//#require_once 'Zend/Config.php';
 
 
 #var_dump(APPLICATION_PATH . '/../library');

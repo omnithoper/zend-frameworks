@@ -1,5 +1,5 @@
 <?php
-class Admin extends Zend_Db_Table_Abstract{
+class Application_Model_Admin extends Zend_Db_Table {
 	protected $_name = 'admin';
 	
 
@@ -7,6 +7,17 @@ class Admin extends Zend_Db_Table_Abstract{
 	public function getViewAdmin() {
 		return $this->fetchAll();
 	}
+	public function getAdminDetails($adminID) {
+
+		$select = $this->select()
+			->from($this->_name)
+			->setIntegrityCheck(false)
+			->where('user_id = ?', $adminID)
+		;
+	
+		return $this->fetchRow($select)->toArray();
+	}	
+
 	public function getAddAdmin($userName, $password) {
 
 		$data = array(

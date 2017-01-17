@@ -1,5 +1,5 @@
 <?php
-class Application_Model_Subject extends Zend_Db_Table_Abstract {
+class Application_Model_Subject extends Zend_Db_Table {
 	protected $_name = 'subjects';
 	
 
@@ -8,13 +8,9 @@ class Application_Model_Subject extends Zend_Db_Table_Abstract {
 	}
 	
 	public function getSubjectDetails($subjectID) {
-		$select = $this->select()
-			->from($this->_name)
-			->setIntegrityCheck(false)
-			->where('subject_id = ?', $subjectID)
-		;
 	
-		return $this->fetchRow($select)->toArray();
+	$row = $this->fetchRow($this->select()->where('subject_id = ?', $subjectID))->toArray();
+	return $row;
 	}	
 	function getAddSubject($subject, $lecUnit, $labUnit, $subjectUnit) {
 
@@ -59,19 +55,18 @@ class Application_Model_Subject extends Zend_Db_Table_Abstract {
 	
 	}
 
-		
-	/*
 	function getSubjects(){
-		$db = new DatabaseConnect();
-		$subjects = $db->connection->query("SELECT * FROM subjects");
-		$subjectss = [];
+		return $subjects=$this->fetchAll();
+		$subjects = [];
 		foreach($subjects as $subject){
 			$subjectss[] = $subject;
 		}
 		
 		return $subjectss;
-		$db->connection->close();
-	}   
+	
+	}  
+	/*
+ 
 	function subjectExist($subject) {
 		if (empty($subject)) {
 			return false;

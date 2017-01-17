@@ -1,0 +1,22 @@
+
+	<script type='text/javascript' src='/js/studentAdd.js'></script>
+
+<form id="add-student-form" method ="POST">
+<nav id ="searchStudent">
+	<div id="container"> 
+		<h1>Add Student</h1>
+		<?php if (!empty($this->students['error'])): ?>
+				<div>
+					<?php echo $this->students['error']; ?>
+				
+				</div>
+			<?php endif; ?> 
+		<h3 id="input"></h3>
+		<input id="first_name" type="text" name="first_name" onchange="checkInput();" /> First Name<br/>
+		<input id="last_name" type="text" name="last_name" onchange="checkInput();" /> Last Name<br/>
+		<input class="btn" id="button_save" type="submit" name="save" value="save" disabled />		
+		<a style="float:right" href="/students">(Return)</a>
+	</div>
+</nav>	
+</form>
+

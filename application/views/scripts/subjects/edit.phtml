@@ -5,13 +5,13 @@
 			<h1>Edit Subject</h1>
 			<h3 id="input"></h3> 
 			<input type="hidden" name="subject_id" value=""/>
-			<input id="subject" type="text" name="subject" value="<?php $this->subjects['subjects'] ?>" 
+			<input id="subject" type="text" name="subject" value="<?php echo $this->subject['subject']; ?>" 
 			onchange="checkInput();">Subject<br>
-			<input id="lec_unit" type="text" name="lec_unit" value="<?php $this->subjects['lec_unit'] ?>"  /> 
+			<input id="lec_unit" type="text" name="lec_unit" value="<?php echo $this->subject['lec_unit']; ?>"  /> 
 			Lecture Unit<br/>
-			<input id="lab_unit" type="text" name="lab_unit"  value="<?php $this->subjects['lab_unit'] ?>" /> 
+			<input id="lab_unit" type="text" name="lab_unit"  value="<?php echo $this->subject['lab_unit']; ?>" /> 
 			Laboratory Unit<br/>
-			<input id="subject_unit" type="text" name="subject_unit" value="<?php $this->subjects['subject_unit'] ?>"
+			<input id="subject_unit" type="text" name="subject_unit" value="<?php echo $this->subject['subject_unit']; ?>"
 			onchange="checkInput();">Subject Unit<br>
 			<input id="button_save" type="submit" name="edit" value="save" disabled>
 			<a style="float:right" href="/subjects">(Return)</a>

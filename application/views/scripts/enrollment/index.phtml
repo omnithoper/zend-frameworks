@@ -1,0 +1,72 @@
+<nav id="searchStudent">
+			<div id="container">
+				<form action ="/enrollment" Method="POST">
+						<h1>Student Name</h1>
+						Name:<input type="text" name="studentName">
+						<input type="submit" name="search" value="search">
+						<button type="submit"><a href="/index">Back</a></button></br>	
+						<?php if (!empty($this->students) && empty($selectedStudent)): ?>
+							<ul>
+
+								<?php foreach ($this->students as $student): ?>
+									<li>
+										<?php echo $student['last_name'].', '.$student['first_name']; ?>
+										<button type="submit">
+										(<a href="/enrollment?studentID=<?php echo $student['student_id']; ?>">select</a>)
+										</button>
+									</li>
+								<?php endforeach; ?>
+							</ul>
+						<?php endif; ?>
+					</form>
+					<form method="post">
+						<?php if (!empty($this->selectedStudent)) : ?>
+							<?php echo 'SELECTED NAME:'. $this->selectedStudent['last_name'].', '.$this->selectedStudent['first_name']; ?>
+							<br />
+							<h1>Enroll to Subject</h1>
+							<input type="hidden" name="studentID" value="<?php echo $this->studentID; ?>" />
+							<select name="getSubjectID">			
+								<?php foreach ($this->subject as $subjects):?>
+									<option value="<?php echo $subjects['subject_id']; ?>"> <?php echo $subjects['subject'];?></option>	
+								<?php endforeach;?>	
+							</select>	
+							
+							<button type="submit" name="saveSubject" value="saveSubject">
+								Save
+							</button></br>
+					<?php endif; ?>
+					
+					<?php if (!empty($this->selectedStudent) && !empty($this->allSubject)): ?>
+						<h1><?php echo "Student Enroll Subjects";?></br><h1>
+						<br />
+						<table style ="width:100%;background-color:green;color:white" border ="1"> 
+							<tr>
+								<th>Student ID</th>
+								<th>Subject</th>
+								<th>Subject UNIT</th>
+							</tr>
+							<?php $totalUnit = NULL;?>
+							<?php foreach ($this->allSubject as $subject):?>
+									<tr>
+									<td><?php echo  $subject['subject_id']; ?></td>
+									<td><?php echo  $subject['subject']; ?></td>
+									<td><?php echo  $subject['subject_unit']; ?></td>
+									<td><a href="/enrollment?subjectID=<?php echo $subject['subject_id']; ?>
+									&studentID=<?php echo $subject['student_id']; ?> ">delete</a><td>
+									<?php $result['unit'] = $subject['subject_unit'];?>
+									<?php $totalUnit = $totalUnit + $subject['subject_unit'];?>
+									</tr>
+							<?php endforeach; ?>	
+						</table>
+						<label for="Total" style="float: right">Total:
+							<input style="float: right" type="text" value="<?php echo $totalUnit;?>">
+						</label>
+					<?php endif; ?>
+				</form>	
+				<footer>
+					<center>
+						copyright &copy Busasal.com
+					</center>
+				</footer>	
+			</div>		
+		</nav>

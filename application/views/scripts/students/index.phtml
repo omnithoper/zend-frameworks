@@ -1,16 +1,12 @@
 
-    <link type="text/css" rel="stylesheet" href="../../../../css/bootstrap.min.css" />
-    <link type="text/css" rel="stylesheet" href="/css/mystyles.css" />
-    
-    <script src="/js/vendor/jquery-3.1.1.min.js"></script>
-    <script src="/js/vendor/bootstrap.min.js"></script>
+
     <script src="/js/students.js"></script>
 
 	<nav id ="searchStudent">
 		<div id="container">
 			<div class="navbar">
 				<div class="navbar-inner">
-						<h1>Subject Records</h1>
+						<h1>Students Records</h1>
 					<form class="navbar-form pull-right">
 					  	<a type="button" class="btn" href="/">return</a>
 					</form>
@@ -49,7 +45,7 @@
 								data-toggle="modal" data-target="#student-details"
 								> 
 								<i class="icon icon-search"></i>
-							</a>
+							</a>	
 
 							<a href="/students/edit?student_id=<?php echo $details['student_id']; ?>" class="btn" title="edit Student"> 
 								<i class="icon icon-edit"></i>
@@ -93,7 +89,7 @@
 		        </dl>
 		      </div>
 		      <div class="modal-footer">
-		        <button type="button" class="btn btn-default" data-dismiss="modal">Sarado</button>
+		        <button type="button" class="btn btn-default btn-danger" data-dismiss="modal">	<i class="icon icon-remove"></i></button>
 		      </div>
 		    </div>
 

@@ -1,8 +1,4 @@
-	<link type="text/css" rel="stylesheet" href="../../../../css/bootstrap.min.css" />
-    <link type="text/css" rel="stylesheet" href="/css/mystyles.css" />
-    
-    <script src="/js/vendor/jquery-3.1.1.min.js"></script>
-    <script src="/js/vendor/bootstrap.min.js"></script>
+
     <script src="/js/subjects.js"></script>
 
 		<h1 align="center">Subject Records</h1>
@@ -24,6 +20,7 @@
 				<th>lecUnit</th>
 				<th>labUnit</th>
 				<th>subjectUnit</th>
+				<th>Details</th>
 				<th>Edit</th>
 				<th>Delete</th>
 			</tr>	
@@ -34,16 +31,27 @@
 		<td	align="center"><?php echo $details['lec_unit']; ?></td>
 		<td	align="center"><?php echo $details['lab_unit']; ?></td>
 		<td	align="center"><?php echo $details['subject_unit']; ?></td>
-		<td>	<a 
-					onclick="viewDetails(<?php echo $details['subject_id']; ?>);" 
-					class="btn" 
-					title="edit Student"
-					data-toggle="modal" data-target="#subject-details"
-					> 
-					<i class="icon icon-search"></i>
-				</a></td>
-		<td style="width: 1px; wrap: nowrap;"><?php echo "<a href='/subjects/edit?subject_id=". $details['subject_id']. "'>edit</a>"?></td>
-		<td style="width: 1px; wrap: nowrap;"><?php echo "<a href='/subjects/delete?subject_id=". $details['subject_id']. "'>delete</a>"?></td>
+		<td>	
+			<a 
+				onclick="viewDetails(<?php echo $details['subject_id']; ?>);" 
+				class="btn" 
+				title="View Subject"
+				data-toggle="modal" data-target="#subject-details"> 
+				<i class="icon icon-search"></i>
+			</a>
+		</td>
+		<td style="width: 1px; wrap: nowrap;">
+			<a href="/subjects/edit?subject_id=<?php echo $details['subject_id']; ?>" 
+				   class="btn" 
+				   title="edit Subject"> 
+				   <i class="icon icon-edit"></i>
+			</a>
+		</td>					
+		<td style="width: 1px; wrap: nowrap;">			
+			<a href='/subjects/delete?subject_id=<?php echo $details['subject_id']; ?>' 
+						class="btn btn-danger" title="subject"> 
+								<i class="icon icon-remove"></i>
+							</a></td>
 
 	</tr>
 	<?php endforeach;?>
@@ -61,11 +69,9 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">Student Details</h4>
+        <h4 class="modal-title">Subject Details</h4>
       </div>
       <div class="modal-body">
-      	<h1> test </h1>
-
         <dl>
         	<dt>subejectID</dt><dd id="subjectID"></dd>
         	<dt>subjectName</dt><dd id="subjectName"></dd>
@@ -73,7 +79,7 @@
         </dl>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Sarado</button>
+        <button type="button" class="btn btn-default btn-danger" data-dismiss="modal"><i class="icon icon-remove"></i></button>
       </div>
     </div>
 

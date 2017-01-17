@@ -16,6 +16,6 @@ var viewDetails = function(subjectID) {
 		}
 	});
 }
-alert("die");
+
 document.onload = function(){
 };

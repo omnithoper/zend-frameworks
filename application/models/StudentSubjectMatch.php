@@ -1,11 +1,34 @@
 <?php
-class StudentSubjectMatch {
-	private $_db = null;
+class Application_Model_StudentSubjectMatch extends Zend_Db_Table {
+	protected $_name = 'student_subject_match';
 	
-	function __construct() {
-		$this->_db = new DatabaseConnect();
+	function getStudentSubjects($studentID = NULL){
+		/*
+
+			$select = $this->select()
+			->from($this->_name)
+			->setIntegrityCheck(false)
+			->join(
+				'subjects', 
+				'student_subject_match.subject_id = subjects.subject_id',
+				[
+					'subject_id',
+					'subject',
+					'subject_unit'
+				]
+			)
+			->where('student_id = ?' , $studentID )
+		;
+	
+		return $result = $this->fetchAll($select);
+		*/
+		var_dump($this->fetchAll());
+		die("here");
+		return $this->fetchAll();
+		
+					
 	}
-	
+	/*
 	function getAddStudentSubjectID($studentID, $subjectID) {
 		if (empty($studentID)) {
 			return true;
@@ -102,7 +125,7 @@ class StudentSubjectMatch {
 		$db->connection->close();
 	}
 	
-
+*/
 }	
 	
 ?>

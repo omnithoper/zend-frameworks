@@ -34,9 +34,6 @@ class Application_Model_Student extends Zend_Db_Table {
 				]
 			)
 		;
-
-		#echo $select; die();
-
 		$students = $this->fetchAll($select);
 		$result = [];
 		foreach ($students as $student){ 
@@ -140,24 +137,20 @@ class Application_Model_Student extends Zend_Db_Table {
 		if (empty($studentName)) {
 			return [];
 		}
-		
-		$select = "
-			SELECT 
-				student_id,
-				first_name, 
-				last_name,
-				CONCAT(last_name, ', ', first_name) AS full_name
-			FROM student 
-			WHERE 
-				first_name LIKE '$studentName%' OR
-				last_name LIKE '$studentName%'
-		";
-		
-		$students = $this->_db->connection->query($select);
-		$students = $students->fetch_all(MYSQLI_ASSOC);
-		
+			$select = $this->select()
+			->from('student', [
+				'student_id',
+				'first_name',
+				'last_name'
+			])
 
-		return $students;
+			->setIntegrityCheck(false)
+			->where('first_name LIKE ?' , $studentName.'%' )
+			->ORwhere('last_name LIKE ?' , $studentName.'%' )
+		;
+
+		return $students = $this->fetchAll($select);
+
 	}
 	
 	public function studentExist($firstName, $lastName, $studentID = null) {
@@ -199,37 +192,33 @@ class Application_Model_Student extends Zend_Db_Table {
 		return !empty($studentID);
 	} 
 	
-	public function getAddStudent($firstName, $lastName) {
-		var_dump($firstName);
-		if (empty($firstName)) {
-			return [
-			'error' => 'Please Input Name And Lastname',
-			];	
-		}
+	public function getAddStudent($data, $firstName, $lastName) {
 
-		if (empty($lastName)) {
-			return [
-			'error' => 'Please Input Name And Lastname',
-			];	
-		}	
+		$select = $this->select()
+			->from($this->_name)
+			->setIntegrityCheck(false)
+			->where('first_name = ?' , $firstName )
+			->where('last_name = ?' , $lastName )
+		;
+		
+		 $check = $this->fetchRow($select);
+	
+		if (!empty($check)) {
 
-		if ($this->studentExist($firstName, $lastName)) {
 			return [
 				'error' => 'Student Already Exist',	
 			];
 		}
 
-		$prepared = $this->_db->connection->prepare("
-			INSERT INTO student(first_name, last_name)
-			VALUES (?,?)
-		");	
-		
-		$prepared->bind_param('ss', $firstName, $lastName);
-		$prepared->execute();	
-		
+		if (empty($check)) {
+			$newRow = $this->createRow($data);
+
+			$newRow->save();
+		}
+
 		header("Location: /students");			
 	}
-	
+	/*
 	public function getViewStudent($studentID = null){
 		
 		if (empty($studentID)) {
@@ -261,46 +250,39 @@ class Application_Model_Student extends Zend_Db_Table {
 		
 		return $result;
 	}
+	*/
 	
-	public function getEditStudent($firstName, $lastName, $studentID) {
-		if (empty($firstName)) {
-			return [
-				'error' => 'Please Input Name',
-			];	
-		}
+	public function getEditStudent($data, $firstName, $lastName, $studentID) {
+		$select = $this->select()
+			->from($this->_name)
+			->setIntegrityCheck(false)
+			->where('first_name = ?' , $firstName )
+			->where('last_name = ?' , $lastName )
+		;
+		
+		 $check = $this->fetchRow($select);
+	
+		if (!empty($check)) {
 
-		if (empty($lastName)) {
-			return [
-				'error' => 'Please Input Lastname',
-			];	
-		}	
-
-		if ($this->studentExist($firstName, $lastName, $studentID)) {
 			return [
 				'error' => 'Student Already Exist',	
 			];
 		}
-	
-		if ($prepared = $this->_db->connection->prepare("UPDATE student SET first_name = ?, last_name = ? WHERE student_id=?;"))
-		{
-			$prepared->bind_param("sss", $firstName, $lastName,$studentID);
-			$prepared->execute();
-			$prepared->close();
-		} else {
-			return false;
-		}	
-		return true;
+
+		if (empty($check)) {
+		
+			$where = $this->getAdapter()->quoteInto('student_id = ?', $studentID);
+			$this->update($data, $where);	
+		}
+		header("Location: /students");
 	}
 
+
 	public function getDeleteStudent($studentID) {
-		var_dump($studentID);
-		if (empty($studentID)) {
-			return true;
-		}
-		$query = "DELETE FROM student WHERE student_id = ".$studentID;
-		$this->_db->connection->query($query);
-
-
+		$where = $this->getAdapter()->quoteInto('student_id = ?', $studentID);
+	 
+		$this->delete($where);	
+	
 		header("Location: /students");
 	}
 }

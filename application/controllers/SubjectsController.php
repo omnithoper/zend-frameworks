@@ -9,8 +9,8 @@ class SubjectsController extends Zend_Controller_Action {
 		
 		$subjectID = Application_Model_Request::getParam('subjectID');
 
-		$student = new Application_Model_Subject();
-		$details = $student->getSubjectDetails($subjectID);
+		$subject = new Application_Model_Subject();
+		$details = $subject->getSubjectDetails($subjectID);
 		echo Zend_Json::encode($details);
 		exit;
 	}	
@@ -29,16 +29,16 @@ class SubjectsController extends Zend_Controller_Action {
 	}	
 	public function editAction() {
 		$subjectID = Application_Model_Request::getParam('subject_id');
-		$subjectID = (empty($subjectID) && !empty($_POST['subject_id']))?$_POST['subject_id']:$subjectID;
-
-		
+		$subjects = new Application_Model_Subject();
+		$details = $subjects->getSubjectDetails($subjectID);
+		$this->view->subject = $details;
+	
 		$edit = [];
 		if (isset($_POST['edit'])) {
 			$subject = Application_Model_Request::getParam('subject');
 			$subjectUnit = Application_Model_Request::getParam('subject_unit');
 			$lecUnit = Application_Model_Request::getParam('lec_unit');
 			$labUnit = Application_Model_Request::getParam('lab_unit');
-			$subjects = new Subject();
 			$subjects->getEditSubject($subject, $lecUnit, $labUnit, $subjectUnit, $subjectID); 
 
 	}
