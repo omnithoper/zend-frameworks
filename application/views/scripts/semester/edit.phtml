@@ -1,0 +1,29 @@
+
+			<script type='text/javascript' src='/js/vendor/plugins/bootstrap-datepicker.js'></script>
+			<script type='text/javascript' src='../../js/semesterEdit.js'></script>
+		
+	<form  method ="POST">
+		<nav id="searchStudent">
+			<div id="container">
+				<h1>Edit Semester Date</h1>
+				<?php if (!empty($this->semester['error'])): ?>
+						<?php $this->semester['error'] ?>
+					</div>
+				<?php endif; ?>
+				<h3 id="input"></h3> 
+				<input type="hidden" name="semester_id " value="{$view[0].semester_id}" />
+				<input id="date_start" data-date-format="yyyy-mm-dd" type="text" name="date_start" value="" 
+				onchange="checkInput();">Date Start<br>
+				<input id="date_end" data-date-format="yyyy-mm-dd" type="text" name="date_end" value=""
+				onchange="checkInput();">Date End<br>
+				<input id="button_save" type="submit" name="edit" value="save" disabled>
+				<a style="float:right" href="/Settings">(Return)</a>
+			</div>
+		</nav>		
+	</form>
+	<script type='text/javascript'>
+	$('#date_start').datepicker();
+	$('#date_end').datepicker();
+</script>	
+
+{/block}

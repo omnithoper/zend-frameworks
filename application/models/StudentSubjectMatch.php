@@ -2,7 +2,7 @@
 class Application_Model_StudentSubjectMatch extends Zend_Db_Table {
 	protected $_name = 'student_subject_match';
 	
-	function getStudentSubjects($studentID = NULL){
+	function getStudentSubjects($studentID = NUll){
 		/*
 
 			$select = $this->select()
@@ -22,8 +22,9 @@ class Application_Model_StudentSubjectMatch extends Zend_Db_Table {
 	
 		return $result = $this->fetchAll($select);
 		*/
+			die("here");
 		var_dump($this->fetchAll());
-		die("here");
+	
 		return $this->fetchAll();
 		
 					

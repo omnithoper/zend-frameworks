@@ -14,9 +14,6 @@ class EnrollmentController extends Zend_Controller_Action {
 		$student = new Application_Model_Student();
 		//$settingObject = new Application_Model_Settings();
 		
-		var_dump($studentSubject);
-		die("here");
-
 		$subject = $subject->getSubjects();
 
 		$students = $student->getAllStudentInformation($studentName);
@@ -35,6 +32,7 @@ class EnrollmentController extends Zend_Controller_Action {
 		}
 
 		$allSubject = $studentSubject->getStudentSubjects();
+		var_dump($allSubjects);
 
 		//$totalUnit = $subjectObject->getCurrentUnits($studentID);
 		//$isStudentPayed = $studentLastNameObject->isStudentPayed($studentID);

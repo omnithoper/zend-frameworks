@@ -5,17 +5,12 @@ class SettingsController extends Zend_Controller_Action {
 		date_default_timezone_set("Asia/Manila");
 		$date = date("Y-m-d");
 
-		$settings = new Settings();
+		$semester = new Application_Model_Semester();
 
-		$result = $settings->getViewSettings();
-			var_dump($result);
-		die("here");
-		//$records = $settings->getViewAllSemester();
+		$semesters = $semester->getViewSemester();
+		$this->view->semesters = $semesters;
 
-	   	$this->view->settings = $result;
-	  	//$this->view->settings = $records;
-
-	  
+	
 	}
 }
 ?>

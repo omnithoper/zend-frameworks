@@ -13,7 +13,7 @@ class Application_Model_Student extends Zend_Db_Table {
 	}
 	
 	public function getViewStudents() {
-		$semesterObject = new Application_Model_Settings();
+		$semesterObject = new Application_Model_Semester();
 		$semDate = $semesterObject->getCurrentSemester();
 		$dateStart = $semDate[0]['date_start'];
 		$dateEnd = $semDate[0]['date_end'];

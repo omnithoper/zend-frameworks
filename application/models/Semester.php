@@ -1,16 +1,48 @@
 <?php
-class Application_Model_Settings extends Zend_Db_Table {
+class Application_Model_Semester extends Zend_Db_Table_Abstract {
 
-	protected $_name ='settings';
-	
-	public function getViewSettings() {
+	protected $_name = 'semester';
 
-      
-        $rowSet = $this->fetchAll();
-        $rowCount = count($rowSet);
-		return $rowCount;
+	public function getViewSemester() {
+		$select = $this->select()
+			->from('semester')
+			->setIntegrityCheck(false)
+			->order('semester_id')
+		;
+		return $this->fetchAll($select);
+	}
+	public function getSemesterDetails($semesterID) {
+		$select = $this->select()
+			->from($this->_name)
+			->setIntegrityCheck(false)
+			->where('semester_id = ?', $semesterID)
+		;
+		return $this->fetchRow($select)->toArray();
+	}
+	public function getAddSemester($data) {
+		$newRow = $this->createRow($data);
+
+		$newRow->save();
+
+		header("Location: /Settings/");			
 	}
 
+	public function getDeleteSemester($semesterID) {
+		$where = $this->getAdapter()->quoteInto('semester_id = ?', $semesterID);
+	 
+		$this->delete($where);	
+
+		header("Location: /Settings/");
+	}
+
+	public function getEditSemester($data, $semesterID) {
+
+		$where = $this->getAdapter()->quoteInto('semester_id = ?', $semesterID);
+	
+		$this->update($data, $where);
+
+		header("Location: /Settings/");
+	}
 	/*
 
 	
@@ -25,71 +57,6 @@ class Application_Model_Settings extends Zend_Db_Table {
 		return $result;
 	}	
 
-	public function getAddSemester($dateStart, $dateEnd) {
-		if (empty($dateStart)) {
-			return [
-			'error' => 'Please Date Start And Date End',
-			];	
-		}
-
-		if (empty($dateEnd)) {
-			return [
-			'error' => 'Please Date Start And Date End',
-			];	
-		}	
-		if ($dateEnd < $dateStart ) {
-			return [
-			'error' => 'Start of Semester is Less than End of Semester',
-			];	
-		}	
-		$prepared = $this->_db->connection->prepare("
-			INSERT INTO semester(date_start, date_end)
-			VALUES (?,?)
-		");	
-
-		$prepared->bind_param('ss', $dateStart, $dateEnd);
-		$prepared->execute();	
-
-		print $prepared->error;
-	
-		
-		header("Location: /Settings/");			
-	}
-	
-	public function getEditSemester($dateStart, $dateEnd, $semesterID) {
-		if (empty($dateStart)) {
-			return [
-			'error' => 'please input subject and unit'
-			];
-		}
-		
-		if (empty($dateEnd)) {
-			return [
-			'error' => 'please input subject and unit'
-			];
-		}
-	
-		$prepared = $this->_db->connection->prepare("UPDATE semester SET date_start = ?, date_end = ? WHERE semester_id = ? ");
-		$prepared->bind_param("ssi", $dateStart, $dateEnd, $semesterID);
-		$prepared->execute();
-		$prepared->close();
-	
-		header("Location: /Settings/");
-	}
-	
-	public function getDeleteSemester($semesterID) {
-		if (empty($semesterID)){
-			return true;
-		}
-	
-		$query = "DELETE FROM semester WHERE semester_id = ".$semesterID;
-
-		if ($this->_db->connection->query($query) === true)
-		{
-		}
-
-		header("Location: /Settings/");
-	}
 
 	public function isEcceededUnits($studentID = null, $subjectID = null) {
 		$subjectObject = new Subject();
@@ -261,5 +228,28 @@ class Application_Model_Settings extends Zend_Db_Table {
 		return $result;
 	}
 	*/
+	public function getCurrentSemester() {
+		$date = date("Y-m-d");
 
+		$select = $this->select()
+			->from('semester', ['date_start', 'date_end'])
+			->setIntegrityCheck(false)
+			->where('"'.$date.'" BETWEEN date_start AND date_end')
+		;
+
+		return $this->fetchAll($select);
+
+		$date = date("Y-m-d");
+		$query = "
+			SELECT
+				date_start,
+				date_end
+			FROM semester
+			WHERE '$date' BETWEEN date_start AND date_end
+		";
+	
+		$results = $this->_db->connection->query($query);
+		$results = $results->fetch_all(MYSQLI_ASSOC);
+		return $results;
+	}
 }
