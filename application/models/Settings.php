@@ -1,14 +1,12 @@
 <?php
 class Application_Model_Settings extends Zend_Db_Table {
 
-	protected $_name ='settings';
-	
+//	protected $_name = 'settings';
+	protected $_name = 'settings';
 	public function getViewSettings() {
 
-      
-        $rowSet = $this->fetchAll();
-        $rowCount = count($rowSet);
-		return $rowCount;
+
+		return $this->fetchAll();;
 	}
 
 	/*

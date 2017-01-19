@@ -25,21 +25,22 @@ class EnrollmentController extends Zend_Controller_Action {
 				$this->view->selectedStudent = $selectedStudent;
 		}
 
-		//$studentSubject  = $studentSubjectObject->getAddStudentSubjectID($studentID, $getSubjectID);
+	//	$studentSubject  = $studentSubject->getAddStudentSubjectID($studentID, $getSubjectID);
 				 
 		if (Application_Model_Request::getParam('action') == 'delete') {
 			$delete = $studentSubject->getDeleteSubject($studentID, $subjectID);
 		}
-
-		$allSubject = $studentSubject->getStudentSubjects();
-		var_dump($allSubjects);
+		if (isset($_POST['search'])){
+			$allSubject = $studentSubject->getStudentSubjects($studentID);
+			$this->view->allSubject = $allSubject;
+		}
 
 		//$totalUnit = $subjectObject->getCurrentUnits($studentID);
 		//$isStudentPayed = $studentLastNameObject->isStudentPayed($studentID);
 		$this->view->students = $students;
 		$this->view->studentID = $studentID;
 		$this->view->subject = $subject;
-		$this->view->allSubject = $allSubject;
+
 	}	
 }
 ?>

@@ -3,7 +3,7 @@ class Application_Model_StudentSubjectMatch extends Zend_Db_Table {
 	protected $_name = 'student_subject_match';
 	
 	function getStudentSubjects($studentID = NUll){
-		/*
+		
 
 			$select = $this->select()
 			->from($this->_name)
@@ -17,15 +17,14 @@ class Application_Model_StudentSubjectMatch extends Zend_Db_Table {
 					'subject_unit'
 				]
 			)
-			->where('student_id = ?' , $studentID )
+			->where('student_subject_match.student_id = ?' , $studentID )
+
 		;
-	
+			
+
 		return $result = $this->fetchAll($select);
-		*/
-			die("here");
-		var_dump($this->fetchAll());
-	
-		return $this->fetchAll();
+
+
 		
 					
 	}

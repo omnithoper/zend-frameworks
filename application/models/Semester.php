@@ -1,7 +1,6 @@
 <?php
-class Application_Model_Semester extends Zend_Db_Table_Abstract {
-
-	protected $_name = 'semester';
+class Application_Model_Semester extends Zend_Db_Table {
+    protected $_name = 'semester';
 
 	public function getViewSemester() {
 		$select = $this->select()
@@ -43,20 +42,70 @@ class Application_Model_Semester extends Zend_Db_Table_Abstract {
 
 		header("Location: /Settings/");
 	}
-	/*
 
-	
-	public function getViewSemester($semesterID = null){
-		if (empty($semesterID)) {
-			return false;
+	public function getPaymentDate($dateStart = NULL, $dateEnd = NULL) {	
+		$select = $this->select()
+			->from('student', [
+				"CONCAT(student.first_name, ' ' , student.last_name) AS fullName"
+			])
+			->setIntegrityCheck(false)
+			->joinLeft(
+				'payment', 
+				'student.student_id = payment.student_id AND payment.transaction_date BETWEEN "'.$dateStart.'" AND "'.$dateEnd.'"',
+				[
+					'payment',
+					'total_amount',
+					'change',
+					'transaction_date'
+				]
+			)
+		;
+		$results = $this->fetchAll($select);
+
+
+		$result = [];
+		if (!empty($results)) {
+			foreach ($results as $payment){
+				$payment = $payment->toArray();
+				$payment['paid'] = NULL;
+ 			    $payment['paid'] = $payment['total_amount'] - $payment['change'];
+				$result[] = $payment;			
+			}
 		}
 
-		$select = "SELECT * FROM semester WHERE semester_id = $semesterID" ;
-		$result = $this->_db->connection->query($select);
-		$result = $result->fetch_all(MYSQLI_ASSOC);
 		return $result;
-	}	
+	}
+	public function getSemesterTotalIncome($dateStart, $dateEnd) {
+		$select = $this->select()
+			->from('payment', [
+				'payment',
+				'total_amount',
+				'change',
+				'transaction_date'
+			])
+			->setIntegrityCheck(false)
+			->where("transaction_date between '$dateStart' and '$dateEnd' ")
+		;
+		$results = $this->fetchAll($select);
 
+		$payment = [];
+		$sumTotal = 0;
+		$sumChange = 0;
+		foreach ($results as $payment){
+			$payment = $payment->toArray();
+			$payment['total_paid'] = NULL;
+
+			if ($payment['payment'] == 1 )  {
+					$payment['total_amount'] = $sumTotal += $payment['total_amount'] ;
+					$payment['change'] = $sumChange += $payment['change'];
+			}			
+				$payment['total_paid'] = $payment['total_amount'] - $payment['change'];			
+		}	
+			
+		$result[] = $payment;	
+		return $result;
+	}
+	/*
 
 	public function isEcceededUnits($studentID = null, $subjectID = null) {
 		$subjectObject = new Subject();
@@ -127,59 +176,7 @@ class Application_Model_Semester extends Zend_Db_Table_Abstract {
 		$results = $results->fetch_all(MYSQLI_ASSOC);
 		return (empty($results))?0:$results[0]['price_per_unit'];
 	}
-	public function getPaymentDate($dateStart, $dateEnd)
-	{	
-			$select = "
-			SELECT
-				CONCAT(student.first_name, ' ' , student.last_name) AS fullName,
-				payment.payment,
-				payment.total_amount,
-				payment.change,
-				payment.transaction_date
-				FROM student 
-				LEFT JOIN payment 
-				ON student.student_id = payment.student_id  AND 	
-				payment.transaction_date BETWEEN '$dateStart' AND '$dateEnd'
-		";
-		$results = $this->_db->connection->query($select);
-		$results = $results->fetch_all(MYSQLI_ASSOC);
-		$result = [];
-		if (!empty($results)) {
-			foreach ($results as $payment){
-				$payment['paid'] = $payment['total_amount'] - $payment['change'];
-				$result[] = $payment;			
-			}
-		}
-		return $result;
-	}
-	
-	public function getSemesterTotalIncome() {
-		$query = "
-			SELECT
-				transaction_date,
-				total_amount,
-				payment,
-				`change`
-			FROM payment
-		";
-		$results = $this->_db->connection->query($query);
-		$results = $results->fetch_all(MYSQLI_ASSOC);
-		$result = [];
-		$sumTotal = 0;
-		$sumChange = 0;
-		foreach ($results as $payment){
-			$isEnrolledThisSem = $this->isEnrolledThisSem($payment['transaction_date']);
-			if ($payment['payment'] == 1 && $isEnrolledThisSem)  {
-					$payment['total_amount'] = $sumTotal += $payment['total_amount'] ;
-					$payment['change'] = $sumChange += $payment['change'];
-			}			
-					
-		}	$payment['total_paid'] = $payment['total_amount'] - $payment['change'];			
-		
-		$result[] = $payment;	
-		return $result;
-	}
-	
+
 	public function isEnrolledThisSem($date) {
 		$currentDate = date("Y-m-d");	
 		$select = "
