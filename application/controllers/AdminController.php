@@ -3,18 +3,18 @@ class AdminController extends Zend_Controller_Action  {
 
 	public function indexAction() {
 
-		$admin = new Application_Model_Admin();
+		$admin = new Admin();
 		$records = $admin->getViewAdmin();
 		$this->view->admin = $records;
 
 	}
 	public function detailsAction() {
 	
-		$adminID = Application_Model_Request::getParam('adminID');
+		$adminID = Request::getParam('adminID');
 
 
 
-		$admin = new Application_Model_Admin();
+		$admin = new Admin();
 		$details = $admin->getAdminDetails($adminID);
 		echo Zend_Json::encode($details);
 		exit;
@@ -24,9 +24,9 @@ class AdminController extends Zend_Controller_Action  {
 		
 		if (isset($_POST['save'])){
 
-			$userName = Application_Model_Request::getParam('username');
-			$password = Application_Model_Request::getParam('password');
-			$admin = new Application_Model_Admin();
+			$userName = Request::getParam('username');
+			$password = Request::getParam('password');
+			$admin = new Admin();
 			$admin->getAddAdmin($userName, sha1($password));
 		}
 
@@ -34,17 +34,17 @@ class AdminController extends Zend_Controller_Action  {
 	}
 
 	public function editAction() {
-		$userID = Application_Model_Request::getParam('user_id');
+		$userID = Request::getParam('user_id');
 		$userID = (empty($userID) && !empty($_POST['user_id']))?$_POST['user_id']:$userID;
-		$admin = new Application_Model_Admin();
+		$admin = new Admin();
 		$details = $admin->getAdminDetails($userID);
 		$this->view->admin = $details;
 	
 		$result = [];
 		if (isset($_POST['save'])) {
-			$userName = Application_Model_Request::getParam('username');
-			$password = Application_Model_Request::getParam('password');
-			$edit = new Application_Model_Admin();
+			$userName = Request::getParam('username');
+			$password = Request::getParam('password');
+			$edit = new Admin();
 			$admin->getEditUser($userName, sha1($password), $userID);
 
 		}
@@ -52,9 +52,9 @@ class AdminController extends Zend_Controller_Action  {
 	}
 
 	public function deleteAction() {
-		$userID = Application_Model_Request::getParam('user_id');
+		$userID = Request::getParam('user_id');
 		
-		$delete = new Application_Model_Admin();
+		$delete = new Admin();
 		$delete->getDeleteUser($userID);
 	
 	}

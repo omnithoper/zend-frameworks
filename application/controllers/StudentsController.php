@@ -1,7 +1,7 @@
 <?php
 class StudentsController extends Zend_Controller_Action  {
 	public function indexAction() {
-		$student = new Application_Model_Student();
+		$student = new Student();
 		$students = $student->getViewStudents(); 
 
 		$this->view->students = $students;
@@ -9,9 +9,9 @@ class StudentsController extends Zend_Controller_Action  {
 
 	public function detailsAction() {
 		
-		$studentID = Application_Model_Request::getParam('studentID');
+		$studentID = Request::getParam('studentID');
 
-		$student = new Application_Model_Student();
+		$student = new Student();
 		$details = $student->getStudentDetails($studentID);
 		echo Zend_Json::encode($details);
 		exit;
@@ -21,14 +21,14 @@ class StudentsController extends Zend_Controller_Action  {
 			
 		if (isset($_POST['save'])){
 
-			$firstName = Application_Model_Request::getParam('first_name');
-			$lastName = Application_Model_Request::getParam('last_name');
+			$firstName = Request::getParam('first_name');
+			$lastName = Request::getParam('last_name');
 			$data = array(
 		    	'first_name' => $firstName,
 		    	'last_name' => $lastName
 			);
 	
-			$student = new Application_Model_Student();
+			$student = new Student();
 			$result = [];
 			$result = $student->getAddStudent($data, $firstName, $lastName);
 			$this->view->students = $result;
@@ -37,16 +37,16 @@ class StudentsController extends Zend_Controller_Action  {
 		}
      }
 	public function editAction() {
-		$studentID = Application_Model_Request::getParam('student_id');
+		$studentID = Request::getParam('student_id');
 
-		$student = new Application_Model_Student();
+		$student = new Student();
 		$details = $student->getStudentDetails($studentID);
 		$this->view->student = $details;
 		
 		$edit = [];
 		if (isset($_POST['edit'])){
-			$firstName = Application_Model_Request::getParam('first_name');
-			$lastName = Application_Model_Request::getParam('last_name');
+			$firstName = Request::getParam('first_name');
+			$lastName = Request::getParam('last_name');
 
 			$data = array(
 		    	'first_name' => $firstName,
@@ -60,14 +60,14 @@ class StudentsController extends Zend_Controller_Action  {
 
 	}
 	function deleteAction() {	
-		$studentID = Application_Model_Request::getParam('student_id');
-		$deleteObject = new Application_Model_Student();
+		$studentID = Request::getParam('student_id');
+		$deleteObject = new Student();
 		$delete = $deleteObject->getDeleteStudent($studentID);
 	}
 
 	function downloadAction() {
 		require '/lib/fpdf.php';
-		$studentID = Application_Model_Request::getParam('student_id');
+		$studentID = Request::getParam('student_id');
 		$paymentObject = new Payment();
 		$studentObject = new Student();
 		$name = $studentObject->getViewStudent($studentID);

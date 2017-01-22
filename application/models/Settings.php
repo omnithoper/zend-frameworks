@@ -1,12 +1,22 @@
 <?php
-class Application_Model_Settings extends Zend_Db_Table {
+class Settings {
 
 //	protected $_name = 'settings';
 	protected $_name = 'settings';
 	public function getViewSettings() {
+		$fields = [
+			'number_of_allowed_units',
+			'price_per_unit',
+			'price_per_lab_unit',
+			'price_of_misc',
+		];
 
-
-		return $this->fetchAll();;
+		$db = Zend_Registry::get('db');
+		$select = $db->select()
+			->from($this->_name)
+			;
+			
+		return $db->fetchAll($select);
 	}
 
 	/*

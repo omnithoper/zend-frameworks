@@ -1,10 +1,13 @@
 <?php
-class Application_Model_Subject extends Zend_Db_Table {
+class Subject extends Zend_Db_Table {
 	protected $_name = 'subjects';
 	
 
 	function getViewSubjects() {
-	return $this->fetchAll();
+		#$select = $this->select()->from($this->_name);
+		$select = "SELECT * FROM subjects";
+		$select = $this->_db->query($select);
+		return $select->fetchAll(Zend_Db::FETCH_ASSOC);
 	}
 	
 	public function getSubjectDetails($subjectID) {

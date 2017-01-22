@@ -3,7 +3,7 @@ class IncomeController extends Zend_Controller_Action  {
 
 	public function indexAction() {
 		
-		$semDate = Application_Model_Request::getParam('semDate');
+		$semDate = Request::getParam('semDate');
 
 
 		$date = explode(',' , $semDate);
@@ -12,7 +12,7 @@ class IncomeController extends Zend_Controller_Action  {
 		
 
 
-		$semester = new Application_Model_Semester();
+		$semester = new Semester();
 		$result = $semester->getPaymentDate($dateStart, $dateEnd);
 
 

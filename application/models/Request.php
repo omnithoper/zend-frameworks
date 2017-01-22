@@ -1,5 +1,5 @@
 <?php
-class Application_Model_Request {
+class Request {
 	public static function getParam($name = null) {
 		if (empty($name)) {
 			return null;

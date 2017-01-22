@@ -3,8 +3,8 @@ class SemesterController extends Zend_Controller_Action {
 
 	public function addAction(){
 
-		$dateStart = Application_Model_Request::getParam('date_start');
-		$dateEnd = Application_Model_Request::getParam('date_end');
+		$dateStart = Request::getParam('date_start');
+		$dateEnd = Request::getParam('date_end');
 
 		
 		
@@ -13,7 +13,7 @@ class SemesterController extends Zend_Controller_Action {
 		    'date_start' => $dateStart,
 		    'date_end' => $dateEnd
 		);
-		$semester = new Application_Model_Semester();
+		$semester = new Semester();
 		$result = [];
 			$result = $semester->getAddSemester($data);
 			$this->view->semester = $result;
@@ -24,9 +24,9 @@ class SemesterController extends Zend_Controller_Action {
 	}
 	public function detailsAction() {
 		
-		$semesterID = Application_Model_Request::getParam('semesterID');
+		$semesterID = Request::getParam('semesterID');
 
-		$semester = new Application_Model_Semester();
+		$semester = new Semester();
 		$details = $semester->getSemesterDetails($semesterID);
 		echo Zend_Json::encode($details);
 		exit;
@@ -34,17 +34,17 @@ class SemesterController extends Zend_Controller_Action {
 
 	public function editAction() {
 
-		$semesterID = Application_Model_Request::getParam('semester_id');
+		$semesterID = Request::getParam('semester_id');
 		$semesterID = (empty($semestID) && !empty($_POST['semester_id']))?$_POST['semester_id']:$semesterID;
 
 
-		$editObject = new Application_Model_Semester();
+		$editObject = new Semester();
 	//	$view = $editObject->getViewSemester($semesterID);
 
 
 		if (isset($_POST['edit'])) {
-			$dateStart = Application_Model_Request::getParam('date_start');
-			$dateEnd = Application_Model_Request::getParam('date_end');
+			$dateStart = Request::getParam('date_start');
+			$dateEnd = Request::getParam('date_end');
 
 			$data = array(
 		    	'date_start' => $dateStart,
@@ -52,7 +52,7 @@ class SemesterController extends Zend_Controller_Action {
 			);
 
 
-			$editObject = new Application_Model_Semester();
+			$editObject = new Semester();
 			$edit = [];
 			$edit = $editObject->getEditSemester($data, $semesterID);
 		
@@ -63,9 +63,9 @@ class SemesterController extends Zend_Controller_Action {
 	}
 	public function deleteAction() {
 			
-	$semesterID = Application_Model_Request::getParam('semester_id');
+	$semesterID = Request::getParam('semester_id');
 	
-	$deleteObject = new Application_Model_Semester();
+	$deleteObject = new Semester();
 	$delete = $deleteObject->getDeleteSemester($semesterID);
 
 	}

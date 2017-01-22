@@ -1,15 +1,15 @@
 <?php
 class SubjectsController extends Zend_Controller_Action {
 	public function indexAction() {
-		$subjects = new Application_Model_Subject();
+		$subjects = new Subject();
 		$records = $subjects->getViewSubjects();
 	    $this->view->subjects = $records;
 	}
 	public function detailsAction() {
 		
-		$subjectID = Application_Model_Request::getParam('subjectID');
+		$subjectID = Request::getParam('subjectID');
 
-		$subject = new Application_Model_Subject();
+		$subject = new Subject();
 		$details = $subject->getSubjectDetails($subjectID);
 		echo Zend_Json::encode($details);
 		exit;
@@ -17,37 +17,37 @@ class SubjectsController extends Zend_Controller_Action {
 	public function addAction(){
 
 		if (isset($_POST['save'])) {	 
-			$subject = Application_Model_Request::getParam('subject');
-			$lecUnit = Application_Model_Request::getParam('lec_unit');
-			$labUnit = Application_Model_Request::getParam('lab_unit');
-			$subjectUnit = Application_Model_Request::getParam('subject_unit');
-			$subjects = new Application_Model_Subject();
+			$subject = Request::getParam('subject');
+			$lecUnit = Request::getParam('lec_unit');
+			$labUnit = Request::getParam('lab_unit');
+			$subjectUnit = Request::getParam('subject_unit');
+			$subjects = new Subject();
 		    $subjects->getAddSubject($subject, $lecUnit, $labUnit, $subjectUnit);
 		
 		}
 	
 	}	
 	public function editAction() {
-		$subjectID = Application_Model_Request::getParam('subject_id');
-		$subjects = new Application_Model_Subject();
+		$subjectID = Request::getParam('subject_id');
+		$subjects = new Subject();
 		$details = $subjects->getSubjectDetails($subjectID);
 		$this->view->subject = $details;
 	
 		$edit = [];
 		if (isset($_POST['edit'])) {
-			$subject = Application_Model_Request::getParam('subject');
-			$subjectUnit = Application_Model_Request::getParam('subject_unit');
-			$lecUnit = Application_Model_Request::getParam('lec_unit');
-			$labUnit = Application_Model_Request::getParam('lab_unit');
+			$subject = Request::getParam('subject');
+			$subjectUnit = Request::getParam('subject_unit');
+			$lecUnit = Request::getParam('lec_unit');
+			$labUnit = Request::getParam('lab_unit');
 			$subjects->getEditSubject($subject, $lecUnit, $labUnit, $subjectUnit, $subjectID); 
 
 	}
 
 }
 	function deleteAction() {
-		$subjectID = Application_Model_Request::getParam('subject_id');
+		$subjectID = Request::getParam('subject_id');
 		
-		$deleteObject = new Application_Model_Subject();
+		$deleteObject = new Subject();
 		$deleteObject->getDeleteSubject($subjectID);
 	
 

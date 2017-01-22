@@ -1,5 +1,5 @@
 <?php
-class Application_Model_Student extends Zend_Db_Table {
+class Student extends Zend_Db_Table {
 	protected $_db = null;
 	protected $_name = 'student';
 
@@ -218,39 +218,22 @@ class Application_Model_Student extends Zend_Db_Table {
 
 		header("Location: /students");			
 	}
-	/*
+	
 	public function getViewStudent($studentID = null){
 		
 		if (empty($studentID)) {
 			return false;
 		}
 		
-		$result = [];
-		if (!empty($studentID)) {
-			$select = '
-				SELECT 
-					student_id,
-					first_name,
-					last_name,
-					CONCAT(last_name, ", ", first_name) AS full_name
-				FROM student
-				WHERE student_id = ?
-			';
-			$prepared = $this->_db->connection->prepare($select);
-			$prepared->bind_param('i', $studentID);
-			$prepared->execute();
-			$prepared->bind_result($studentID, $firstName, $lastName, $fullName);
-			$prepared->fetch();
-			$result['student_id'] = $studentID;
-			$result['first_name'] = $firstName;
-			$result['last_name'] = $lastName;
-			$result['full_name'] = $fullName;
+		$select = $this->select()
+			->from($this->_name)
+			->setIntegrityCheck(false)
+			->where('student_id = ?', $studentID)
+		;
+		return $this->fetchRow($select)->toArray();
 			
-		} 
-		
-		return $result;
 	}
-	*/
+	
 	
 	public function getEditStudent($data, $firstName, $lastName, $studentID) {
 		$select = $this->select()

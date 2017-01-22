@@ -1,10 +1,13 @@
 <?php
-class Application_Model_StudentSubjectMatch extends Zend_Db_Table {
+class StudentSubjectMatch extends Zend_Db_Table {
 	protected $_name = 'student_subject_match';
 	
 	function getStudentSubjects($studentID = NUll){
+	
+		if (empty($studentID)) {
+			return false;
+		}
 		
-
 			$select = $this->select()
 			->from($this->_name)
 			->setIntegrityCheck(false)
@@ -20,13 +23,9 @@ class Application_Model_StudentSubjectMatch extends Zend_Db_Table {
 			->where('student_subject_match.student_id = ?' , $studentID )
 
 		;
-			
 
 		return $result = $this->fetchAll($select);
-
-
-		
-					
+			
 	}
 	/*
 	function getAddStudentSubjectID($studentID, $subjectID) {

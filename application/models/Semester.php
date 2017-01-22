@@ -1,12 +1,14 @@
 <?php
-class Application_Model_Semester extends Zend_Db_Table {
+class Semester extends Zend_Db_Table {
     protected $_name = 'semester';
 
 	public function getViewSemester() {
+
 		$select = $this->select()
 			->from('semester')
 			->setIntegrityCheck(false)
 			->order('semester_id')
+			
 		;
 		return $this->fetchAll($select);
 	}
@@ -228,10 +230,15 @@ class Application_Model_Semester extends Zend_Db_Table {
 	public function getCurrentSemester() {
 		$date = date("Y-m-d");
 
+		$fields = [
+			'semester.date_start',
+			'semester.date_end',
+		];
+
 		$select = $this->select()
-			->from('semester', ['date_start', 'date_end'])
+			->from('semester', $fields)
 			->setIntegrityCheck(false)
-			->where('"'.$date.'" BETWEEN date_start AND date_end')
+			->where('? BETWEEN date_start AND date_end', $date)
 		;
 
 		return $this->fetchAll($select);

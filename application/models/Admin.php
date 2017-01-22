@@ -1,5 +1,5 @@
 <?php
-class Application_Model_Admin extends Zend_Db_Table {
+class Admin extends Zend_Db_Table {
 	protected $_name = 'admin';
 	
 

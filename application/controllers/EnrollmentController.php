@@ -2,45 +2,46 @@
 class EnrollmentController extends Zend_Controller_Action {
 	public function indexAction() {
 
-	
-		$studentName = Application_Model_Request::getParam('studentName');
-		$studentID = Application_Model_Request::getParam('studentID');
-		$getSubjectID = Application_Model_Request::getParam('getSubjectID');
-		$subjectID = Application_Model_Request::getParam('subjectID');
+		$studentName = Request::getParam('studentName');
+		$studentID = Request::getParam('studentID');
+		$getSubjectID = Request::getParam('getSubjectID');
+		$subjectID = Request::getParam('subjectID');
 		$students = [];
-		$subject = new Application_Model_Subject();	
-		$studentSubject = new Application_Model_StudentSubjectMatch();
+		$subject = new Subject();	
+		$studentSubject = new StudentSubjectMatch();
 
-		$student = new Application_Model_Student();
-		//$settingObject = new Application_Model_Settings();
+		$student = new Student();
+		//$settingObject = new Settings();
 		
 		$subject = $subject->getSubjects();
+		#Zend_Debug::dump($subject); die();
 
 		$students = $student->getAllStudentInformation($studentName);
+		$selectedStudent = $student->getViewStudent($studentID);
+		#Zend_Debug::dump($students); die();
 
-	
 		if (count($students) == 1) {
 			$selectedStudent = (!empty($students[0]))?$students[0]:NULL;
 			$studentID = $students[0]['student_id'];
-				$this->view->selectedStudent = $selectedStudent;
 		}
 
 	//	$studentSubject  = $studentSubject->getAddStudentSubjectID($studentID, $getSubjectID);
 				 
-		if (Application_Model_Request::getParam('action') == 'delete') {
+		if (Request::getParam('action') == 'delete') {
 			$delete = $studentSubject->getDeleteSubject($studentID, $subjectID);
 		}
-		if (isset($_POST['search'])){
+		//if (isset($_POST['search'])){
 			$allSubject = $studentSubject->getStudentSubjects($studentID);
-			$this->view->allSubject = $allSubject;
-		}
+	
+		//}
 
 		//$totalUnit = $subjectObject->getCurrentUnits($studentID);
 		//$isStudentPayed = $studentLastNameObject->isStudentPayed($studentID);
 		$this->view->students = $students;
 		$this->view->studentID = $studentID;
 		$this->view->subject = $subject;
-
+		$this->view->allSubject = $allSubject;
+		$this->view->selectedStudent = $selectedStudent;
 	}	
 }
 ?>
