@@ -1,56 +1,51 @@
 <?php
-class Semester extends Zend_Db_Table {
+class Semester {
     protected $_name = 'semester';
+    protected $_db = NULL;
 
+	public function __construct() {
+		$this->_db = Zend_Registry::get('db');
+	}	
 	public function getViewSemester() {
 
-		$select = $this->select()
+		$select = $this->_db->select()
 			->from('semester')
-			->setIntegrityCheck(false)
 			->order('semester_id')
 			
 		;
-		return $this->fetchAll($select);
+		return $this->_db->fetchAll($select);
 	}
 	public function getSemesterDetails($semesterID) {
-		$select = $this->select()
+		$select = $this->_db->select()
 			->from($this->_name)
-			->setIntegrityCheck(false)
 			->where('semester_id = ?', $semesterID)
 		;
-		return $this->fetchRow($select)->toArray();
+		return $this->_db->fetchRow($select);
 	}
 	public function getAddSemester($data) {
-		$newRow = $this->createRow($data);
-
-		$newRow->save();
+		$this->_db->insert($this->_name, $data);
 
 		header("Location: /Settings/");			
 	}
 
 	public function getDeleteSemester($semesterID) {
-		$where = $this->getAdapter()->quoteInto('semester_id = ?', $semesterID);
-	 
-		$this->delete($where);	
+		$this->_db->delete($this->_name, "semester_id =  '$semesterID'");	
 
 		header("Location: /Settings/");
 	}
 
 	public function getEditSemester($data, $semesterID) {
 
-		$where = $this->getAdapter()->quoteInto('semester_id = ?', $semesterID);
-	
-		$this->update($data, $where);
+		$this->_db->update($this->_name, $data, "semester_id =  '$semesterID'");
 
 		header("Location: /Settings/");
 	}
 
 	public function getPaymentDate($dateStart = NULL, $dateEnd = NULL) {	
-		$select = $this->select()
+		$select = $this->_db->select()
 			->from('student', [
 				"CONCAT(student.first_name, ' ' , student.last_name) AS fullName"
 			])
-			->setIntegrityCheck(false)
 			->joinLeft(
 				'payment', 
 				'student.student_id = payment.student_id AND payment.transaction_date BETWEEN "'.$dateStart.'" AND "'.$dateEnd.'"',
@@ -62,13 +57,12 @@ class Semester extends Zend_Db_Table {
 				]
 			)
 		;
-		$results = $this->fetchAll($select);
+		$results = $this->_db->fetchAll($select);
 
 
 		$result = [];
 		if (!empty($results)) {
 			foreach ($results as $payment){
-				$payment = $payment->toArray();
 				$payment['paid'] = NULL;
  			    $payment['paid'] = $payment['total_amount'] - $payment['change'];
 				$result[] = $payment;			
@@ -78,23 +72,21 @@ class Semester extends Zend_Db_Table {
 		return $result;
 	}
 	public function getSemesterTotalIncome($dateStart, $dateEnd) {
-		$select = $this->select()
+		$select = $this->_db->select()
 			->from('payment', [
 				'payment',
 				'total_amount',
 				'change',
 				'transaction_date'
 			])
-			->setIntegrityCheck(false)
 			->where("transaction_date between '$dateStart' and '$dateEnd' ")
 		;
-		$results = $this->fetchAll($select);
+		$results = $this->_db->fetchAll($select);
 
 		$payment = [];
 		$sumTotal = 0;
 		$sumChange = 0;
 		foreach ($results as $payment){
-			$payment = $payment->toArray();
 			$payment['total_paid'] = NULL;
 
 			if ($payment['payment'] == 1 )  {

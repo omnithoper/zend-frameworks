@@ -1,21 +1,26 @@
 <?php
-class Admin extends Zend_Db_Table {
+class Admin  {
 	protected $_name = 'admin';
 	
-
+	public function __construct() {
+		$this->_db = Zend_Registry::get('db');
+	}	
 	
 	public function getViewAdmin() {
-		return $this->fetchAll();
+		$select = $this->_db->select()
+		->from($this->_name)
+		;
+		
+		return $this->_db->fetchAll($select);
 	}
 	public function getAdminDetails($adminID) {
 
-		$select = $this->select()
+		$select = $this->_db->select()
 			->from($this->_name)
-			->setIntegrityCheck(false)
 			->where('user_id = ?', $adminID)
 		;
 	
-		return $this->fetchRow($select)->toArray();
+		return $this->_db->fetchRow($select);
 	}	
 
 	public function getAddAdmin($userName, $password) {
@@ -25,8 +30,7 @@ class Admin extends Zend_Db_Table {
 		    'password' => $password
 		);
 		
-		$newRow = $this->createRow($data);
-		$newRow->save();
+		$this->_db->insert($this->_name, $data);
 		
 		header("Location: /Admin/");			
 	}
@@ -39,16 +43,14 @@ class Admin extends Zend_Db_Table {
 		    'password' => $password
 		);
 		
-		$where = $this->getAdapter()->quoteInto('user_id = ?', $userID);
-		$this->update($data, $where);	
+		$this->_db->update($this->_name, $data, "user_id =  '$userID'");
 		
 		header("Location: /Admin/");
 	}
 
 	public function getDeleteUser($userID) {
-		$where = $this->getAdapter()->quoteInto('user_id = ?', $userID);
-	 
-		$this->delete($where);	
+		
+		$this->_db->delete($this->_name, "user_id =  '$userID'");	
 		header("Location: /Admin/");
 	}
 

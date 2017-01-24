@@ -1,9 +1,20 @@
 <?php
-class Subject extends Zend_Db_Table {
+class Subject {
+	protected $_db = NULL;
 	protected $_name = 'subjects';
 	
-
+	public function __construct() {
+		$this->_db = Zend_Registry::get('db');
+	}
+/* this is with zend db table
 	function getViewSubjects() {
+		#$select = $this->select()->from($this->_name);
+		$select = "SELECT * FROM subjects";
+		$select = $this->_db->query($select);
+		return $select->fetchAll(Zend_Db::FETCH_ASSOC);
+	}
+*/
+	public function getViewSubjects() {
 		#$select = $this->select()->from($this->_name);
 		$select = "SELECT * FROM subjects";
 		$select = $this->_db->query($select);
@@ -11,9 +22,11 @@ class Subject extends Zend_Db_Table {
 	}
 	
 	public function getSubjectDetails($subjectID) {
-	
-	$row = $this->fetchRow($this->select()->where('subject_id = ?', $subjectID))->toArray();
-	return $row;
+		$select = $this->_db->select()
+			->from($this->_name)
+			->where('subject_id = ?', $subjectID)
+		;
+		return $this->_db->fetchRow($select);
 	}	
 	function getAddSubject($subject, $lecUnit, $labUnit, $subjectUnit) {
 
@@ -25,8 +38,8 @@ class Subject extends Zend_Db_Table {
 		    'subject_unit' => $subjectUnit
 		);
 		
-		$newRow = $this->createRow($data);
-		$newRow->save();
+		$this->_db->insert($this->_name, $data);
+	
 		header("Location: /subjects");	
 		
 	}
@@ -42,18 +55,14 @@ class Subject extends Zend_Db_Table {
 		    'subject_unit' => $subjectUnit
 		);
 	
-		$where = $this->getAdapter()->quoteInto('subject_id = ? ', $subjectID);
-	
-		$this->update($data, $where);		
+		$this->_db->update($this->_name, $data, "subject_id =  '$subjectID'");	
 		header("Location: /subjects");	
 	}
 	
 
 	function getDeleteSubject($subjectID) {
 
-		$where = $this->getAdapter()->quoteInto('subject_id = ?', $subjectID);
-	 
-		$this->delete($where);	
+		$this->_db->delete($this->_name, "subject_id =  '$subjectID'");	
 		header("Location: /subjects");		
 	
 	}

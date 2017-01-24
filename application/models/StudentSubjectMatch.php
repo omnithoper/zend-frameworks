@@ -1,16 +1,21 @@
 <?php
-class StudentSubjectMatch extends Zend_Db_Table {
+class StudentSubjectMatch {
+
+	protected $_db = null;
 	protected $_name = 'student_subject_match';
 	
-	function getStudentSubjects($studentID = NUll){
+	public function __construct() {
+		$this->_db = Zend_Registry::get('db');
+	}	
+	
+	public function getStudentSubjects($studentID = NUll){
 	
 		if (empty($studentID)) {
 			return false;
 		}
 		
-			$select = $this->select()
+			$select = $this->_db->select()
 			->from($this->_name)
-			->setIntegrityCheck(false)
 			->join(
 				'subjects', 
 				'student_subject_match.subject_id = subjects.subject_id',
@@ -23,8 +28,7 @@ class StudentSubjectMatch extends Zend_Db_Table {
 			->where('student_subject_match.student_id = ?' , $studentID )
 
 		;
-
-		return $result = $this->fetchAll($select);
+		return $this->_db->fetchAll($select);
 			
 	}
 	/*

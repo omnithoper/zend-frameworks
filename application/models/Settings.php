@@ -1,8 +1,12 @@
 <?php
 class Settings {
 
-//	protected $_name = 'settings';
+	protected $_db = null;
 	protected $_name = 'settings';
+
+	public function __construct() {
+		$this->_db = Zend_Registry::get('db');
+	}	
 	public function getViewSettings() {
 		$fields = [
 			'number_of_allowed_units',
@@ -11,12 +15,11 @@ class Settings {
 			'price_of_misc',
 		];
 
-		$db = Zend_Registry::get('db');
-		$select = $db->select()
+		$select = $this->_db->select()
 			->from($this->_name)
 			;
 			
-		return $db->fetchAll($select);
+		return $this->_db->fetchAll($select);
 	}
 
 	/*
