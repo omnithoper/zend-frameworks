@@ -6,14 +6,13 @@ class EnrollmentController extends Zend_Controller_Action {
 		$studentID = Request::getParam('studentID');
 		$getSubjectID = Request::getParam('getSubjectID');
 		$subjectID = Request::getParam('subjectID');
+	
 		$students = [];
-		$subject = new Subject();	
+		$subjects = new Subject();	
 		$studentSubject = new StudentSubjectMatch();
-
 		$student = new Student();
-		//$settingObject = new Settings();
-		
-		$subject = $subject->getSubjects();
+
+		$subject = $subjects->getViewSubjects();
 		#Zend_Debug::dump($subject); die();
 
 		$students = $student->getAllStudentInformation($studentName);
@@ -25,23 +24,28 @@ class EnrollmentController extends Zend_Controller_Action {
 			$studentID = $students[0]['student_id'];
 		}
 
-	//	$studentSubject  = $studentSubject->getAddStudentSubjectID($studentID, $getSubjectID);
-				 
+		$addStudentSubject = $studentSubject->getAddStudentSubjectID($studentID, $getSubjectID);
+
 		if (Request::getParam('action') == 'delete') {
 			$delete = $studentSubject->getDeleteSubject($studentID, $subjectID);
 		}
-		//if (isset($_POST['search'])){
-			$allSubject = $studentSubject->getStudentSubjects($studentID);
-	
-		//}
 
-		//$totalUnit = $subjectObject->getCurrentUnits($studentID);
-		//$isStudentPayed = $studentLastNameObject->isStudentPayed($studentID);
+		$allSubject = $studentSubject->getStudentSubjects($studentID);
+		$totalUnit = $subjects->getCurrentUnits($studentID);
+		$isStudentPayed = $student->isStudentPayed($studentID);
+		var_dump($isStudentPayed);
+		$isStudentPayed = empty($isStudentPayed[0]['payment'])?NULL:$isStudentPayed[0]['payment'];
+		var_dump($isStudentPayed);
+
+		
+		$this->view->totalUnit = $totalUnit;
+		$this->view->isStudentPayed = $isStudentPayed;
 		$this->view->students = $students;
 		$this->view->studentID = $studentID;
 		$this->view->subject = $subject;
 		$this->view->allSubject = $allSubject;
 		$this->view->selectedStudent = $selectedStudent;
+		$this->view->error = $addStudentSubject;
 	}	
 }
 ?>

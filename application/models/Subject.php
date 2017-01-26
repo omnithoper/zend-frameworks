@@ -6,14 +6,50 @@ class Subject {
 	public function __construct() {
 		$this->_db = Zend_Registry::get('db');
 	}
-/* this is with zend db table
+/* this is with zend db table with db connection
 	function getViewSubjects() {
-		#$select = $this->select()->from($this->_name);
 		$select = "SELECT * FROM subjects";
 		$select = $this->_db->query($select);
 		return $select->fetchAll(Zend_Db::FETCH_ASSOC);
 	}
 */
+	public function getCurrentUnits($studentID = null)
+	{	// this is with zend db table with db connection
+		$select = "
+			SELECT
+				SUM(subjects.subject_unit) AS total_units
+			FROM student_subject_match
+			JOIN subjects ON student_subject_match.subject_id = subjects.subject_id
+			WHERE student_subject_match.student_id = '".$studentID."'
+		";
+/*
+		$select = $this->_db->select()
+			->from($this->_name,[
+				'SUM(subjects.subject_unit) AS total_unit'
+			])	
+
+			->joinLeft(
+				'student_subject_match', 
+				'student_subject_match.subject_id = subjects.subject_id'
+				)
+			->where('student_subject_match.student_id = ?', $studentID)
+		;
+*/
+		$select = $this->_db->query($select);
+		$results = $select->fetchAll(Zend_Db::FETCH_ASSOC);
+		return (empty($results))?0:$results[0]['total_units'];	
+	}
+	public function getSubjectUnits($subjectID = null)
+	{
+		$select = $this->_db->select()
+			->from($this->_name, ['subject_unit',
+			])
+			->where('subject_id = ?', $subjectID)
+		;	
+		$results = $this->_db->fetchAll($select);
+	
+		return (empty($results))?0:$results[0]['subject_unit'];
+	}
 	public function getViewSubjects() {
 		#$select = $this->select()->from($this->_name);
 		$select = "SELECT * FROM subjects";
@@ -62,11 +98,13 @@ class Subject {
 
 	function getDeleteSubject($subjectID) {
 
+
 		$this->_db->delete($this->_name, "subject_id =  '$subjectID'");	
 		header("Location: /subjects");		
 	
 	}
-
+	/*
+ 
 	function getSubjects(){
 		return $subjects=$this->fetchAll();
 		$subjects = [];
@@ -77,8 +115,7 @@ class Subject {
 		return $subjectss;
 	
 	}  
-	/*
- 
+
 	function subjectExist($subject) {
 		if (empty($subject)) {
 			return false;
@@ -205,20 +242,7 @@ class Subject {
 	
 		header("Location: /subjects");
 	}
-	public function getCurrentUnits($studentID = null)
-	{	
-		$query = "
-			SELECT
-				SUM(subjects.subject_unit) AS total_units
-			FROM student_subject_match
-			JOIN subjects ON student_subject_match.subject_id = subjects.subject_id
-			WHERE student_subject_match.student_id = '".$studentID."'
-		";
 
-		$results = $this->_db->connection->query($query);
-		$results = $results->fetch_all(MYSQLI_ASSOC);
-		return (empty($results))?0:$results[0]['total_units'];		
-	}
 	public function getLectureUnits($studentID = null)
 	{	
 		$query = "
@@ -247,19 +271,7 @@ class Subject {
 		$results = $results->fetch_all(MYSQLI_ASSOC);
 		return (empty($results))?0:$results[0]['laboratory_units'];		
 	}
-	public function getSubjectUnits($subjectID = null)
-	{
-		$query = "
-			SELECT
-				subject_unit
-			FROM subjects
-			WHERE subject_id = ".$subjectID."
-		";
 
-		$results = $this->_db->connection->query($query);
-		$results = $results->fetch_all(MYSQLI_ASSOC);
-		return (empty($results))?0:$results[0]['subject_unit'];
-	}
 */
 	
 }

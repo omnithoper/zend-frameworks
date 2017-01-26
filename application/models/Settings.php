@@ -8,6 +8,7 @@ class Settings {
 		$this->_db = Zend_Registry::get('db');
 	}	
 	public function getViewSettings() {
+		/* other way to view data table
 		$fields = [
 			'number_of_allowed_units',
 			'price_per_unit',
@@ -16,10 +17,36 @@ class Settings {
 		];
 
 		$select = $this->_db->select()
-			->from($this->_name)
+			->from('settings', $fields)
 			;
-			
+		*/	
+
+		$select = $this->_db->select()
+			->from($this->_name)
+			;	
 		return $this->_db->fetchAll($select);
+	}
+	
+	public function isEcceededUnits($studentID = null, $subjectID = null) {
+		$subjectObject = new Subject();
+
+		$currentUnits = $subjectObject->getCurrentUnits($studentID);
+		$subjectUnits = $subjectObject->getSubjectUnits($subjectID);
+		$allowedUnits = $this->getAllowedUnits();
+
+		return ($allowedUnits < ($currentUnits + $subjectUnits));
+	}
+
+	public function getAllowedUnits() {
+
+		$fields = ['number_of_allowed_units',
+		];
+	
+		$select = $this->_db->select()
+			->from($this->_name, $fields)
+			;	
+		$results = $this->_db->fetchAll($select);
+		return (empty($results))?0:$results[0]['number_of_allowed_units'];
 	}
 
 	/*
@@ -102,14 +129,7 @@ class Settings {
 		header("Location: /Settings/");
 	}
 
-	public function isEcceededUnits($studentID = null, $subjectID = null) {
-		$subjectObject = new Subject();
-		$currentUnits = $subjectObject->getCurrentUnits($studentID);
-		$subjectUnits = $subjectObject->getSubjectUnits($subjectID);
-		$allowedUnits = $this->getAllowedUnits();
 
-		return ($allowedUnits < ($currentUnits + $subjectUnits));
-	}
 	
 	public function getSubjectUnits($subjectID = null) {
 		$query = "
@@ -124,17 +144,6 @@ class Settings {
 		return (empty($results))?0:$results[0]['subject_unit'];
 	}
 
-	public function getAllowedUnits() {
-		$query = "
-			SELECT
-				number_of_allowed_units
-			FROM settings
-		";
-
-		$results = $this->_db->connection->query($query);
-		$results = $results->fetch_all(MYSQLI_ASSOC);
-		return (empty($results))?0:$results[0]['number_of_allowed_units'];
-	}
 
 	public function getPriceMisc() {
 		$query = "

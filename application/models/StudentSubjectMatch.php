@@ -31,8 +31,19 @@ class StudentSubjectMatch {
 		return $this->_db->fetchAll($select);
 			
 	}
-	/*
+	function subjectExist($studentID = NULL , $subjectID = NULL) {
+	
+		$select = $this->_db->select()
+			->from($this->_name)
+			->where('student_id = ?' , $studentID )
+			->where('subject_id = ?' , $subjectID )
+		;
+		
+		 return $this->_db->fetchRow($select);
+	} 
+	
 	function getAddStudentSubjectID($studentID, $subjectID) {
+
 		if (empty($studentID)) {
 			return true;
 		}
@@ -40,52 +51,48 @@ class StudentSubjectMatch {
 		if (empty($subjectID)) {
 			return true;
 		}
+	
 
 		if ($this->subjectExist($studentID, $subjectID)) {
-			return true;
+			return [
+				'error' => 'Subject Already Exist',	
+			];
 		}
 
+		
 		$settings = new Settings();
 		if ($settings->isEcceededUnits($studentID, $subjectID)) {
 			return [
-				'message' => 'ERROR: Number of allowed units has exceeded!',
+				'error' => 'ERROR: Number of allowed units has exceeded!',
 				'status' => 'failed',
 			];
 		}
 		
-		$prepared = $this->_db->connection->prepare("
-			INSERT INTO student_subject_match(student_id, subject_id)
-			VALUES (?,?)
-		");	
+		$data = array(
+			'student_id' => $studentID,
+			'subject_id' => $subjectID,
+		);
+		
+		$this->_db->insert($this->_name, $data);
+		
 
-		$prepared->bind_param('ii', $studentID, $subjectID);
-
-		$status = $prepared->execute();	
-		$this->_db->connection->close();
 	}
+		function getDeleteSubject($studentID, $subjectID) {
 	
-	function subjectExist($studentID, $subjectID) {
-		$db = new DatabaseConnect();
+		
 		if (empty($studentID)) {
-			return false;
+			return true;
 		}
-	
+		
 		if (empty($subjectID)) {
-			return false;
+			return true;
 		}
-		
-		$prepared = $db->connection->prepare("
-			SELECT * FROM student_subject_match WHERE student_id = ? AND subject_id = ?
-		");	
-		
-		$prepared->bind_param('ii', $studentID, $subjectID);
-		$prepared->execute();	
-		$prepared->bind_result($subjectID, $studentID);
-		$prepared->fetch();
-		$db->connection->close();
-		
-		return !empty($subjectID);
-	} 
+
+		$where['student_id = ?'] = $studentID;
+		$where['subject_id = ?']  = $subjectID;
+		$this->_db->delete($this->_name, $where);	
+	}
+	/*
 	function getStudentSubjects($studentID){
 			$db = new DatabaseConnect();
 		if (empty($studentID)) {
@@ -106,27 +113,7 @@ class StudentSubjectMatch {
 		return $result;
 					
 	}
-		function getDeleteSubject($studentID, $subjectID) {
-			var_dump($studentID);
-		
-		if (empty($studentID)) {
-			return true;
-		}
-		
-		if (empty($subjectID)) {
-			return true;
-		}
-		
-		$db = new DatabaseConnect();
-	
-		$query = "DELETE FROM student_subject_match WHERE subject_id = ".$subjectID . " AND student_id = ".$studentID;
 
-		if ($db->connection->query($query) === true)
-		{
-		}
-
-		$db->connection->close();
-	}
 	
 */
 }	

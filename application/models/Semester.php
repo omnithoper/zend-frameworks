@@ -53,9 +53,10 @@ class Semester {
 					'payment',
 					'total_amount',
 					'change',
-					'transaction_date'
+					'tranaction_datje'
 				]
 			)
+		
 		;
 		$results = $this->_db->fetchAll($select);
 
@@ -80,6 +81,7 @@ class Semester {
 				'transaction_date'
 			])
 			->where("transaction_date between '$dateStart' and '$dateEnd' ")
+
 		;
 		$results = $this->_db->fetchAll($select);
 
@@ -227,25 +229,12 @@ class Semester {
 			'semester.date_end',
 		];
 
-		$select = $this->select()
+		$select = $this->_db->select()
 			->from('semester', $fields)
-			->setIntegrityCheck(false)
 			->where('? BETWEEN date_start AND date_end', $date)
 		;
 
-		return $this->fetchAll($select);
+		return $this->_db->fetchAll($select);
 
-		$date = date("Y-m-d");
-		$query = "
-			SELECT
-				date_start,
-				date_end
-			FROM semester
-			WHERE '$date' BETWEEN date_start AND date_end
-		";
-	
-		$results = $this->_db->connection->query($query);
-		$results = $results->fetch_all(MYSQLI_ASSOC);
-		return $results;
 	}
 }

@@ -24,13 +24,20 @@
 					<?php echo 'SELECTED NAME:'. $this->selectedStudent['last_name'].', '.$this->selectedStudent['first_name']; ?>
 					<br />
 					<h1>Enroll to Subject</h1>
+				
 					<input type="hidden" name="studentID" value="<?php echo $this->studentID; ?>" />
 					<select name="getSubjectID">			
 						<?php foreach ($this->subject as $subjects):?>
 							<option value="<?php echo $subjects['subject_id']; ?>"> <?php echo $subjects['subject'];?></option>	
 						<?php endforeach;?>	
 					</select>	
+					<?php if (!empty($this->error)): ?>
+						<div class="alert alert-danger">
+							<?php	echo $this->error['error']; ?>
+							<?php echo $this->error['status']; ?>
 					
+						</div>
+					<?php	endif; ?>
 					<button type="submit" name="saveSubject" value="saveSubject">
 						Save
 					</button></br>
@@ -53,17 +60,21 @@
 						<td><?php echo  $subject['subject_unit']; ?></td>
 						<td style="width: 1px; wrap: nowrap;">
 							<a 
-								href="/studentsSubjects/?subjectID=<?php echo $subject['subject_id']; ?>
-								&studentID={<?php echo $subject['student_id']; ?>&action=delete" class="btn btn-danger" title="Delete Subject"><i class="icon icon-remove"></i></a>
+								href="/enrollment/?subjectID=<?php echo $subject['subject_id']; ?>
+								&studentID=<?php echo $subject['student_id']; ?>&action=delete" class="btn btn-danger" title="Delete Subject"><i class="icon icon-remove"></i></a>
 						</td>		
-						<?php $result['unit'] = $subject['subject_unit'];?>
-						<?php $totalUnit = $totalUnit + $subject['subject_unit'];?>
 						</tr>
 					<?php endforeach; ?>	
 				</table>
 				<label for="Total" style="float: right">Total:
-					<input style="float: right" type="text" value="<?php echo $totalUnit;?>">
+					<input style="float: right" type="text" value="<?php echo $this->totalUnit;?>">
 				</label>
+					<?php if ($this->isStudentPayed == 0 || $this->isStudentPayed == 'NULL'): ?>
+						<a id="payment"  href="/Cashier/?studentID={$studentID}&
+						studentName={$selectedStudent.full_name} " 
+						class="btn btn-success pull-right"  title="payment"  >pay</a>
+						<div class="clearfix"></div>
+					<?php endif; ?>
 			<?php endif; ?>
 		</form>	
 		<footer>

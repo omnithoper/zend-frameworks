@@ -49,33 +49,32 @@ class Student {
 	}
 
 
-	function isStudentPayed($studentID) {
-		$semesterObject = new Settings();
+	public function isStudentPayed($studentID = NULL) {
+		$semesterObject = new Semester();
 		$semDate = $semesterObject->getCurrentSemester();
 		$dateStart = $semDate[0]['date_start'];
 		$dateEnd = $semDate[0]['date_end'];
-		$select = "
-			SELECT
-				student.student_id,
-				payment.payment,
-				payment.transaction_date
-				FROM student 
-				LEFT JOIN payment 
-				ON student.student_id = payment.student_id  AND 	
-				payment.transaction_date BETWEEN '$dateStart' AND '$dateEnd'
-				WHERE student.student_id = '".$studentID."'
-		";
-		$student = $this->_db->connection->query($select);
-		$student = $student->fetch_all(MYSQLI_ASSOC);
-		$result = [];
-		foreach ($student as $students){ 
-			$students['payed'] ='not yet paid';
-			if ($students['payment'] == 1)  {
-				$students['payed'] ='paid';
-			}			
-			$result[] = $students;		
-		}	
-		return $result;
+
+
+		$studentID = empty($studentID)?0:$studentID;
+	
+		$select = $this->_db->select()
+			->from($this->_name, [
+				'student_id',		
+			])
+			->joinLeft(
+				'payment', 
+				'student.student_id = payment.student_id AND payment.transaction_date BETWEEN "'.$dateStart.'" AND "'.$dateEnd.'"',
+				[
+					'payment',
+					'transaction_date'	
+				]
+			)
+			->where('student.student_id = ?', $studentID)
+		;
+
+		return $students = $this->_db->fetchAll($select);
+
 	}
 
 	public function getViewStudentsPaginated($per_page) {
