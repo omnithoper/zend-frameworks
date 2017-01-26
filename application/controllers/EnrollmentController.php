@@ -33,11 +33,8 @@ class EnrollmentController extends Zend_Controller_Action {
 		$allSubject = $studentSubject->getStudentSubjects($studentID);
 		$totalUnit = $subjects->getCurrentUnits($studentID);
 		$isStudentPayed = $student->isStudentPayed($studentID);
-		var_dump($isStudentPayed);
 		$isStudentPayed = empty($isStudentPayed[0]['payment'])?NULL:$isStudentPayed[0]['payment'];
-		var_dump($isStudentPayed);
 
-		
 		$this->view->totalUnit = $totalUnit;
 		$this->view->isStudentPayed = $isStudentPayed;
 		$this->view->students = $students;

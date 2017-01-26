@@ -13,6 +13,36 @@ class Subject {
 		return $select->fetchAll(Zend_Db::FETCH_ASSOC);
 	}
 */
+
+
+	public function getLaboratoryUnits($studentID = null)
+	{	
+		$select = "
+			SELECT
+				SUM(subjects.lab_unit) AS laboratory_units
+			FROM student_subject_match
+			JOIN subjects ON student_subject_match.subject_id = subjects.subject_id
+			WHERE student_subject_match.student_id = '".$studentID."'
+		";
+
+		$select = $this->_db->query($select);
+		$results = $select->fetchAll(Zend_Db::FETCH_ASSOC);
+		return (empty($results))?0:$results[0]['laboratory_units'];		
+	}	
+	public function getLectureUnits($studentID = null)
+	{	
+		$select = "
+			SELECT
+				SUM(subjects.lec_unit) AS lecture_units
+			FROM student_subject_match
+			JOIN subjects ON student_subject_match.subject_id = subjects.subject_id
+			WHERE student_subject_match.student_id = '".$studentID."'
+		";
+
+		$select = $this->_db->query($select);
+		$results = $select->fetchAll(Zend_Db::FETCH_ASSOC);
+		return (empty($results))?0:$results[0]['lecture_units'];		
+	}
 	public function getCurrentUnits($studentID = null)
 	{	// this is with zend db table with db connection
 		$select = "
@@ -22,20 +52,25 @@ class Subject {
 			JOIN subjects ON student_subject_match.subject_id = subjects.subject_id
 			WHERE student_subject_match.student_id = '".$studentID."'
 		";
-/*
+		/*
+		$studentID = empty($studentID)?0:$studentID;
 		$select = $this->_db->select()
-			->from($this->_name,[
-				'SUM(subjects.subject_unit) AS total_unit'
+			->from('student_subject_match',[
+				"SUM(subjects.subject_unit) AS total_units"
 			])	
 
 			->joinLeft(
-				'student_subject_match', 
+				'subjects', 
 				'student_subject_match.subject_id = subjects.subject_id'
+
 				)
 			->where('student_subject_match.student_id = ?', $studentID)
 		;
-*/
-		$select = $this->_db->query($select);
+
+var_dump($this->_db->fetchAll($select));
+ die("here");
+	*/	
+ 		$select = $this->_db->query($select);
 		$results = $select->fetchAll(Zend_Db::FETCH_ASSOC);
 		return (empty($results))?0:$results[0]['total_units'];	
 	}
@@ -243,34 +278,6 @@ class Subject {
 		header("Location: /subjects");
 	}
 
-	public function getLectureUnits($studentID = null)
-	{	
-		$query = "
-			SELECT
-				SUM(subjects.lec_unit) AS lecture_units
-			FROM student_subject_match
-			JOIN subjects ON student_subject_match.subject_id = subjects.subject_id
-			WHERE student_subject_match.student_id = '".$studentID."'
-		";
-
-		$results = $this->_db->connection->query($query);
-		$results = $results->fetch_all(MYSQLI_ASSOC);
-		return (empty($results))?0:$results[0]['lecture_units'];		
-	}
-	public function getLaboratoryUnits($studentID = null)
-	{	
-		$query = "
-			SELECT
-				SUM(subjects.lab_unit) AS laboratory_units
-			FROM student_subject_match
-			JOIN subjects ON student_subject_match.subject_id = subjects.subject_id
-			WHERE student_subject_match.student_id = '".$studentID."'
-		";
-
-		$results = $this->_db->connection->query($query);
-		$results = $results->fetch_all(MYSQLI_ASSOC);
-		return (empty($results))?0:$results[0]['laboratory_units'];		
-	}
 
 */
 	

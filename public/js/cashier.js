@@ -1,4 +1,5 @@
 var computeChange = function() {
+	
 	var cash = document.getElementById('cash').value;
 	var amount = document.getElementById('amount').value;
 	var change = cash - amount;

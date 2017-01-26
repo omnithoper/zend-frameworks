@@ -1,3 +1,4 @@
+<script type='text/javascript' src='/js/student_enroly.js'></script>
 <nav id="searchStudent">
 	<div id="container">
 		<form action ="/enrollment" Method="POST">
@@ -26,11 +27,13 @@
 					<h1>Enroll to Subject</h1>
 				
 					<input type="hidden" name="studentID" value="<?php echo $this->studentID; ?>" />
-					<select name="getSubjectID">			
+					<select id="subject_list" name="getSubjectID" onchange="checkSubjectName();">		
+						<option value="">(Select Subject)</option>		
 						<?php foreach ($this->subject as $subjects):?>
 							<option value="<?php echo $subjects['subject_id']; ?>"> <?php echo $subjects['subject'];?></option>	
 						<?php endforeach;?>	
 					</select>	
+					<button id="button_save" type="submit" name="saveSubject" value="saveSubject" disabled>Save</button>
 					<?php if (!empty($this->error)): ?>
 						<div class="alert alert-danger">
 							<?php	echo $this->error['error']; ?>
@@ -38,15 +41,13 @@
 					
 						</div>
 					<?php	endif; ?>
-					<button type="submit" name="saveSubject" value="saveSubject">
-						Save
-					</button></br>
+
 			<?php endif; ?>
 			
 			<?php if (!empty($this->selectedStudent) && !empty($this->allSubject)): ?>
-				<h1><?php echo "Student Enroll Subjects";?></br><h1>
+				<h1><?php echo "Student Enroll Subjects";?></br></h1>
 				<br />
-				<table style ="width:100%;background-color:green;color:white" border ="1"> 
+				<table class="table table-bordered table-condensed table-striped"> 
 					<tr>
 						<th>Student ID</th>
 						<th>Subject</th>
@@ -64,14 +65,17 @@
 								&studentID=<?php echo $subject['student_id']; ?>&action=delete" class="btn btn-danger" title="Delete Subject"><i class="icon icon-remove"></i></a>
 						</td>		
 						</tr>
-					<?php endforeach; ?>	
+					<?php endforeach; ?>
+						<tr>
+							<td colspan="2"><span class="pull-right">Total Units</span></td>
+							<td colspan="2">
+								<label for="Total"><?php echo $this->totalUnit;?></label>
+							</td>
+						</tr>		
 				</table>
-				<label for="Total" style="float: right">Total:
-					<input style="float: right" type="text" value="<?php echo $this->totalUnit;?>">
-				</label>
+			
 					<?php if ($this->isStudentPayed == 0 || $this->isStudentPayed == 'NULL'): ?>
-						<a id="payment"  href="/Cashier/?studentID={$studentID}&
-						studentName={$selectedStudent.full_name} " 
+						<a id="payment"  href="/Cashier/?studentID=<?php echo $this->studentID;?>" 
 						class="btn btn-success pull-right"  title="payment"  >pay</a>
 						<div class="clearfix"></div>
 					<?php endif; ?>

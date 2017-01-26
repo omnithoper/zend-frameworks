@@ -14,22 +14,17 @@ class StudentSubjectMatch {
 			return false;
 		}
 		
-			$select = $this->_db->select()
+		$select = $this->_db->select()
 			->from($this->_name)
 			->join(
 				'subjects', 
-				'student_subject_match.subject_id = subjects.subject_id',
-				[
-					'subject_id',
-					'subject',
-					'subject_unit'
-				]
+				'student_subject_match.subject_id = subjects.subject_id'
 			)
 			->where('student_subject_match.student_id = ?' , $studentID )
 
 		;
 		return $this->_db->fetchAll($select);
-			
+	
 	}
 	function subjectExist($studentID = NULL , $subjectID = NULL) {
 	

@@ -1,0 +1,18 @@
+
+<nav id="searchStudent">
+	<div id="container">
+		<a href="/Cashier/?studentID={$studentID}" class="pull-right"  title="payment">(return)</a>
+					<div class="clearfix"></div>
+	<form>
+	<label>Student Name= <?php $studentName['full_name']; ?></label>
+	<label>invoice # = <?php $payment[0]['payment_id']; ?></label>
+	<label>amount paid=<?php $cash; ?></label>	
+	<label>change = <?php $payment[0]['change']; ?></label>
+	<label>transaction date= <?php $payment[0]['transaction_date']; ?></label>
+		<a href="/Payment/payed?paymentID=<?php $payment[0]['payment_id']; ?>" 
+		class="btn btn-success pull-right" title="payment">payed</a>
+	<div class="clearfix"></div>
+	</form>
+	</div>		
+</nav>
+

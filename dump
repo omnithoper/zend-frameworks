@@ -1,52 +1,10 @@
 
-
-		
-
-		 <?php
-// Define path to application directory
-defined('APPLICATION_PATH')
-    || define('APPLICATION_PATH', realpath(dirname(__FILE__) . '/../application'));
-
-// Define application environment
-defined('APPLICATION_ENV')
-    || define('APPLICATION_ENV', (getenv('APPLICATION_ENV') ? getenv('APPLICATION_ENV') : 'production'));
-
-// Ensure library/ is on include_path
-set_include_path(implode(PATH_SEPARATOR, array(
-    get_include_path(),
-    realpath(APPLICATION_PATH . '/../'),
-    APPLICATION_PATH . '/models/',
-)));
-
-/** Zend_Application */
-require_once 'Zend/Application.php';
-//require_once 'Zend/Loader/Autoloader.php';
-//#require_once 'Zend/Config.php';
-
-
-#var_dump(APPLICATION_PATH . '/../library');
-#	var_dump(get_include_path()); die();
-
-
-// Create application, bootstrap, and run
-$application = new Zend_Application('dev',APPLICATION_PATH.'/configuration/application.ini');
-#var_dump(APPLICATION_PATH.'/configuration/application.ini'); die();
-$application->bootstrap()
-            ->run();
-
-			->join(
-				'student_subject_match', 
-				'student_subject_match.student_id = subjects.subject_id' 
-			)
-			->where('student_id = ?', $studentID)\
-
-
-
-	->from('student_subject_match', [
-				'SUM(subjects.subject_unit) AS total_unit'
-			])	
-
-			->join(
-				'subjects', 
-				'student_subject_match.student_id = subjects.subject_id' 
-			)
+<?php foreach ($this->allSubject AS $subject): ?>
+	<tr>
+		<td><?php echo $subject['subject_id']; ?></td>
+		<td><?php echo $subject['subject']; ?></td>
+		<td><?php echo $subject['lec_unit']; ?></td>
+		<td><?php echo $subject['lab_unit']; ?></td>
+		<td><?php echo $subject['subject_unit']; ?></td>
+	</tr>
+<?php endforeach; ?>

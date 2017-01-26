@@ -48,7 +48,41 @@ class Settings {
 		$results = $this->_db->fetchAll($select);
 		return (empty($results))?0:$results[0]['number_of_allowed_units'];
 	}
+	public function getPricePerUnit() {
 
+		$fields = ['price_per_unit',
+		];
+	
+		$select = $this->_db->select()
+			->from($this->_name, $fields)
+			;	
+		$results = $this->_db->fetchAll($select);
+		return (empty($results))?0:$results[0]['price_per_unit'];
+	}
+
+	public function getPriceLabUnit() {
+
+		$fields = ['price_per_lab_unit',
+		];
+	
+		$select = $this->_db->select()
+			->from($this->_name, $fields)
+			;	
+		$results = $this->_db->fetchAll($select);
+		return (empty($results))?0:$results[0]['price_per_lab_unit'];
+	}
+	public function getPriceMisc() {
+
+		$fields = ['price_of_misc',
+		];
+	
+		$select = $this->_db->select()
+			->from($this->_name, $fields)
+			;	
+		$results = $this->_db->fetchAll($select);
+		return (empty($results))?0:$results[0]['price_of_misc'];
+	}
+	
 	/*
 
 	
@@ -145,41 +179,9 @@ class Settings {
 	}
 
 
-	public function getPriceMisc() {
-		$query = "
-			SELECT
-				price_of_misc
-			FROM settings
-		";
 
-		$results = $this->_db->connection->query($query);
-		$results = $results->fetch_all(MYSQLI_ASSOC);
-		return (empty($results))?0:$results[0]['price_of_misc'];
-	}
+
 	
-	public function getPriceLabUnit() {
-		$query = "
-			SELECT
-				price_per_lab_unit
-			FROM settings
-		";
-
-		$results = $this->_db->connection->query($query);
-		$results = $results->fetch_all(MYSQLI_ASSOC);
-		return (empty($results))?0:$results[0]['price_per_lab_unit'];
-	}
-	
-	public function getPricePerUnit() {
-		$query = "
-			SELECT
-				price_per_unit
-			FROM settings
-		";
-
-		$results = $this->_db->connection->query($query);
-		$results = $results->fetch_all(MYSQLI_ASSOC);
-		return (empty($results))?0:$results[0]['price_per_unit'];
-	}
 	public function getPaymentDate($dateStart, $dateEnd)
 	{	
 			$select = "

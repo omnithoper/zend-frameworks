@@ -14,7 +14,17 @@ class Student {
 		;
 		return $this->_db->fetchRow($select);
 	}
+	public function getStudentName($studentID) {
 	
+			$select = $this->_db->select()
+			->from('student', [
+				"CONCAT(first_name, ' ' , last_name) AS fullName"
+			])
+			->where('student_id = ?', $studentID)
+		;
+		return $this->_db->fetchRow($select);
+
+	}
 	public function getViewStudents() {
 		$semesterObject = new Semester();
 		$semDate = $semesterObject->getCurrentSemester();
