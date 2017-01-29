@@ -1,62 +1,54 @@
 <?php
 class  Payment {
+	protected $_db = null;
+	protected $_name = 'payment';
 	
-	function __construct() {
-		$this->_db = new DatabaseConnect();
-	}
+	public function __construct() {
+		$this->_db = Zend_Registry::get('db');
+	}	
 
-	function getAddPayment($studentID, $totalAmount, $change) {
+	function getAddPayment($data) {
 
-		if (empty($studentID)) {
-			return true;
-		}
+		$this->_db->insert($this->_name, $data);
 
-		if (empty($totalAmount)) {
-			return true;
-		}
-
-		if (empty($change)) {
-			return true;
-		}
-	
-		$prepared = $this->_db->connection->prepare("
-			INSERT INTO payment (student_id, total_amount, `change`)
-			VALUES (?, ?, ?)
-		");	
-		$prepared->bind_param('iii', $studentID, $totalAmount, $change);
-		$status = $prepared->execute();	
 
 	}
 	
-	function getViewPayment($studentID, $totalAmount, $change) {
-		$select = "SELECT * FROM payment WHERE student_id = $studentID AND total_amount = $totalAmount AND 
-		`change` = $change AND transaction_date = NOW() ";
-		$result = $this->_db->connection->query($select);
-		$result = $result->fetch_all(MYSQLI_ASSOC);
-		return $result;
+	function getViewPayment($studentID, $totalAmount, $change, $transactionDate) {
+		
+		$select = $this->_db->select()
+			->from($this->_name)
+			->where('student_id = ?' , $studentID )
+			->where('total_amount = ?' , $totalAmount )
+			->where('`change` = ?' , $change )
+			->where('transaction_date = ?' , $transactionDate )
+		;
+
+		return $this->_db->fetchAll($select);
 	}
 	
 	function ifPayed($paymentID) {
-		$select = 'UPDATE payment SET payment = 1 WHERE payment_id = ?';
-		#$result = $this->_db->connection->query($select);
-
-		$query = $this->_db->connection->prepare($select);
-		$query->bind_param('i', $paymentID);
-		$query->execute();
+		//$select = 'UPDATE payment SET payment = 1 WHERE payment_id = ?';
+			$data = array(
+		    'payment' => '1',
+		    );
+		$this->_db->update($this->_name, $data, "payment_id =  '$paymentID'");	
+	
 		header("Location: /Students/");
 	}
 
 	function getViewAllPayment(){
-		$select = "SELECT * FROM payment";
-		$result = $this->_db->connection->query($select);
-		$result = $result->fetch_all(MYSQLI_ASSOC);
-		return $result;
+		$select = $this->_db->select()
+		->from($this->_name)
+		;
+		
+		return $this->_db->fetchAll($select);
 	}
 
 	function getViewStudentPayment($studentID){
 		$select = "SELECT * FROM payment WHERE student_id = $studentID AND payment = 1";
-		$result = $this->_db->connection->query($select);
-		$result = $result->fetch_all(MYSQLI_ASSOC);
+	
+		$result = $result->_db->fetch_all(MYSQLI_ASSOC);
 		return $result;
 	}
 }

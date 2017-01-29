@@ -1,10 +1,8 @@
-
-<?php foreach ($this->allSubject AS $subject): ?>
-	<tr>
-		<td><?php echo $subject['subject_id']; ?></td>
-		<td><?php echo $subject['subject']; ?></td>
-		<td><?php echo $subject['lec_unit']; ?></td>
-		<td><?php echo $subject['lab_unit']; ?></td>
-		<td><?php echo $subject['subject_unit']; ?></td>
-	</tr>
-<?php endforeach; ?>
+	<label>Student Name= <?php echo $studentName['first_name']; ?></label>
+	<label>invoice # = <?php echo $payment[0]['payment_id']; ?></label>
+	<label>amount paid=<?php echo $cash; ?></label>	
+	<label>change = <?php echo $payment[0]['change']; ?></label>
+	<label>transaction date= <?php echo $payment[0]['transaction_date']; ?></label>
+		<a href="/Payment/payed?paymentID=<?php echo $this->payment[0]['payment_id']; ?>" 
+		class="btn btn-success pull-right" title="payment">payed</a>
+	<div class="clearfix"></div>

@@ -25,8 +25,7 @@ class Subject {
 			WHERE student_subject_match.student_id = '".$studentID."'
 		";
 
-		$select = $this->_db->query($select);
-		$results = $select->fetchAll(Zend_Db::FETCH_ASSOC);
+		$results = $this->_db->fetchAll($select);
 		return (empty($results))?0:$results[0]['laboratory_units'];		
 	}	
 	public function getLectureUnits($studentID = null)
@@ -39,8 +38,8 @@ class Subject {
 			WHERE student_subject_match.student_id = '".$studentID."'
 		";
 
-		$select = $this->_db->query($select);
-		$results = $select->fetchAll(Zend_Db::FETCH_ASSOC);
+		
+		$results = $this->_db->fetchAll($select);
 		return (empty($results))?0:$results[0]['lecture_units'];		
 	}
 	public function getCurrentUnits($studentID = null)
@@ -70,8 +69,8 @@ class Subject {
 var_dump($this->_db->fetchAll($select));
  die("here");
 	*/	
- 		$select = $this->_db->query($select);
-		$results = $select->fetchAll(Zend_Db::FETCH_ASSOC);
+ 
+		$results = $this->_db->fetchAll($select);
 		return (empty($results))?0:$results[0]['total_units'];	
 	}
 	public function getSubjectUnits($subjectID = null)

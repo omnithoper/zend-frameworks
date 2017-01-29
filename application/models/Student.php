@@ -47,6 +47,7 @@ class Student {
 			)
 		;
 		$students = $this->_db->fetchAll($select);
+
 		$result = [];
 		foreach ($students as $student){ 
 			$student['payed'] ='not yet paid';	
