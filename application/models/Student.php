@@ -1,12 +1,8 @@
 <?php
-class Student {
-	protected $_db = null;
+class Student extends BaseModel {
+
 	protected $_name = 'student';
-	
-	public function __construct() {
-		$this->_db = Zend_Registry::get('db');
-	}	
-	
+		
 	public function getStudentDetails($studentID) {
 		$select = $this->_db->select()
 			->from($this->_name)

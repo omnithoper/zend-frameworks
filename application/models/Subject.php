@@ -58,7 +58,7 @@ class Subject {
 				"SUM(subjects.subject_unit) AS total_units"
 			])	
 
-			->joinLeft(
+			->join(
 				'subjects', 
 				'student_subject_match.subject_id = subjects.subject_id'
 
