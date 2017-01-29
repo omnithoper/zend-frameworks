@@ -63,6 +63,10 @@ class Student {
 	public function isStudentPayed($studentID = NULL) {
 		$semesterObject = new Semester();
 		$semDate = $semesterObject->getCurrentSemester();
+
+		if (empty($semDate)) {
+			return false;
+		}
 		$dateStart = $semDate[0]['date_start'];
 		$dateEnd = $semDate[0]['date_end'];
 

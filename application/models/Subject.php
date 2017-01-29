@@ -42,6 +42,7 @@ class Subject {
 		$results = $this->_db->fetchAll($select);
 		return (empty($results))?0:$results[0]['lecture_units'];		
 	}
+	
 	public function getCurrentUnits($studentID = null)
 	{	// this is with zend db table with db connection
 		$select = "
@@ -51,6 +52,17 @@ class Subject {
 			JOIN subjects ON student_subject_match.subject_id = subjects.subject_id
 			WHERE student_subject_match.student_id = '".$studentID."'
 		";
+
+		$select = $this->_db->select()
+			->from('student_subject_match', ['total_units' => 'SUM(subjects.subject_unit)'])
+			->join('subjects', 'student_subject_match.subject_id = subjects.subject_id', [])
+			->where('student_subject_match.student_id = ?', $studentID)
+			;
+
+		return $this->_db->fetchOne($select);
+		
+		Zend_Debug::dump($result);
+		die();
 		/*
 		$studentID = empty($studentID)?0:$studentID;
 		$select = $this->_db->select()
@@ -71,6 +83,10 @@ var_dump($this->_db->fetchAll($select));
 	*/	
  
 		$results = $this->_db->fetchAll($select);
+		echo $select;
+		Zend_Debug::dump($studentID); 
+		Zend_Debug::dump($results); 
+		die();
 		return (empty($results))?0:$results[0]['total_units'];	
 	}
 	public function getSubjectUnits($subjectID = null)
