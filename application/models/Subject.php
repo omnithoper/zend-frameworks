@@ -45,6 +45,9 @@ class Subject {
 	
 	public function getCurrentUnits($studentID = null)
 	{	// this is with zend db table with db connection
+		if (empty($studentID)) {
+			return 0;
+		}
 		$select = "
 			SELECT
 				SUM(subjects.subject_unit) AS total_units
@@ -83,10 +86,6 @@ var_dump($this->_db->fetchAll($select));
 	*/	
  
 		$results = $this->_db->fetchAll($select);
-		echo $select;
-		Zend_Debug::dump($studentID); 
-		Zend_Debug::dump($results); 
-		die();
 		return (empty($results))?0:$results[0]['total_units'];	
 	}
 	public function getSubjectUnits($subjectID = null)
