@@ -1,12 +1,7 @@
 <?php
-class  Payment {
-	protected $_db = null;
+class  Payment extends BaseModel {
 	protected $_name = 'payment';
 	
-	public function __construct() {
-		$this->_db = Zend_Registry::get('db');
-	}	
-
 	function getAddPayment($data) {
 
 		$this->_db->insert($this->_name, $data);

@@ -1,11 +1,8 @@
 <?php
-class Semester {
+class Semester extends BaseModel {
+ 
     protected $_name = 'semester';
-    protected $_db = NULL;
 
-	public function __construct() {
-		$this->_db = Zend_Registry::get('db');
-	}	
 	public function getViewSemester() {
 
 		$select = $this->_db->select()
@@ -25,23 +22,26 @@ class Semester {
 	public function getAddSemester($data) {
 		$this->_db->insert($this->_name, $data);
 
-		header("Location: /Settings/");			
+		header("Location: /settings/");			
 	}
 
 	public function getDeleteSemester($semesterID) {
 		$this->_db->delete($this->_name, "semester_id =  '$semesterID'");	
 
-		header("Location: /Settings/");
+		header("Location: /settings/");
 	}
 
 	public function getEditSemester($data, $semesterID) {
 
 		$this->_db->update($this->_name, $data, "semester_id =  '$semesterID'");
 
-		header("Location: /Settings/");
+		header("Location: /settings/");
 	}
 
-	public function getPaymentDate($dateStart = NULL, $dateEnd = NULL) {	
+	public function getPaymentDate($dateStart = NULL, $dateEnd = NULL) {
+		
+	
+			
 		$select = $this->_db->select()
 			->from('student', [
 				"CONCAT(student.first_name, ' ' , student.last_name) AS fullName"
@@ -53,7 +53,7 @@ class Semester {
 					'payment',
 					'total_amount',
 					'change',
-					'tranaction_datje'
+					'transaction_date'
 				]
 			)
 		

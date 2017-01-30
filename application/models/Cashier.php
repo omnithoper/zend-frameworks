@@ -1,11 +1,6 @@
 <?php
-class Cashier {
-	private $_db = null;
+class Cashier extends BaseModel{
 
-	
-	public function __construct() {
-		$this->_db = Zend_Registry::get('db');
-	}	
 	
 	public function getTotalPrice($studentID) {
 		$setting = new Settings();

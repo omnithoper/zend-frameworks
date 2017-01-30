@@ -3,6 +3,7 @@ class CashierController extends Zend_Controller_Action {
 
 	public function indexAction() {
 
+
 		$studentID = Request::getParam('studentID');
 
 		$setting = new Settings();
@@ -18,16 +19,17 @@ class CashierController extends Zend_Controller_Action {
 		$totalUnitPrice = $cashier->getTotalUnitPrice($studentID);
 		$totalLecUnitPrice = $cashier->getTotalLecturePrice($studentID);
 		$totalLabUnitPrice = $cashier->getTotalLaboratoryPrice($studentID);
-
-		$studentSubject = new studentSubjectMatch();
+	
+		$studentSubject = new StudentSubjectMatch();
 		$allSubject = $studentSubject->getStudentSubjects($studentID);
 
 		$subject = new  Subject();
 		$totalUnit = $subject->getCurrentUnits($studentID);
 		$totalLecUnit = $subject->getLectureUnits($studentID);
 		$totalLabUnit = $subject->getLaboratoryUnits($studentID);
-					
+
 		$this->view->allSubject = $allSubject;
+
 		$this->view->studentName = $studentName;
 		$this->view->totalLecUnit = $totalLecUnit;
 		$this->view->totalLabUnit = $totalLabUnit;
@@ -38,6 +40,7 @@ class CashierController extends Zend_Controller_Action {
 		$this->view->totalUnitPrice = $totalUnitPrice;
 		$this->view->priceMisc = $priceMisc;
 		$this->view->totalPrice = $totalPrice;
+		
 		}
 
 }	

@@ -1,11 +1,8 @@
 <?php
-class Subject {
-	protected $_db = NULL;
+class Subject extends BaseModel {
+
 	protected $_name = 'subjects';
 	
-	public function __construct() {
-		$this->_db = Zend_Registry::get('db');
-	}
 /* this is with zend db table with db connection
 	function getViewSubjects() {
 		$select = "SELECT * FROM subjects";

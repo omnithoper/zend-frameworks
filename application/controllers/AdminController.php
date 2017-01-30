@@ -6,8 +6,10 @@ class AdminController extends Zend_Controller_Action  {
 		$admin = new Admin();
 		$records = $admin->getViewAdmin();
 		$this->view->admin = $records;
+		
 
 	}
+		
 	public function detailsAction() {
 	
 		$adminID = Request::getParam('adminID');
