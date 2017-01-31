@@ -16,9 +16,7 @@ class SemesterController extends Zend_Controller_Action {
 		$semester = new Semester();
 		$result = [];
 			$result = $semester->getAddSemester($data);
-			$this->view->semester = $result;
-		
-
+			$this->view->semester = $result;	
      	}
 
 	}

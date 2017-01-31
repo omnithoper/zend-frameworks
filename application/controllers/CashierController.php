@@ -19,7 +19,7 @@ class CashierController extends Zend_Controller_Action {
 		$totalLecUnitPrice = $cashier->getTotalLecturePrice($studentID);
 		$totalLabUnitPrice = $cashier->getTotalLaboratoryPrice($studentID);
 
-		$studentSubject = new studentSubjectMatch();
+		$studentSubject = new StudentSubjectMatch();
 		$allSubject = $studentSubject->getStudentSubjects($studentID);
 
 		$subject = new  Subject();

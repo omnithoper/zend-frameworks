@@ -5,11 +5,9 @@ class IncomeController extends Zend_Controller_Action  {
 		
 		$semDate = Request::getParam('semDate');
 
-
 		$date = explode(',' , $semDate);
 		$dateStart = empty($date[0])?NULL:$date[0];
 		$dateEnd = empty($date[1])?NULL:$date[1];
-		
 
 
 		$semester = new Semester();

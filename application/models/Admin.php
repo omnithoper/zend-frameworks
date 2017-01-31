@@ -1,10 +1,6 @@
 <?php
-class Admin  {
+class Admin  extends BaseModel {
 	protected $_name = 'admin';
-	
-	public function __construct() {
-		$this->_db = Zend_Registry::get('db');
-	}	
 	
 	public function getViewAdmin() {
 		$select = $this->_db->select()
@@ -54,7 +50,7 @@ class Admin  {
 		header("Location: /Admin/");
 	}
 
-	/*
+	
 	public function getUserPassword($userName, $password) {
 		if (empty($userName)) {
 			return [
@@ -68,11 +64,10 @@ class Admin  {
 			];	
 		}
 
-		$sql = "SELECT user_id FROM admin WHERE username = '$userName' and password = sha1('$password')";
-      	$result = $this->_db->connection->query($sql);
-     	$row = $result->fetch_all(MYSQLI_ASSOC);
+		$select = "SELECT user_id FROM admin WHERE username = '$userName' and password = sha1('$password')";
+		$result = $this->_db->fetchAll($select);
 
-      	$count = mysqli_num_rows($result);
+      	$count = count($result);
 
 		if($count == 1) {
 			#$_SESSION['userName'];
@@ -93,7 +88,7 @@ class Admin  {
 		}
 	}   
 
-
+/*
 	public function getViewUser($userID = null) {
 		if (empty($userID)) {
 			return false;
@@ -195,12 +190,12 @@ class Admin  {
 	
 		return !empty($userID);
 	} 
-
+	*/
 	public function userSession() {
 		if (session_id() === '') {
 			return false;
 		}
 		return true;
 	}
-	*/
+
 }

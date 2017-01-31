@@ -1,12 +1,7 @@
 <?php
-class StudentSubjectMatch {
+class StudentSubjectMatch extends BaseModel {
 
-	protected $_db = null;
 	protected $_name = 'student_subject_match';
-	
-	public function __construct() {
-		$this->_db = Zend_Registry::get('db');
-	}	
 	
 	public function getStudentSubjects($studentID = NUll){
 	

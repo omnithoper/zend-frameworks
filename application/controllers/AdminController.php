@@ -21,6 +21,8 @@ class AdminController extends Zend_Controller_Action  {
 	}	
 	
 	public function addAction() {
+		$session = new Session();
+		$session->getSession();
 		
 		if (isset($_POST['save'])){
 

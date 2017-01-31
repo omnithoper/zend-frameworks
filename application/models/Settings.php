@@ -1,12 +1,10 @@
 <?php
-class Settings {
+class Settings extends BaseModel {
 
-	protected $_db = null;
+
 	protected $_name = 'settings';
 
-	public function __construct() {
-		$this->_db = Zend_Registry::get('db');
-	}	
+
 	public function getViewSettings() {
 		/* other way to view data table
 		$fields = [
