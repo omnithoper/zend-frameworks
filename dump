@@ -1,3 +1,14 @@
+<<<<<<< HEAD
    {if (!empty($error))}
    <h4 class = "form-signin-heading">{$error}</h4>
    {/if}
+=======
+	<label>Student Name= <?php echo $studentName['first_name']; ?></label>
+	<label>invoice # = <?php echo $payment[0]['payment_id']; ?></label>
+	<label>amount paid=<?php echo $cash; ?></label>	
+	<label>change = <?php echo $payment[0]['change']; ?></label>
+	<label>transaction date= <?php echo $payment[0]['transaction_date']; ?></label>
+		<a href="/Payment/payed?paymentID=<?php echo $this->payment[0]['payment_id']; ?>" 
+		class="btn btn-success pull-right" title="payment">payed</a>
+	<div class="clearfix"></div>
+>>>>>>> 7583abd5c2f245b9eb5b12b98ae700e9143b099d

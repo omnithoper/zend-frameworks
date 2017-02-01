@@ -1,3 +1,4 @@
+
 <?php
 require_once 'Zend/Application.php';
 require_once 'Zend/Config/Ini.php';

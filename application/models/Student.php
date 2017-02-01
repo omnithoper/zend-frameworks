@@ -22,6 +22,7 @@ class Student extends BaseModel {
 
 	}
 	public function getViewStudents() {
+		
 		$semesterObject = new Semester();
 		$semDate = $semesterObject->getCurrentSemester();
 		$dateStart = $semDate[0]['date_start'];

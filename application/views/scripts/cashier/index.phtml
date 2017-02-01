@@ -1,0 +1,75 @@
+
+<script type='text/javascript' src='/js/cashier.js'></script>
+
+<nav id="searchStudent">
+	<div id="container">
+		<form  action="/Payment/" method="post">		
+			<h1>Student Name: <?php echo $this->studentName; ?> </h1>	
+		<a href="/enrollment/">(return)</a></br>	
+		<a href="/">(Main Menu)</a></br>	
+			<table class="table table-bordered table-condensed table-striped"> 
+				<tr>
+					<th>Subject ID</th>
+					<th>Subject</th>
+					<th>lecUnit</th>
+					<th>labUnit</th>
+					<th>Subject UNIT</th>
+				</tr>
+				<?php foreach ($this->allSubject AS $subject): ?>
+					<tr>
+						<td><?php echo $subject['subject_id']; ?></td>
+						<td><?php echo $subject['subject']; ?></td>
+						<td><?php echo $subject['lec_unit']; ?></td>
+						<td><?php echo $subject['lab_unit']; ?></td>
+						<td><?php echo $subject['subject_unit']; ?></td>
+					</tr>
+				<?php endforeach; ?>
+				<tr>
+					<td colspan="2"><span class="pull-right">Total Units</span></td>
+					<td> <label for="Total"><?php echo $this->totalLecUnit; ?></label>	</td>
+					<td> <label for="Total"><?php echo $this->totalLabUnit; ?></label>	</td>
+					<td > <label for="Total"><?php echo $this->totalUnit; ?></label>	</td>
+				</tr>	
+
+				<tr>
+					<td colspan="2"><span class="pull-right">Price</span></td>
+					<td> <label for="Price"><?php echo $this->totalLecUnitPrice; ?></label> </td>
+					<td> <label for="Price"><?php echo $this->totalLabUnitPrice; ?></label> </td>
+					<td> <label for="Price"><?php echo $this->totalUnitPrice; ?></label> </td>
+				</tr>
+				<tr>
+					<td colspan="4"><span class="pull-right">Miscellaneous</span></td>
+					<td>
+						<label for="Price"><?php echo $this->priceMisc; ?></label>	
+					</td>
+				</tr>
+				<tr>
+					<td colspan="4"><span class="pull-right">Total</span></td>
+					<td colspan="4">
+						<input id="amount" name="totalPrice" type="hidden" value="<?php echo $this->totalPrice; ?>"/>
+						<input id="student_id" name="studentID" type="hidden" value="<?php echo $this->studentID; ?>"/>
+						<label for="Price"><?php echo $this->totalPrice; ?></label>	
+					</td>
+				</tr>
+
+				<tr>
+					<td colspan="4"><span class="pull-right">Cash</span></td>
+					<td>
+						<input id="cash" name="cash" type="text" onblur="computeChange()" onchange="checkPayment();" />
+					</td>
+				</tr>
+				<tr id="change_display">
+					<td colspan="4"><span class="pull-right">Change</span></td>
+					<td>
+						<input id="change" name="change" type="text"  />
+					</td>
+				</tr>
+			</table>		
+			<button id="button_save" type="submit" class="btn btn-success pull-right" disabled >pay</button>
+
+			<div class="clearfix"></div>				
+		</form>
+	</div>		
+</nav>
+
+

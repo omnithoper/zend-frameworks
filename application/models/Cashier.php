@@ -42,4 +42,5 @@ class Cashier extends BaseModel{
 	}
 
 }	
+
 ?>	

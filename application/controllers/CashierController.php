@@ -40,4 +40,5 @@ class CashierController extends Zend_Controller_Action {
 		$this->view->totalPrice = $totalPrice;
 		}
 
+
 }	

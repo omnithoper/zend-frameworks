@@ -19,9 +19,10 @@ class LoginController extends Zend_Controller_Action {
 		if (!empty($_SESSION['login_user'])) {
 			unset($_SESSION['login_user']);
 		}
-		//session_write_close();
-		session_destroy();
+		session_write_close();
+		//session_destroy();
 	    header('Location: /');
 	}
+
 
 }
