@@ -12,5 +12,5 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 	    Zend_Registry::set('db', $db);
    
 	}
-	
+
 }

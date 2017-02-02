@@ -12,46 +12,42 @@ class Subject extends BaseModel {
 */
 
 
-	public function getLaboratoryUnits($studentID = null)
+	public function getLaboratoryUnits($studentID = null)	
 	{	
-		$select = "
-			SELECT
-				SUM(subjects.lab_unit) AS laboratory_units
-			FROM student_subject_match
-			JOIN subjects ON student_subject_match.subject_id = subjects.subject_id
-			WHERE student_subject_match.student_id = '".$studentID."'
-		";
-
-		$results = $this->_db->fetchAll($select);
-		return (empty($results))?0:$results[0]['laboratory_units'];		
-	}	
-	public function getLectureUnits($studentID = null)
-	{	
-		$select = "
-			SELECT
-				SUM(subjects.lec_unit) AS lecture_units
-			FROM student_subject_match
-			JOIN subjects ON student_subject_match.subject_id = subjects.subject_id
-			WHERE student_subject_match.student_id = '".$studentID."'
-		";
-
-		
-		$results = $this->_db->fetchAll($select);
-		return (empty($results))?0:$results[0]['lecture_units'];		
-	}
-	
-	public function getCurrentUnits($studentID = null)
-	{	// this is with zend db table with db connection
 		if (empty($studentID)) {
 			return 0;
 		}
-		$select = "
-			SELECT
-				SUM(subjects.subject_unit) AS total_units
-			FROM student_subject_match
-			JOIN subjects ON student_subject_match.subject_id = subjects.subject_id
-			WHERE student_subject_match.student_id = '".$studentID."'
-		";
+
+			
+		$select = $this->_db->select()
+			->from('student_subject_match', ['laboratory_units' => 'SUM(subjects.lab_unit)'])
+			->join('subjects', 'student_subject_match.subject_id = subjects.subject_id', [])
+			->where('student_subject_match.student_id = ?', $studentID)
+			;
+		return $this->_db->fetchOne($select);
+	}	
+	public function getLectureUnits($studentID = null)
+	{	
+		if (empty($studentID)) {
+			return 0;
+		}
+
+		
+		$select = $this->_db->select()
+			->from('student_subject_match', ['lecture_units' => 'SUM(subjects.lec_unit)'])
+			->join('subjects', 'student_subject_match.subject_id = subjects.subject_id', [])
+			->where('student_subject_match.student_id = ?', $studentID)
+			;
+		return $this->_db->fetchOne($select);
+			
+	}
+	
+	public function getCurrentUnits($studentID = null)
+	{	
+		if (empty($studentID)) {
+			return 0;
+		}
+
 
 		$select = $this->_db->select()
 			->from('student_subject_match', ['total_units' => 'SUM(subjects.subject_unit)'])
@@ -61,29 +57,6 @@ class Subject extends BaseModel {
 
 		return $this->_db->fetchOne($select);
 		
-		Zend_Debug::dump($result);
-		die();
-		/*
-		$studentID = empty($studentID)?0:$studentID;
-		$select = $this->_db->select()
-			->from('student_subject_match',[
-				"SUM(subjects.subject_unit) AS total_units"
-			])	
-
-			->join(
-				'subjects', 
-				'student_subject_match.subject_id = subjects.subject_id'
-
-				)
-			->where('student_subject_match.student_id = ?', $studentID)
-		;
-
-var_dump($this->_db->fetchAll($select));
- die("here");
-	*/	
- 
-		$results = $this->_db->fetchAll($select);
-		return (empty($results))?0:$results[0]['total_units'];	
 	}
 	public function getSubjectUnits($subjectID = null)
 	{
@@ -97,10 +70,10 @@ var_dump($this->_db->fetchAll($select));
 		return (empty($results))?0:$results[0]['subject_unit'];
 	}
 	public function getViewSubjects() {
-		#$select = $this->select()->from($this->_name);
-		$select = "SELECT * FROM subjects";
-		$select = $this->_db->query($select);
-		return $select->fetchAll(Zend_Db::FETCH_ASSOC);
+		$select = $this->_db->select()
+			->from($this->_name)
+			;	
+		return $this->_db->fetchAll($select);
 	}
 	
 	public function getSubjectDetails($subjectID) {
