@@ -11,9 +11,6 @@ class AdminController extends Zend_Controller_Action  {
 	public function detailsAction() {
 	
 		$adminID = Request::getParam('adminID');
-
-
-
 		$admin = new Admin();
 		$details = $admin->getAdminDetails($adminID);
 		echo Zend_Json::encode($details);
@@ -31,8 +28,6 @@ class AdminController extends Zend_Controller_Action  {
 			$admin = new Admin();
 			$admin->getAddAdmin($userName, sha1($password));
 		}
-
-
 	}
 
 	public function editAction() {

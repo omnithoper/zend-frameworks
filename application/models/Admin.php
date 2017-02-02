@@ -1,7 +1,10 @@
 <?php
-class Admin  extends BaseModel {
+class Admin  {
 	protected $_name = 'admin';
 	
+	public function __construct() {
+		$this->_db = Zend_Registry::get('db');
+	}
 	public function getViewAdmin() {
 		$select = $this->_db->select()
 		->from($this->_name)
@@ -51,7 +54,7 @@ class Admin  extends BaseModel {
 	}
 
 	
-	public function getUserPassword($userName, $password) {
+	public function getAdminUserPassword($userName, $password) {
 		if (empty($userName)) {
 			return [
 			'error' => 'Please input username and password',
@@ -71,12 +74,13 @@ class Admin  extends BaseModel {
 		;
 		
 		$result = $this->_db->fetchRow($select);
-	
-      	$count = count($result);
 
-		if($count == 1) {
+	    $count = count($result);
+
+		if(!empty($result)) {
 
 			$_SESSION['login_user'] = $userName;
+			$_SESSION['user_type'] = 'admin';
 
 			return [
 				'status' => true,

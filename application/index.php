@@ -11,7 +11,7 @@ $loader = Zend_Loader_Autoloader::getInstance();
 $loader->setFallbackAutoloader(true);
 
  Zend_Session::start();
-//session_start();
+
 $application = new Zend_Application('dev', APPLICATION_PATH.'/configuration/application.ini');
 $application->bootstrap();
 $application->run();

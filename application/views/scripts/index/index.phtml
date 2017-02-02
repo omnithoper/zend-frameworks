@@ -9,7 +9,9 @@
 <form>
 	<h1 align="center">Enrollent System</h1>
 	<div id="container"> 
-<?php echo 'test'; ?>
+<?php Zend_Debug::dump($_SESSION); ?>
+
+	<?php if (!empty($_SESSION['login_user']) &&  $_SESSION['user_type'] == 'admin' ): ?>
 		<table class="table table-bordered table-condensed table-striped"> 
 			<tr><td><a href="/students/" class="btn btn-block">View students</a></td></tr>
 			<tr><td><a href="/subjects/" class="btn btn-block">View subjects</a></td></tr>
@@ -19,5 +21,16 @@
 			<tr><td><a href="/income/" class="btn btn-block">Income</a></td></tr>
 			<tr><td><a href="/login/logout" class="btn btn-block">Log Out</a></td></tr>
 		</table>
+    <?php elseif (!empty($_SESSION['login_user']) &&  $_SESSION['user_type'] == 'student' ): ?>
+    	<table class="table table-bordered table-condensed table-striped"> 
+    		<tr><td><a href="/students/studentedit?student_id=<?php echo $_SESSION['student_id']; ?>" 
+    			class="btn btn-block title="edit Student"> 
+				change your password
+					</a></td></tr>
+			<tr><td><a href="/enrollment/" class="btn btn-block">Enroll</a></td></tr>
+			<tr><td><a href="/login/logout" class="btn btn-block">Log Out</a></td></tr>
+		</table>
+	<?php endif; ?>	
 	</div>
+
 </form>
