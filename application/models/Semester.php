@@ -233,6 +233,7 @@ class Semester extends BaseModel {
 			->where('? BETWEEN date_start AND date_end', $date)
 		;
 
+
 		return $this->_db->fetchAll($select);
 
 	}

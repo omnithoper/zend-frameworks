@@ -1,9 +1,6 @@
 <?php
 class StudentsController extends Zend_Controller_Action  {
 	public function indexAction() {
-		if (empty($_SESSION['login_user']) || $_SESSION['user_type'] == 'student' ) {
-			header('Location: /login');
-		}
 		$student = new Student();
 		$students = $student->getViewStudents(); 
 

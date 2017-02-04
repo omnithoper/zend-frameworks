@@ -69,9 +69,14 @@ class Student {
 		
 		$semesterObject = new Semester();
 		$semDate = $semesterObject->getCurrentSemester();
+
+		if (empty($semDate)) {
+			return false;
+		}
+
+
 		$dateStart = $semDate[0]['date_start'];
 		$dateEnd = $semDate[0]['date_end'];
-
 		$select = $this->_db->select()
 			->from('student', [
 				'student_id',

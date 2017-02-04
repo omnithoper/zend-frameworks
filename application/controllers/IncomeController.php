@@ -2,7 +2,6 @@
 class IncomeController extends Zend_Controller_Action  {
 
 	public function indexAction() {
-		
 		$semDate = Request::getParam('semDate');
 
 		$semester = new Semester();
