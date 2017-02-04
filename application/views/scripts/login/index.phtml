@@ -8,9 +8,9 @@
       <nav id="searchStudent"> 
          <div id = "container">
            <h2>Enter Username and Password</h2>
-   {if (!empty($error))}
-   <h4 class = "form-signin-heading">{$error}</h4>
-   {/if}
+   <?php if (!empty($this->error)):?>
+   <h4 class = "form-signin-heading"><?php $this->error; ?></h4>
+   <?php endif; ?>
    <input type = "text" class = "form-control" name = "username" placeholder = "username" required autofocus></br>
    <input type = "password" class = "form-control" name = "password" placeholder = "password" required autofocus>
    <button class = "btn btn-lg btn-primary btn-block" type = "submit" 

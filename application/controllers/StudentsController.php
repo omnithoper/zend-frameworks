@@ -1,6 +1,9 @@
 <?php
 class StudentsController extends Zend_Controller_Action  {
 	public function indexAction() {
+		if (empty($_SESSION['login_user']) || $_SESSION['user_type'] == 'student' ) {
+			header('Location: /login');
+		}
 		$student = new Student();
 		$students = $student->getViewStudents(); 
 
@@ -23,9 +26,13 @@ class StudentsController extends Zend_Controller_Action  {
 
 			$firstName = Request::getParam('first_name');
 			$lastName = Request::getParam('last_name');
+			$userName = Request::getParam('user_name');
+			$password = Request::getParam('password');
 			$data = array(
 		    	'first_name' => $firstName,
-		    	'last_name' => $lastName
+		    	'last_name' => $lastName,
+		    	'username' => $userName,
+		    	'password' => sha1($password),
 			);
 	
 			$student = new Student();
@@ -47,13 +54,41 @@ class StudentsController extends Zend_Controller_Action  {
 		if (isset($_POST['edit'])){
 			$firstName = Request::getParam('first_name');
 			$lastName = Request::getParam('last_name');
-
+			$userName = Request::getParam('user_name');
+			$password = Request::getParam('password');	
+		
 			$data = array(
 		    	'first_name' => $firstName,
-		    	'last_name' => $lastName
+		    	'last_name' => $lastName,
+		    	'username' => $userName,
+		    	'password' => sha1($password),
 			);
 
 			$edit = $student->getEditStudent($data, $firstName, $lastName, $studentID);
+			$this->view->students = $edit;
+
+		}
+
+	}
+
+	public function studenteditAction() {
+		$studentID = Request::getParam('student_id');
+
+		$student = new Student();
+		$details = $student->getStudentDetails($studentID);
+		$this->view->student = $details;
+		
+		$edit = [];
+		if (isset($_POST['edit'])){
+			$userName = Request::getParam('user_name');
+			$password = Request::getParam('password');	
+		
+			$data = array(
+		    	'username' => $userName,
+		    	'password' => sha1($password),
+			);
+
+			$edit = $student->getEditStudentUserPassword($data, $studentID);
 			$this->view->students = $edit;
 
 		}
@@ -93,3 +128,4 @@ class StudentsController extends Zend_Controller_Action  {
 	}
 
 }
+

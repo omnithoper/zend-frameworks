@@ -1,0 +1,32 @@
+
+
+<script type='text/javascript' src='/js/studentEditUserPassword.js'></script>
+
+<nav id="searchStudent">
+	<div id="container">
+		<div class="navbar">
+			<div class="navbar-inner">
+				<a class="brand" href="#">Edit Student</a>
+		
+				<form class="navbar-form pull-right">
+				  	<a type="button" class="btn" href="/index">return</a>
+				</form>
+			</div>
+		</div>
+		<?php if (!empty($this->students['error'])): ?>
+			<div>
+				<?php echo $this->students['error']; ?>
+		
+			</div>
+		<?php endif; ?> 
+		<div id="input" class="hide alert alert-danger"></div>
+		<form id="edit-student-form" method ="POST">
+	
+		<input class="input-medium" id ="user_name" type="text" name="user_name" value="<?php echo $this->student['username']; ?>"
+			 onchange="checkInput();"> User Name<br>
+		<input class="input-medium" id ="password" type="text" name="password" value="<?php echo $this->student['password']; ?>"
+			onchange="checkInput();"> Password <br>			
+			<input class="btn btn-default" id="button_save" type="submit" name="edit" value="save" disabled>
+		</form>
+	</div>
+</nav>	

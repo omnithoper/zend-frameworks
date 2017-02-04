@@ -37,4 +37,3 @@ class IncomeController extends Zend_Controller_Action  {
 		
 	}
 }		
-?>		

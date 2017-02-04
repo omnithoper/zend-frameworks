@@ -1,5 +1,5 @@
 <?php
-class SettingsController extends Zend_Controller_Action {
+class SettingsController extends Zend_Controller_Action  {
 
 	public function indexAction() {
 		date_default_timezone_set("Asia/Manila");

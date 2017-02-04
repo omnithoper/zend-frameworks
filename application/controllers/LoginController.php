@@ -1,48 +1,36 @@
 <?php
-class LoginController {
+class LoginController extends Zend_Controller_Action {
 	public function indexAction() {
-		$config = parse_ini_file('../application/configuration/application.ini');
-	//	$local = parse_ini_file('configuration/local.ini');
-	//	$config = array_merge($config, $local);
+
 
 	}
-
 	public function loginAction() {
-	    $myusername = Request::getParam('username');
-	    $mypassword = Request::getParam('password'); 
+	    $userName = Request::getParam('username');
+	    $password = Request::getParam('password'); 
+     	
+	    $admin = new Admin();
+	
+	    $result = $admin->getAdminUserPassword($userName, $password);
 
-	    $adminObject = new Admin();
-	    $result = $adminObject->getUserPassword($myusername, $mypassword); 
+ 		if (!$result['status']) {
+	    	$student = new Student();
+	    	$result = $student->getStudentUserPassword($userName, $password);
+		} 
+		
 	    $error = $result['error'];
-	    header('Location: /');
+	    $this->view->error = $error;
+	    header('Location: /index');
 	}
 	
 	public function logoutAction() {
 		if (!empty($_SESSION['login_user'])) {
 			unset($_SESSION['login_user']);
+			unset($_SESSION['user_type']);
 		}
-		session_destroy();
+		session_write_close();
+		//session_destroy();
 	    header('Location: /');
 	}
 
-	public function dispatch($controllerName, $actionName){
-		if (empty($controllerName)) {
-			$controllerName = 'login';
-		}
-		
-		if (empty($actionName)) {
-			$actionName = 'index';
-		}
-		
-		$config = parse_ini_file('../application/configuration/application.ini');
-		//$local = parse_ini_file('configuration/local.ini');
-		//$config = array_merge($config, $local);
-
-		$smarty = new Smarty();	
-	    $smarty->template_dir = $config['root'].'/views/scripts/';
-	    $smarty->compile_dir = $config['root'].'/compile/';
-		$smarty->display($controllerName.'/'.$actionName.'.'.'phtml');
-	
-	}	
 
 }

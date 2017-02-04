@@ -1,8 +1,9 @@
+
 <script src="/js/semester.js"></script>
 <nav id ="searchStudent">
 	<div id="container">
 	<form>
-		<a style="float:left" href="/">(Return)</a>
+		<a style="float:left" href="/index">(Return)</a>
 		<table class="table table-bordered table-condensed table-striped">
 			<tr>
 				<th>Number Of Allowed Units</th>
@@ -34,14 +35,13 @@
 				<th>Delete</th>
 			</tr>
 
+
 			<?php foreach ($this->semesters as $details):?>
-			<?php if ($details['date_start'] < $this->date && $details['date_end'] > $this->date): ?>
+				<?php if ($details['date_start'] < $this->date && $details['date_end'] > $this->date): ?>
 					<tr class="info" >
 					<?php else: ?>
 							<tr>
-					<?php endif ?>
-								
-		
+					<?php endif ?>					
 				<td align="center"><?php echo $details['semester_id']; ?></td>
 				<td align="center"><?php echo $details['date_start']; ?></td>
 				<td align="center"><?php echo $details['date_end']; ?></td>
