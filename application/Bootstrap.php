@@ -31,25 +31,16 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 	    $db = Zend_Db::factory('Pdo_Mysql', $config->resources->db->params->toArray());
 	    Zend_Registry::set('db', $db);
    		*/
-		$config = [];
+
 		if (file_exists(APPLICATION_PATH.'/configuration/application.ini')) {
-			$config = new Zend_Config_Ini(APPLICATION_PATH.'/configuration/application.ini', 'dev');
+			$config = new Zend_Config_Ini(APPLICATION_PATH.'/configuration/application.ini', 'dev', array('allowModifications'=>true));
 		}
 		
-		/*
-		$config_extended = [];
 		if (file_exists(APPLICATION_PATH.'/configuration/local.ini')) {
-			$config_extended = new Zend_Config_Ini(APPLICATION_PATH.'/configuration/local.ini');
+			$config_extended = new Zend_Config_Ini(APPLICATION_PATH.'/configuration/local.ini', 'dev');
 			$config->merge($config_extended);
 		}
-		*/
-		#echo '<pre>';
 		
-		// to past the content of application.ini 
-	    // $config = new Zend_Config($this->getOptions());
-	    #$config = new Zend_Config($config->toArray());
-		#var_dump($config->resources->db->params->toArray());
-		#die("here");
 	    $db = Zend_Db::factory('Pdo_Mysql', $config->resources->db->params->toArray());
 	    Zend_Registry::set('db', $db);
 	}
