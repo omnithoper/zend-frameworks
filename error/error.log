@@ -31789,3 +31789,65 @@ Stack trace:
 #5 {main}
 
 Next exception 'Zend_Controller_Exception' with message 'Invalid controller specified (error)#0 C:\wamp\bin\php\php5.6.25\ext\Zend\Controller\Front.php(954): Zend_Controller_Dispatcher_Standard->dispatch(Object(Zend_Cont in C:\wamp\bin\php\php5.6.25\ext\Zend\Controller\Plugin\Broker.php on line 336
+[05-Feb-2017 14:26:47 UTC] PHP Strict standards:  Declaration of GlobalControllerPlugin::preDispatch() should be compatible with Zend_Controller_Plugin_Abstract::preDispatch(Zend_Controller_Request_Abstract $request) in C:\Users\omnithopter\Documents\zendgit\application\models\GlobalControllerPlugin.php on line 13
+[05-Feb-2017 14:26:48 UTC] PHP Stack trace:
+[05-Feb-2017 14:26:50 UTC] PHP   1. {main}() C:\Users\omnithopter\Documents\zendgit\public\index.php:0
+[05-Feb-2017 14:26:52 UTC] PHP   2. include() C:\Users\omnithopter\Documents\zendgit\public\index.php:1
+[05-Feb-2017 14:26:54 UTC] PHP   3. Zend_Application->bootstrap() C:\Users\omnithopter\Documents\zendgit\application\index.php:16
+[05-Feb-2017 14:26:56 UTC] PHP   4. Zend_Application_Bootstrap_BootstrapAbstract->bootstrap() C:\wamp\bin\php\php5.6.25\ext\Zend\Application.php:355
+[05-Feb-2017 14:26:58 UTC] PHP   5. Zend_Application_Bootstrap_BootstrapAbstract->_bootstrap() C:\wamp\bin\php\php5.6.25\ext\Zend\Application\Bootstrap\BootstrapAbstract.php:586
+[05-Feb-2017 14:27:00 UTC] PHP   6. Zend_Application_Bootstrap_BootstrapAbstract->_executeResource() C:\wamp\bin\php\php5.6.25\ext\Zend\Application\Bootstrap\BootstrapAbstract.php:622
+[05-Feb-2017 14:27:01 UTC] PHP   7. Bootstrap->_initGlobalPlugin() C:\wamp\bin\php\php5.6.25\ext\Zend\Application\Bootstrap\BootstrapAbstract.php:669
+[05-Feb-2017 14:27:03 UTC] PHP   8. spl_autoload_call() C:\wamp\bin\php\php5.6.25\ext\Zend\Application\Bootstrap\BootstrapAbstract.php:18
+[05-Feb-2017 14:27:05 UTC] PHP   9. Zend_Loader_Autoloader::autoload() C:\wamp\bin\php\php5.6.25\ext\Zend\Application\Bootstrap\BootstrapAbstract.php:18
+[05-Feb-2017 14:27:07 UTC] PHP  10. call_user_func:{C:\wamp\bin\php\php5.6.25\ext\Zend\Loader\Autoloader.php:124}() C:\wamp\bin\php\php5.6.25\ext\Zend\Loader\Autoloader.php:124
+[05-Feb-2017 14:27:10 UTC] PHP  11. Zend_Loader_Autoloader->_autoload() C:\wamp\bin\php\php5.6.25\ext\Zend\Loader\Autoloader.php:124
+[05-Feb-2017 14:27:11 UTC] PHP  12. call_user_func:{C:\wamp\bin\php\php5.6.25\ext\Zend\Loader\Autoloader.php:479}() C:\wamp\bin\php\php5.6.25\ext\Zend\Loader\Autoloader.php:479
+[05-Feb-2017 14:27:13 UTC] PHP  13. Zend_Loader::loadClass() C:\wamp\bin\php\php5.6.25\ext\Zend\Loader\Autoloader.php:479
+[05-Feb-2017 14:27:17 UTC] PHP  14. Zend_Loader::loadFile() C:\wamp\bin\php\php5.6.25\ext\Zend\Loader.php:94
+[05-Feb-2017 14:27:25 UTC] PHP Strict standards:  Declaration of GlobalControllerPlugin::preDispatch() should be compatible with Zend_Controller_Plugin_Abstract::preDispatch(Zend_Controller_Request_Abstract $request) in C:\Users\omnithopter\Documents\zendgit\application\models\GlobalControllerPlugin.php on line 13
+[05-Feb-2017 14:27:28 UTC] PHP Stack trace:
+[05-Feb-2017 14:27:31 UTC] PHP   1. {main}() C:\Users\omnithopter\Documents\zendgit\public\index.php:0
+[05-Feb-2017 14:27:34 UTC] PHP   2. include() C:\Users\omnithopter\Documents\zendgit\public\index.php:1
+[05-Feb-2017 14:27:36 UTC] PHP   3. Zend_Application->bootstrap() C:\Users\omnithopter\Documents\zendgit\application\index.php:16
+[05-Feb-2017 14:27:39 UTC] PHP   4. Zend_Application_Bootstrap_BootstrapAbstract->bootstrap() C:\wamp\bin\php\php5.6.25\ext\Zend\Application.php:355
+[05-Feb-2017 14:27:41 UTC] PHP   5. Zend_Application_Bootstrap_BootstrapAbstract->_bootstrap() C:\wamp\bin\php\php5.6.25\ext\Zend\Application\Bootstrap\BootstrapAbstract.php:586
+[05-Feb-2017 14:27:43 UTC] PHP   6. Zend_Application_Bootstrap_BootstrapAbstract->_executeResource() C:\wamp\bin\php\php5.6.25\ext\Zend\Application\Bootstrap\BootstrapAbstract.php:622
+[05-Feb-2017 14:27:45 UTC] PHP   7. Bootstrap->_initGlobalPlugin() C:\wamp\bin\php\php5.6.25\ext\Zend\Application\Bootstrap\BootstrapAbstract.php:669
+[05-Feb-2017 14:27:47 UTC] PHP   8. spl_autoload_call() C:\wamp\bin\php\php5.6.25\ext\Zend\Application\Bootstrap\BootstrapAbstract.php:18
+[05-Feb-2017 14:27:50 UTC] PHP   9. Zend_Loader_Autoloader::autoload() C:\wamp\bin\php\php5.6.25\ext\Zend\Application\Bootstrap\BootstrapAbstract.php:18
+[05-Feb-2017 14:27:52 UTC] PHP  10. call_user_func:{C:\wamp\bin\php\php5.6.25\ext\Zend\Loader\Autoloader.php:124}() C:\wamp\bin\php\php5.6.25\ext\Zend\Loader\Autoloader.php:124
+[05-Feb-2017 14:27:54 UTC] PHP  11. Zend_Loader_Autoloader->_autoload() C:\wamp\bin\php\php5.6.25\ext\Zend\Loader\Autoloader.php:124
+[05-Feb-2017 14:27:56 UTC] PHP  12. call_user_func:{C:\wamp\bin\php\php5.6.25\ext\Zend\Loader\Autoloader.php:479}() C:\wamp\bin\php\php5.6.25\ext\Zend\Loader\Autoloader.php:479
+[05-Feb-2017 14:27:58 UTC] PHP  13. Zend_Loader::loadClass() C:\wamp\bin\php\php5.6.25\ext\Zend\Loader\Autoloader.php:479
+[05-Feb-2017 14:28:00 UTC] PHP  14. Zend_Loader::loadFile() C:\wamp\bin\php\php5.6.25\ext\Zend\Loader.php:94
+[05-Feb-2017 14:28:02 UTC] PHP Warning:  Cannot modify header information - headers already sent by (output started at C:\Users\omnithopter\Documents\zendgit\application\models\GlobalControllerPlugin.php:13) in C:\Users\omnithopter\Documents\zendgit\application\models\GlobalControllerPlugin.php on line 10
+[05-Feb-2017 14:28:03 UTC] PHP Stack trace:
+[05-Feb-2017 14:28:04 UTC] PHP   1. {main}() C:\Users\omnithopter\Documents\zendgit\public\index.php:0
+[05-Feb-2017 14:28:06 UTC] PHP   2. include() C:\Users\omnithopter\Documents\zendgit\public\index.php:1
+[05-Feb-2017 14:28:07 UTC] PHP   3. Zend_Application->run() C:\Users\omnithopter\Documents\zendgit\application\index.php:17
+[05-Feb-2017 14:28:09 UTC] PHP   4. Zend_Application_Bootstrap_Bootstrap->run() C:\wamp\bin\php\php5.6.25\ext\Zend\Application.php:366
+[05-Feb-2017 14:28:10 UTC] PHP   5. Zend_Controller_Front->dispatch() C:\wamp\bin\php\php5.6.25\ext\Zend\Application\Bootstrap\Bootstrap.php:97
+[05-Feb-2017 14:28:12 UTC] PHP   6. Zend_Controller_Plugin_Broker->preDispatch() C:\wamp\bin\php\php5.6.25\ext\Zend\Controller\Front.php:941
+[05-Feb-2017 14:28:15 UTC] PHP   7. GlobalControllerPlugin->preDispatch() C:\wamp\bin\php\php5.6.25\ext\Zend\Controller\Plugin\Broker.php:309
+[05-Feb-2017 14:28:17 UTC] PHP   8. header() C:\Users\omnithopter\Documents\zendgit\application\models\GlobalControllerPlugin.php:10
+[05-Feb-2017 14:28:20 UTC] PHP Warning:  Cannot modify header information - headers already sent by (output started at C:\Users\omnithopter\Documents\zendgit\application\models\GlobalControllerPlugin.php:13) in C:\Users\omnithopter\Documents\zendgit\application\models\GlobalControllerPlugin.php on line 10
+[05-Feb-2017 14:28:22 UTC] PHP Stack trace:
+[05-Feb-2017 14:28:23 UTC] PHP   1. {main}() C:\Users\omnithopter\Documents\zendgit\public\index.php:0
+[05-Feb-2017 14:28:25 UTC] PHP   2. include() C:\Users\omnithopter\Documents\zendgit\public\index.php:1
+[05-Feb-2017 14:28:28 UTC] PHP   3. Zend_Application->run() C:\Users\omnithopter\Documents\zendgit\application\index.php:17
+[05-Feb-2017 14:28:30 UTC] PHP   4. Zend_Application_Bootstrap_Bootstrap->run() C:\wamp\bin\php\php5.6.25\ext\Zend\Application.php:366
+[05-Feb-2017 14:28:32 UTC] PHP   5. Zend_Controller_Front->dispatch() C:\wamp\bin\php\php5.6.25\ext\Zend\Application\Bootstrap\Bootstrap.php:97
+[05-Feb-2017 14:28:34 UTC] PHP   6. Zend_Controller_Plugin_Broker->preDispatch() C:\wamp\bin\php\php5.6.25\ext\Zend\Controller\Front.php:941
+[05-Feb-2017 14:28:37 UTC] PHP   7. GlobalControllerPlugin->preDispatch() C:\wamp\bin\php\php5.6.25\ext\Zend\Controller\Plugin\Broker.php:309
+[05-Feb-2017 14:28:40 UTC] PHP   8. header() C:\Users\omnithopter\Documents\zendgit\application\models\GlobalControllerPlugin.php:10
+[05-Feb-2017 14:28:43 UTC] PHP Fatal error:  Uncaught exception 'Zend_Controller_Dispatcher_Exception' with message 'Invalid controller specified (error)' in C:\wamp\bin\php\php5.6.25\ext\Zend\Controller\Dispatcher\Standard.php:248
+Stack trace:
+#0 C:\wamp\bin\php\php5.6.25\ext\Zend\Controller\Front.php(954): Zend_Controller_Dispatcher_Standard->dispatch(Object(Zend_Controller_Request_Http), Object(Zend_Controller_Response_Http))
+#1 C:\wamp\bin\php\php5.6.25\ext\Zend\Application\Bootstrap\Bootstrap.php(97): Zend_Controller_Front->dispatch()
+#2 C:\wamp\bin\php\php5.6.25\ext\Zend\Application.php(366): Zend_Application_Bootstrap_Bootstrap->run()
+#3 C:\Users\omnithopter\Documents\zendgit\application\index.php(17): Zend_Application->run()
+#4 C:\Users\omnithopter\Documents\zendgit\public\index.php(1): include('C:\\Users\\omnith...')
+#5 {main}
+
+Next exception 'Zend_Controller_Exception' with message 'Invalid controller specified (error)#0 C:\wamp\bin\php\php5.6.25\ext\Zend\Controller\Front.php(954): Zend_Controller_Dispatcher_Standard->dispatch(Object(Zend_Cont in C:\wamp\bin\php\php5.6.25\ext\Zend\Controller\Plugin\Broker.php on line 336
