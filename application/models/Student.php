@@ -1,11 +1,8 @@
 <?php
-class Student {
+class Student extends BaseModel {
 
 	protected $_name = 'student';
-	public function __construct() {
-		$this->_db = Zend_Registry::get('db');
-	
-	}	
+		
 	public function getStudentDetails($studentID) {
 		$select = $this->_db->select()
 			->from($this->_name)
@@ -24,59 +21,12 @@ class Student {
 		return $this->_db->fetchRow($select);
 
 	}
-
-	public function getStudentUserPassword($userName, $password) {
-		if (empty($userName)) {
-			return [
-			'error' => 'Please input username and password',
-			];	
-		}
-
-		if (empty($password)) {
-			return [
-			'error' => 'Please input username and password',
-			];	
-		}
-
-		$select = $this->_db->select()
-			->from($this->_name, ['student_id'] )
-			->where('username = ?' , $userName )
-			->where('password = ?' , sha1($password) ) 
-		;
-		
-		$result = $this->_db->fetchAll($select);
-      	$count = count($result);
-
-		if($count == 1) {
-			
-			$_SESSION['login_user'] = $userName;
-			$_SESSION['user_type'] = 'student';
-			$_SESSION['student_id'] = $result[0]['student_id'];
-
-			return [
-				'status' => true,
-				'error' => null
-			];
-		} else {
-			return [			
-				'status' => false,
-		  		'error' => 'Your Login Name or Password is invalid'
-			];
-		}
-	}   
-
 	public function getViewStudents() {
-		
 		$semesterObject = new Semester();
 		$semDate = $semesterObject->getCurrentSemester();
-
-		if (empty($semDate)) {
-			return false;
-		}
-
-
 		$dateStart = $semDate[0]['date_start'];
 		$dateEnd = $semDate[0]['date_end'];
+
 		$select = $this->_db->select()
 			->from('student', [
 				'student_id',
@@ -163,7 +113,21 @@ class Student {
 		return $students = $this->_db->fetchAll($select);
 
 	}
-	
+	public function getAllStudentStudentID($studentID) {
+		
+			$select = $this->_db->select()
+			->from('student', [
+				'student_id',
+				'first_name',
+				'last_name'
+			])
+
+			->where('student_id = ?', $studentID)
+		;
+
+	return $students = $this->_db->fetchAll($select);
+
+	}
 	public function studentExist($firstName, $lastName, $studentID = null) {
 		
 		$select = $this->_db->select()
@@ -215,12 +179,6 @@ class Student {
 		
 		header("Location: /students");
 	}
-	public function getEditStudentUserPassword($data, $studentID) {
-	
-		$this->_db->update($this->_name, $data, "student_id =  '$studentID'");
-		
-		header("Location: /index");
-	}
 
 
 	public function getDeleteStudent($studentID) {
@@ -230,4 +188,44 @@ class Student {
 
 		header("Location: /students");
 	}
+	
+	public function getStudentUserPassword($userName, $password) {
+ 		if (empty($userName)) {
+ 			return [
+ 			'error' => 'Please input username and password',
+ 			];	
+ 		}
+ 
+ 		if (empty($password)) {
+ 			return [
+ 			'error' => 'Please input username and password',
+ 			];	
+ 		}
+ 
+ 		$select = $this->_db->select()
+ 			->from($this->_name, ['student_id'] )
+ 			->where('username = ?' , $userName )
+ 			->where('password = ?' , sha1($password) ) 
+ 		;
+ 		
+ 		$result = $this->_db->fetchAll($select);
+       	$count = count($result);
+ 
+ 		if($count == 1) {
+ 			
+ 			$_SESSION['login_user'] = $userName;
+ 			$_SESSION['user_type'] = 'student';
+ 			$_SESSION['student_id'] = $result[0]['student_id'];
+ 
+ 			return [
+ 				'status' => true,
+ 				'error' => null
+ 			];
+ 		} else {
+ 			return [			
+ 				'status' => false,
+ 		  		'error' => 'Your Login Name or Password is invalid'
+ 			];
+ 		}
+ 	}   
 }

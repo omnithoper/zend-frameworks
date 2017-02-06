@@ -3,9 +3,11 @@
 	<div id="container">
 		<form action ="/enrollment" Method="POST">
 				<h1>Student Name</h1>
+			<?php if (empty($_SESSION['student_id'])): ?>		
 				Name:<input type="text" name="studentName">
 				<input type="submit" name="search" value="search">
-				<button type="submit"><a href="/index">Back</a></button></br>	
+			<?php endif; ?>	
+						<button type="submit"><a href="/index">Back</a></button></br>	
 				<?php if (!empty($this->students[1]) && empty($selectedStudent)): ?>
 					<ul>
 

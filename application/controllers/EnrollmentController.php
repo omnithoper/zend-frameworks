@@ -4,6 +4,7 @@ class EnrollmentController extends Zend_Controller_Action {
 
 		$studentName = Request::getParam('studentName');
 		$studentID = Request::getParam('studentID');
+		$sessionStudentID = (!empty($_SESSION['student_id']))?$_SESSION['student_id']:null;
 		$getSubjectID = Request::getParam('getSubjectID');
 		$subjectID = Request::getParam('subjectID');
 	
@@ -14,8 +15,12 @@ class EnrollmentController extends Zend_Controller_Action {
 
 		$subject = $subjects->getViewSubjects();
 		#Zend_Debug::dump($subject); die();
-
-		$students = $student->getAllStudentInformation($studentName);
+		if (!empty($sessionStudentID)) {
+			$students = $student->getAllStudentStudentID($sessionStudentID);
+		}
+		else { 
+			$students = $student->getAllStudentInformation($studentName);
+		}
 		$selectedStudent = $student->getViewStudent($studentID);
 		#Zend_Debug::dump($students); die();
 

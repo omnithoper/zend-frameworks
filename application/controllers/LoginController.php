@@ -26,6 +26,7 @@ class LoginController extends Zend_Controller_Action {
 		if (!empty($_SESSION['login_user'])) {
 			unset($_SESSION['login_user']);
 			unset($_SESSION['user_type']);
+			unset($_SESSION['student_id']);
 		}
 		session_write_close();
 		//session_destroy();
