@@ -75,6 +75,31 @@ class Subject extends BaseModel {
 			;	
 		return $this->_db->fetchAll($select);
 	}
+
+	public function getListSubjects($studentID) {
+
+		if (empty($studentID)) {
+			return false;
+		}
+			$select = $this->_db->select()
+			->from($this->_name)
+			->joinRight(
+				'student_subject_match', 
+				'student_subject_match.subject_id = subjects.subject_id'
+			)
+			->where('student_subject_match.student_id = ?', $studentID)
+
+		;
+		
+		/*
+		$select = $this->_db->select()
+			->from($this->_name)
+			;
+			*/	
+		Zend_Debug::dump($this->_db->fetchAll($select));
+		die("here");
+		return $this->_db->fetchAll($select);
+	}
 	
 	public function getSubjectDetails($subjectID) {
 		$select = $this->_db->select()

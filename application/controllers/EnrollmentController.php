@@ -13,7 +13,7 @@ class EnrollmentController extends Zend_Controller_Action {
 		$studentSubject = new StudentSubjectMatch();
 		$student = new Student();
 
-		$subject = $subjects->getViewSubjects();
+
 		#Zend_Debug::dump($subject); die();
 		if (!empty($sessionStudentID)) {
 			$students = $student->getAllStudentStudentID($sessionStudentID);
@@ -34,7 +34,8 @@ class EnrollmentController extends Zend_Controller_Action {
 		if (Request::getParam('action') == 'delete') {
 			$delete = $studentSubject->getDeleteSubject($studentID, $subjectID);
 		}
-
+		$subject = $subjects->getListSubjects($studentID);
+	
 		$allSubject = $studentSubject->getStudentSubjects($studentID);
 		$totalUnit = $subjects->getCurrentUnits($studentID);
 		$isStudentPayed = $student->isStudentPayed($studentID);
