@@ -26,7 +26,25 @@ class Student extends BaseModel {
 		$semDate = $semesterObject->getCurrentSemester();
 		$dateStart = $semDate[0]['date_start'];
 		$dateEnd = $semDate[0]['date_end'];
-
+/*
+ 		$select = "
+ 			SELECT
+ 				student.student_id,
+ 				student.first_name,
+ 				student.last_name,
+ 				payment.transaction_date,
+ 				payment.payment,
+ 		
+ 				IF(payment.payment = '1', 'paid', 'not yet paid' ) AS payed
+ 			FROM student
+ 			LEFT JOIN payment ON student.student_id = payment.student_id 
+ 			AND payment.transaction_date BETWEEN '$dateStart' AND '$dateEnd'
+ 	
+ 		";
+ 
+ 		$result = $this->_db->fetchAll($select);
+*/
+		
 		$select = $this->_db->select()
 			->from('student', [
 				'student_id',
@@ -52,11 +70,13 @@ class Student extends BaseModel {
 			}			
 			$result[] = $student;		
 		}
+		
 		return $result;
 	}
 
 
 	public function isStudentPayed($studentID = NULL) {
+
 		$semesterObject = new Semester();
 		$semDate = $semesterObject->getCurrentSemester();
 
@@ -84,7 +104,7 @@ class Student extends BaseModel {
 			)
 			->where('student.student_id = ?', $studentID)
 		;
-
+		
 		return $students = $this->_db->fetchAll($select);
 
 	}

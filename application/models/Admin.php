@@ -1,10 +1,8 @@
 <?php
-class Admin  {
+class Admin extends BaseModel {
 	protected $_name = 'admin';
 	
-	public function __construct() {
-		$this->_db = Zend_Registry::get('db');
-	}
+
 	public function getViewAdmin() {
 		$select = $this->_db->select()
 		->from($this->_name)

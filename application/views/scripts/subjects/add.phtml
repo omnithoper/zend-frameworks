@@ -1,21 +1,31 @@
 		
-<head>
+
 	<script type='text/javascript' src='../../../../js/subjectAdd.js'></script>
-</head>
+
 		<h1 align="center">Add Subject</h1>
 		
-<form method="post">
+
 <nav id ="searchStudent">
 	<div id="container">
-
+	<div id="container">
+		<div class="navbar">
+			<div class="navbar-inner">
+				<a class="brand" href="#">Add Subjects</a>
+		
+				<form class="navbar-form pull-right">
+				  	<a type="button" class="btn" href="/subjects">return</a>
+				</form>
+			</div>
+		</div>
 		<h3 id="input"></h3>
+<form method="post">		
 		<input id="subject" type="text" name="subject" onchange="checkInput();" /> Subject<br/>
 		<input id="lec_unit" type="text" name="lec_unit" /> Lecture Unit<br/>
 		<input id="lab_unit" type="text" name="lab_unit" /> Laboratory Unit<br/>
 		<input id="subject_unit" type="text" name="subject_unit" onchange="checkInput();" /> Subject
 		 Unit<br/>
 		<input class="btn" id="button_save" type="submit" name="save" value="save" value="save" disabled>
-		<a style="float:right" href="/subjects">(Return)</a>
+
 	</div>
 </nav>	
 </form>

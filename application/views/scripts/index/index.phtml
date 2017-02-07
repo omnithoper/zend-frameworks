@@ -9,7 +9,6 @@
 <form>
 	<h1 align="center">Enrollent System</h1>
 	<div id="container"> 
-<?php Zend_Debug::dump($_SESSION); ?>
 
 	<?php if (!empty($_SESSION['login_user']) &&  $_SESSION['user_type'] == 'admin' ): ?>
 		<table class="table table-bordered table-condensed table-striped"> 

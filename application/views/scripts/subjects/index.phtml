@@ -1,18 +1,25 @@
 
-    <script src="/js/subjects.js"></script>
+<script src="/js/subjects.js"></script>
 
-		<h1 align="center">Subject Records</h1>
-
-<form>
-	     <div id="container">
+	<h1 align="center">Subject Records</h1>
 
 
-		<a style="float:left" href="/index">(Return)</a>
+	<div id="container">
+		<div class="navbar">
+			<div class="navbar-inner">
+				<a class="brand" href="#">View Subjects</a>
+		
+				<form class="navbar-form pull-right">
+				  	<a type="button" class="btn" href="/index">return</a>
+				</form>
+			</div>
+		</div>
 		<a class="pull-right btn btn-success "  type="submit" href="/subjects/add"><i class="icon icon-plus"></i></a>
 
 	<?php if (empty($this->subjects)): ?>
 			<div class="alert alert-info">No subject yet</div>
 	<?php else: ?>
+<form>
 	<table class="table table-bordered table-condensed table-striped">
 			<tr>
 				<th>id</th>

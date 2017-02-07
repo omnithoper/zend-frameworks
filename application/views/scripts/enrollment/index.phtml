@@ -1,13 +1,22 @@
 <script type='text/javascript' src='/js/student_enroly.js'></script>
 <nav id="searchStudent">
 	<div id="container">
+		<div class="navbar">
+			<div class="navbar-inner">
+				<a class="brand" href="#">Enrollment</a>
+		
+				<form class="navbar-form pull-right">
+				  	<a type="button" class="btn" href="/index">return</a>
+				</form>
+			</div>
+		</div>
 		<form action ="/enrollment" Method="POST">
 				<h1>Student Name</h1>
 			<?php if (empty($_SESSION['student_id'])): ?>		
 				Name:<input type="text" name="studentName">
 				<input type="submit" name="search" value="search">
 			<?php endif; ?>	
-						<button type="submit"><a href="/index">Back</a></button></br>	
+				</br>	
 				<?php if (!empty($this->students[1]) && empty($selectedStudent)): ?>
 					<ul>
 

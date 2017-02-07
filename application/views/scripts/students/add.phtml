@@ -1,9 +1,17 @@
 
 	<script type='text/javascript' src='/js/studentAdd.js'></script>
 
-<form id="add-student-form" method ="POST">
 <nav id ="searchStudent">
 	<div id="container"> 
+		<div class="navbar">
+			<div class="navbar-inner">
+				<a class="brand" href="#">Add Students</a>
+		
+				<form class="navbar-form pull-right">
+				  	<a type="button" class="btn" href="/students">return</a>
+				</form>
+			</div>
+		</div>
 		<h1>Add Student</h1>
 		<?php if (!empty($this->students['error'])): ?>
 				<div>
@@ -11,13 +19,13 @@
 				
 				</div>
 			<?php endif; ?> 
+		<form id="add-student-form" method ="POST">	
 		<h3 id="input"></h3>
 		<input id="first_name" type="text" name="first_name" onchange="checkInput();" /> First Name<br/>
 		<input id="last_name" type="text" name="last_name" onchange="checkInput();" /> Last Name<br/>
 		<input id="user_name" type="text" name="user_name" onchange="checkInput();" /> User Name<br/>
 		<input id="password" type="text" name="password" onchange="checkInput();" /> Password<br/>
 		<input class="btn" id="button_save" type="submit" name="save" value="save" disabled />		
-		<a style="float:right" href="/students">(Return)</a>
 	</div>
 </nav>	
 </form>

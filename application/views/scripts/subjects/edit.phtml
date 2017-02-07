@@ -1,9 +1,19 @@
 
-<form  method ="POST">
+
 	<nav id="searchStudent">
 		<div id="container">
+		<div class="navbar">
+			<div class="navbar-inner">
+				<a class="brand" href="#">Edit Subjects</a>
+		
+				<form class="navbar-form pull-right">
+				  	<a type="button" class="btn" href="/subjects">return</a>
+				</form>
+			</div>
+		</div>
 			<h1>Edit Subject</h1>
 			<h3 id="input"></h3> 
+<form  method ="POST">
 			<input type="hidden" name="subject_id" value=""/>
 			<input id="subject" type="text" name="subject" value="<?php echo $this->subject['subject']; ?>" 
 			onchange="checkInput();">Subject<br>
@@ -14,7 +24,7 @@
 			<input id="subject_unit" type="text" name="subject_unit" value="<?php echo $this->subject['subject_unit']; ?>"
 			onchange="checkInput();">Subject Unit<br>
 			<input id="button_save" type="submit" name="edit" value="save" disabled>
-			<a style="float:right" href="/subjects">(Return)</a>
+		
 		</div>
 	</nav>		
 </form>
