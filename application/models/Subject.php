@@ -81,21 +81,17 @@ class Subject extends BaseModel {
 		if (empty($studentID)) {
 			return false;
 		} 
-		/*
 			$select = $this->_db->select()
-			->from($this->_name)
-			->joinLeft(
-				'student_subject_match', 
-				'student_subject_match.subject_id = subjects.subject_id'
+			->from('student_subject_match')
+			->joinRight(
+				'subjects', 
+				'student_subject_match.subject_id = subjects.subject_id AND
+				student_subject_match.student_id = "'.$studentID.'"'
 			)
-			->where('student_subject_match.student_id = ?', $studentID)
+			->where('student_subject_match.student_id IS NULL')
 		;
-		*/
 		
-		$select = $this->_db->select()
-			->from($this->_name)
-			;
-
+	
 		return $this->_db->fetchAll($select);
 	}
 	
