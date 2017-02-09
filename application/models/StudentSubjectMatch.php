@@ -2,7 +2,14 @@
 class StudentSubjectMatch extends BaseModel {
 
 	protected $_name = 'student_subject_match';
-	
+	public function getStudentSubjectDetails($studentID,$subjectID) {
+		$select = $this->_db->select()
+			->from($this->_name)
+			->where('student_id = ?', $studentID)
+			->where('subject_id = ?', $subjectID )
+		;
+		return $this->_db->fetchRow($select);
+	}
 	public function getStudentSubjects($studentID = NUll){
 	
 		if (empty($studentID)) {
@@ -18,6 +25,7 @@ class StudentSubjectMatch extends BaseModel {
 			->where('student_subject_match.student_id = ?' , $studentID )
 
 		;
+
 		return $this->_db->fetchAll($select);
 	
 	}
@@ -66,6 +74,15 @@ class StudentSubjectMatch extends BaseModel {
 		$this->_db->insert($this->_name, $data);
 		
 
+	}
+
+		public function getEditStudentGrade($data, $studentID, $subjectID) {
+
+		$where['student_id = ?'] = $studentID;
+		$where['subject_id = ?']  = $subjectID;
+		$this->_db->update($this->_name, $data, $where);
+		
+		header("Location: /studentgrade");
 	}
 		function getDeleteSubject($studentID, $subjectID) {
 	

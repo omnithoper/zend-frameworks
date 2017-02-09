@@ -1,0 +1,16 @@
+
+<form  method ="POST">
+<nav id ="searchStudent">
+	<div id="container"> 
+		<h1>Student Grade</h1>
+
+		<h3 id="input"></h3>
+		<input type="text" name="mid_term" " value="<?php echo $this->student['mid_term']; ?>" /> Mid Term Grade<br/>
+		<input type="text" name="final_term" " value="<?php echo $this->student['final_term']; ?>"/>  Final Term Grade<br/> 
+		
+		<input class="btn" id="button_save" type="submit" name="edit" value="save" />		
+		<a style="float:right" href="/studentgrade">(Return)</a>
+	</div>
+</nav>
+</form>	
+

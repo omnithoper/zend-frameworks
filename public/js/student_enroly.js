@@ -1,3 +1,4 @@
+
 function checkSubjectName() {
 
 	var subjectName = document.getElementById('subject_list').value;
@@ -28,3 +29,4 @@ function checkSubjectName() {
 document.onload = function(){
 checkInput();
 };
+

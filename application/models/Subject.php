@@ -91,7 +91,6 @@ class Subject extends BaseModel {
 			->where('student_subject_match.student_id IS NULL')
 		;
 		
-	
 		return $this->_db->fetchAll($select);
 	}
 	

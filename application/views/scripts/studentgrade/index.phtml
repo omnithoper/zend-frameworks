@@ -1,0 +1,169 @@
+<script type='text/javascript' src='/js/student_enroly.js'></script>
+  <script src="/js/studentSubject.js"></script>
+
+ <script type="text/javascript">
+	$(document).ready(function() {
+
+		$("#show").click(function() {
+			alert("html:" + $("#test").html());
+			$("#test1").text("hello world");
+			$(".navbar").show();
+			$("table").show();	
+		});
+
+		$("#hide").click(function() {
+			alert("text:" + $("#test").text());
+			$("#test2").html("<b>hello world</b>");
+			$("#test").remove();
+			$("#test1").remove();
+			$("#test2").remove();
+			$(".navbar").hide();// this is class selector
+			$("table").hide();
+		});
+
+		$("#sunday").click(function() {
+			$("#test3").val("sunday");
+			alert($("#dogy").attr("href"));
+
+		});
+		$("#animation").click(function() {
+			$("#box").animate({left:'250px'});
+
+		});
+	}) ;		
+	function appendText() {
+		var txt1 = "<p> This is Text along with html markup</p>"; // Create text with HTML
+		var txt2 = $("<p></p>").text("This is text."); // Create text With jQuery
+		var txt3 = document.createElement("p");
+		txt3.innerHTML = "Text created using the DOM"; // Create text with the dom
+		$("body").append(txt1,txt2,txt3); // Append new Elements
+
+	}
+</script>
+<button id = "sunday">Show href Value</button>
+<button id = "hide"> click me to hide  Table and navbar and remove paragraph</button></br>
+<button id = "show">click me to show Table and navbar</button>
+<button onclick="appendText()">Append Text</button></br>
+<button id="animation"> Start Animation </button>
+
+<p id="test"> This is some <b>bold</b> text in paragrap</p>
+<p id="test1"s>This is a Paragraph Thi</p>
+<p id="test2"> This is another Paragraph </p>
+<div id ="box" style="background: #98bf21;height:100px;width:100px;position:absolute;"></div>
+<p><a href="http://www.google.com" id="dogy">Google.com</a></p>
+<nav id="searchStudent">
+	<div id="container">
+		<div class="navbar">
+			<div class="navbar-inner">
+				<a class="brand" href="#">Student Grade</a>
+		
+				<form class="navbar-form pull-right">
+				  	<a type="button" class="btn" href="/index">return</a>
+				</form>
+			</div>
+		</div>
+		<form action ="/studentgrade" Method="POST">
+				<h1 id="firstH1"></h1>
+			<?php if (empty($_SESSION['student_id'])): ?>		
+				Name:<input type="text" name="studentName" id="test3">
+				<input type="submit" name="search" value="search">
+			<?php endif; ?>	
+				</br>	
+				<?php if (!empty($this->students[1]) && empty($selectedStudent)): ?>
+					<ul>
+
+						<?php foreach ($this->students as $student): ?>
+							<li>
+								<?php echo $student['last_name'].', '.$student['first_name']; ?>
+								<button type="submit">
+								(<a href="/studentgrade?studentID=<?php echo $student['student_id']; ?>">select</a>)
+								</button>
+							</li>
+						<?php endforeach; ?>
+					</ul>
+				<?php endif; ?>
+			</form>
+			<form method="post">
+				<?php if (!empty($this->selectedStudent)) : ?>
+					<?php echo 'SELECTED NAME:'. $this->selectedStudent['last_name'].', '.$this->selectedStudent['first_name']; ?>
+					<br />
+					
+			<?php endif; ?>
+			
+			<?php if (!empty($this->selectedStudent) && !empty($this->allSubject)): ?>
+				<h1><?php echo "Student Enroll Subjects";?></br></h1>
+				<br />
+				<table class="table table-bordered table-condensed table-striped"> 
+					<tr>
+						<th>Subejct ID</th>
+						<th>Subject</th>
+						<th>Subject UNIT</th>
+						<th>Midterm Grade</th>
+						<th>final Grade</th>
+					</tr>
+					<?php $totalUnit = NULL;?>
+					<?php foreach ($this->allSubject as $subject):?>
+						<tr>
+						<td><?php echo  $subject['subject_id']; ?></td>
+						<td><?php echo  $subject['subject']; ?></td>
+						<td><?php echo  $subject['subject_unit']; ?></td>
+						<td id = "midterm"><?php echo  $subject['mid_term']; ?></td>
+						<td id = "finalterm"><?php echo  $subject['final_term']; ?></td>
+						<td style="width: 1px; wrap: nowrap;">
+							<a 
+								onclick="viewDetails(<?php echo $subject['student_id'].', '. $subject['subject_id']; ?>);" 
+								class="btn" 
+								title="edit Student"
+								data-toggle="modal" data-target="#studentGrade-details"
+								> 
+								<i class="icon icon-search"></i>
+							</a>	
+						</td>
+						<td style="width: 1px; wrap: nowrap;">							
+							<a 
+								href="/studentgrade/edit?subjectID=<?php echo $subject['subject_id']; ?>
+								&studentID=<?php echo $subject['student_id']; ?>&action=edit" class="btn btn-success" title="Delete Subject"><i class="icon icon-edit"></i></a>
+						</td>		
+						</tr>
+					<?php endforeach; ?>
+				<?php endif; ?>
+		</form>	
+		<footer>
+			<center>
+				copyright &copy Busasal.com
+			</center>
+		</footer>	
+	</div>		
+</nav>
+
+	<div id="studentGrade-details" class="modal fade" role="dialog">
+		  <div class="modal-dialog">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <h4 class="modal-title">Student Grade Details</h4>
+		      </div>
+		      <div class="modal-body">
+
+		
+		        <dl>
+
+		        	<dt>studentID</dt><dd id="studentID"></dd>
+		        	<dt>Midterm Grade</dt><dd id="midterm"></dd>
+		        	<dt>Final Grade</dt><dd id="finalterm"></dd>
+		        </dl>
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-default btn-danger" data-dismiss="modal">	<i class="icon icon-remove"></i></button>
+		      </div>
+		    </div>
+
+		  </div>
+		</div>
+
+	</nav>
+ <script type="text/javascript">
+	function myFunction() {
+		$("#firstH1").attr("style", "color:red").html("Student Name")
+	}
+	$(document).ready(myFunction);
+</script>
