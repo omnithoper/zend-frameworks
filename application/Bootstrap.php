@@ -16,6 +16,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 		
 	    $db = Zend_Db::factory('Pdo_Mysql', $config->resources->db->params->toArray());
 	    Zend_Registry::set('db', $db);
+	    Zend_Registry::set('config', $config);
 	}
 
 	protected function _initErrorDisplay(){
