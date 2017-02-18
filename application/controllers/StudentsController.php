@@ -39,7 +39,8 @@ class StudentsController extends Zend_Controller_Action  {
 			//var_dump($result['error']);
 		
 		}
-     }
+    }
+	
 	public function editAction() {
 		$studentID = Request::getParam('student_id');
 
@@ -63,9 +64,16 @@ class StudentsController extends Zend_Controller_Action  {
 
 			$edit = $student->getEditStudent($data, $firstName, $lastName, $studentID);
 			$this->view->students = $edit;
-
 		}
+	}
+	
+	public function updateAction() {
+		$studentID = Request::getParam('student_id');
+		$first_name = Request::getParam('first_name');
+		$last_name = Request::getParam('last_name');
 
+		$student = new Student();
+		$details = $student->updateStudent($studentID, $first_name, $last_name);
 	}
 
 	public function studenteditAction() {

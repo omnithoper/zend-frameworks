@@ -174,6 +174,18 @@ class Student extends BaseModel {
 	
 	public function getViewStudent($studentID = null){
 		
+
+
+
+
+
+
+
+
+
+
+
+
 		if (empty($studentID)) {
 			return false;
 		}
@@ -200,14 +212,26 @@ class Student extends BaseModel {
 		header("Location: /students");
 	}
 
-
 	public function getDeleteStudent($studentID) {
 		//$where = $this->getAdapter()->quoteInto('student_id = ?', $studentID);
+
 	 
 		$this->_db->delete($this->_name, "student_id =  '$studentID'");	
 
 		header("Location: /students");
 	}
+
+	public function updateStudent($studentID = null, $first_name = null, $last_name = null) {
+		$params = [];
+
+		if (!empty($first_name)) {
+			$params['first_name'] = $first_name;
+		}
+
+		if (!empty($last_name)) {
+			$params['last_name'] = $last_name;
+		}
+		
 	
 	public function getStudentUserPassword($userName, $password) {
  		if (empty($userName)) {
@@ -249,3 +273,18 @@ class Student extends BaseModel {
  		}
  	}   
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
