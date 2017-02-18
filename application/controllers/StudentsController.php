@@ -68,12 +68,17 @@ class StudentsController extends Zend_Controller_Action  {
 	}
 	
 	public function updateAction() {
-		$studentID = Request::getParam('student_id');
+		$this->_helper->viewRenderer->setNoRender();
+		$this->_helper->layout()->disableLayout();
+
+		$studentID = Request::getParam('studentID');
 		$first_name = Request::getParam('first_name');
 		$last_name = Request::getParam('last_name');
 
 		$student = new Student();
 		$details = $student->updateStudent($studentID, $first_name, $last_name);
+
+		echo Zend_Json::encode($details);
 	}
 
 	public function studenteditAction() {

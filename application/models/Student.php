@@ -173,19 +173,6 @@ class Student extends BaseModel {
 	}
 	
 	public function getViewStudent($studentID = null){
-		
-
-
-
-
-
-
-
-
-
-
-
-
 		if (empty($studentID)) {
 			return false;
 		}
@@ -231,7 +218,16 @@ class Student extends BaseModel {
 		if (!empty($last_name)) {
 			$params['last_name'] = $last_name;
 		}
-		
+
+		$this->_db->update($this->_name, $params, "student_id =  '$studentID'");	
+
+		return [
+			'studentID' => $studentID,
+			'first_name' => $first_name,
+			'last_name' => $last_name,
+		];
+	}
+
 	
 	public function getStudentUserPassword($userName, $password) {
  		if (empty($userName)) {
