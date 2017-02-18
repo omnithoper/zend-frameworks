@@ -1,3 +1,5 @@
+	$('#date_start').datepicker();
+	$('#date_end').datepicker();
 function checkInput() {
 	var firstname = document.getElementById('first_name').value;
 	var surname = document.getElementById('last_name').value;
