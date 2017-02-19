@@ -62,7 +62,7 @@ class Subject extends BaseModel {
 	{
 		$select = $this->_db->select()
 			->from($this->_name, ['subject_unit',
-			])
+			])x`
 			->where('subject_id = ?', $subjectID)
 		;	
 		$results = $this->_db->fetchAll($select);

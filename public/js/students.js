@@ -42,7 +42,6 @@ var updateStudent = function()
 	var studentID = $('#student-edit #studenID').html();
 	var first_name = $('#student-edit #unang_pangalan').val();
 	var last_name = $('#student-edit #apilido').val();
-
 	$.ajax({
 		url: '/students/update', 
 		data: {
@@ -63,6 +62,9 @@ var updateStudent = function()
 			$('#student-edit #apilido').val(response.last_name);
 		}
 	});	
+	
+	location.reload();
 }
+
 document.onload = function(){
 };

@@ -1,5 +1,5 @@
 
-    <script src="/js/students.js"></script>
+    <script type="text/javascript" src="/js/students.js"></script>
 
 	<nav id ="searchStudent">
 		<div id="container">
@@ -99,7 +99,8 @@
 		</div>
 
 
-		<div id="student-edit" class="modal fade" role="dialog">
+	<div id="student-edit" class="modal fade" role="dialog">
+		<form action ="/students" Method="POST">
 		  <div class="modal-dialog">
 		    <div class="modal-content">
 		      <div class="modal-header">
@@ -115,12 +116,13 @@
 		        </dl>
 		      </div>
 		      <div class="modal-footer">
-		      	<input class="btn btn-default" id="button_save" type="submit" name="edit" value="save" onclick="updateStudent()">
+		      	<button data-dismiss="modal" class="btn btn-default" id="button_save" type="submit" name="edit" value="save" onclick="updateStudent()">save</button>
 		        <button type="button" class="btn btn-default btn-danger" data-dismiss="modal">	<i class="icon icon-remove"></i></button>
 		      </div>
 		    </div>
 
 		  </div>
-		</div>
+		  </form>
+	</div>
 
 	</nav>

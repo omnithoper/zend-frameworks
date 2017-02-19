@@ -49,7 +49,8 @@ class Student extends BaseModel {
 			->from('student', [
 				'student_id',
 				'first_name',
-				'last_name'
+				'last_name',
+				'payed' => new Zend_Db_Expr("IF(payment.payment = '1', 'paid', 'not yet paid' )")
 			])
 			->joinLeft(
 				'payment', 
@@ -62,16 +63,8 @@ class Student extends BaseModel {
 		;
 		$students = $this->_db->fetchAll($select);
 
-		$result = [];
-		foreach ($students as $student){ 
-			$student['payed'] ='not yet paid';	
-			if ($student['payment'] == 1)  {
-				$student['payed'] = 'paid';
-			}			
-			$result[] = $student;		
-		}
-		
-		return $result;
+
+		return $students;
 	}
 
 
