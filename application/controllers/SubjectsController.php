@@ -1,9 +1,15 @@
 <?php
 class SubjectsController extends Zend_Controller_Action {
 	public function indexAction() {
+		$page = Request::getParam('page');
+
 		$subjects = new Subject();
-		$records = $subjects->getViewSubjects();
+		$records = $subjects->getViewSubjects($page);
+		$subjectsCount = $subjects->getViewSubjectsCount(); 
+	
 	    $this->view->subjects = $records;
+	    $this->view->subjectsCount = $subjectsCount;
+		$this->view->currentPage = $page;
 	}
 	public function detailsAction() {
 		

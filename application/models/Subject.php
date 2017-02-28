@@ -1,5 +1,6 @@
 <?php
 class Subject extends BaseModel {
+	const PAGE_SIZE = 5;
 
 	protected $_name = 'subjects';
 	
@@ -91,13 +92,36 @@ class Subject extends BaseModel {
 	
 		return (empty($results))?0:$results[0]['subject_unit'];
 	}
+	public function getViewSubjectsCount() {
+		$select = $this->_db->select()
+			->from($this->_name, [
+				'total' => new Zend_Db_Expr("COUNT(subjects.subject_id)")
+			])
+			;	
+				$total = $this->_db->fetchOne($select);
+
+		return $total;
+	}
+	/*
 	public function getViewSubjects() {
 		$select = $this->_db->select()
 			->from($this->_name)
 			;	
 		return $this->_db->fetchAll($select);
 	}
-
+	*/
+	public static function getNumberOfPages($subjectsCount) {
+		return ceil($subjectsCount/Subject::PAGE_SIZE);
+	}
+	public function getViewSubjects($page = 1) {
+		$page = empty($page)?1:$page;
+		$select = $this->_db->select()
+			->from($this->_name)
+			->limit(self::PAGE_SIZE, ($page - 1) * self::PAGE_SIZE)
+			->order('subject')
+			;	
+		return $this->_db->fetchAll($select);
+	}
 	public function getListSubjects($studentID) {
 
 		if (empty($studentID)) {

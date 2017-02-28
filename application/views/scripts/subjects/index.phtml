@@ -26,7 +26,17 @@
 	<?php if (empty($this->subjects)): ?>
 			<div class="alert alert-info">No subject yet</div>
 	<?php else: ?>
+
 <form>
+	<div id="subjects-pagination" class="pagination">
+		  <ul>
+		    <li><a href="/subjects/index?page=<?php echo $this->currentPage <= 1?1:$this->currentPage-1; ?>">Prev</a></li>
+		    <?php for ($pageNumber = 1; $pageNumber <= Subject::getNumberOfPages($this->subjectsCount); $pageNumber++) { ?>
+		    	<li class="<?php echo ($pageNumber == $this->currentPage)?'active':'';?>"><a href="/subjects/index?page=<?php echo $pageNumber; ?>"><?php echo $pageNumber; ?></a></li>
+		    <?php } ?>
+		    <li><a href="/subjects/index?page=<?php echo ($this->currentPage >= Subject::getNumberOfPages($this->subjectsCount))?$this->currentPage:$this->currentPage+1; ?>">Next</a></li>
+		  </ul>
+	</div>
 	<table class="table table-bordered table-condensed table-striped">
 			<tr>
 				<th>id</th>
