@@ -58,11 +58,33 @@ class Subject extends BaseModel {
 		return $this->_db->fetchOne($select);
 		
 	}
+
+	public function addSubjectyy($data, $subjectName) {
+
+	
+			$this->_db->insert($this->_name, $data);
+			
+	}
+
+	public function addSubject($data, $SubjectName) {
+
+	
+			$this->_db->insert($this->_name, $data);
+			
+	}
+
+	public function updateSubject($data = null, $subjectID = null, $subjectName = null) {
+	
+
+		$this->_db->update($this->_name, $data, "subject_id =  '$subjectID'");	
+
+
+	}
 	public function getSubjectUnits($subjectID = null)
 	{
 		$select = $this->_db->select()
 			->from($this->_name, ['subject_unit',
-			])x`
+			])
 			->where('subject_id = ?', $subjectID)
 		;	
 		$results = $this->_db->fetchAll($select);

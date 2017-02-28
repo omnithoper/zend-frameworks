@@ -1,5 +1,6 @@
 <?php
 class Student extends BaseModel {
+	const PAGE_SIZE = 5;
 
 	protected $_name = 'student';
 		
@@ -21,29 +22,17 @@ class Student extends BaseModel {
 		return $this->_db->fetchRow($select);
 
 	}
-	public function getViewStudents() {
+
+	public static function getNumberOfPages($studentCount) {
+		return ceil($studentCount/Student::PAGE_SIZE);
+	}
+	
+	public function getViewStudents($page = 1) {
+		$page = empty($page)?1:$page;
 		$semesterObject = new Semester();
 		$semDate = $semesterObject->getCurrentSemester();
 		$dateStart = $semDate[0]['date_start'];
 		$dateEnd = $semDate[0]['date_end'];
-/*
- 		$select = "
- 			SELECT
- 				student.student_id,
- 				student.first_name,
- 				student.last_name,
- 				payment.transaction_date,
- 				payment.payment,
- 		
- 				IF(payment.payment = '1', 'paid', 'not yet paid' ) AS payed
- 			FROM student
- 			LEFT JOIN payment ON student.student_id = payment.student_id 
- 			AND payment.transaction_date BETWEEN '$dateStart' AND '$dateEnd'
- 	
- 		";
- 
- 		$result = $this->_db->fetchAll($select);
-*/
 		
 		$select = $this->_db->select()
 			->from('student', [
@@ -60,13 +49,34 @@ class Student extends BaseModel {
 					'transaction_date'
 				]
 			)
+			->limit(self::PAGE_SIZE, ($page - 1) * self::PAGE_SIZE)
+			->order('first_name')
 		;
 		$students = $this->_db->fetchAll($select);
 
-
 		return $students;
 	}
+	
+	public function getViewStudentsCount() {
+		$semesterObject = new Semester();
+		$semDate = $semesterObject->getCurrentSemester();
+		$dateStart = $semDate[0]['date_start'];
+		$dateEnd = $semDate[0]['date_end'];
+		
+		$select = $this->_db->select()
+			->from('student', [
+				'total' => new Zend_Db_Expr("COUNT(student.student_id)")
+			])
+			->joinLeft(
+				'payment', 
+				'student.student_id = payment.student_id AND payment.transaction_date BETWEEN "'.$dateStart.'" AND "'.$dateEnd.'"',
+				[]
+			)
+		;
+		$total = $this->_db->fetchOne($select);
 
+		return $total;
+	}
 
 	public function isStudentPayed($studentID = NULL) {
 
@@ -201,7 +211,7 @@ class Student extends BaseModel {
 		header("Location: /students");
 	}
 
-	public function updateStudent($studentID = null, $first_name = null, $last_name = null) {
+	public function updateStudent($data = null, $studentID = null, $first_name = null, $last_name = null) {
 		$params = [];
 
 		if (!empty($first_name)) {
@@ -212,7 +222,8 @@ class Student extends BaseModel {
 			$params['last_name'] = $last_name;
 		}
 
-		$this->_db->update($this->_name, $params, "student_id =  '$studentID'");	
+	
+		$this->_db->update($this->_name, $data, "student_id =  '$studentID'");	
 
 		return [
 			'studentID' => $studentID,
@@ -221,6 +232,12 @@ class Student extends BaseModel {
 		];
 	}
 
+	public function addStudent($data, $firstName, $lastName) {
+
+	
+			$this->_db->insert($this->_name, $data);
+			
+	}
 	
 	public function getStudentUserPassword($userName, $password) {
  		if (empty($userName)) {

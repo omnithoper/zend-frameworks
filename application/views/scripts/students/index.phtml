@@ -12,7 +12,14 @@
 				</div>
 			</div>
 			<form>
-				<a style="float:left"  href="/logic/studentPaginated.php">(paginated)</a>
+				<a  
+					class="pull-right btn btn-success" 
+					title="edit Student"
+					data-toggle="modal" data-target="#student-add"
+					> 
+					<i class="icon icon-plus"></i>
+				</a>
+
 				<a class="pull-right btn btn-success" href="/students/add">
 					<i class="icon-plus"></i>
 				</a>
@@ -21,6 +28,16 @@
 			<?php if (empty($this->students)): ?>
 				<div class="alert alert-info">No students yet</div>
 			<?php else: ?>
+				<div id="student-pagination" class="pagination">
+				  <ul>
+				    <li><a href="/students/index?page=<?php echo $this->currentPage <= 1?1:$this->currentPage-1; ?>">Prev</a></li>
+				    <?php for ($pageNumber = 1; $pageNumber <= Student::getNumberOfPages($this->studentsCount); $pageNumber++) { ?>
+				    	<li class="<?php echo ($pageNumber == $this->currentPage)?'active':'';?>"><a href="/students/index?page=<?php echo $pageNumber; ?>"><?php echo $pageNumber; ?></a></li>
+				    <?php } ?>
+				    <li><a href="/students/index?page=<?php echo ($this->currentPage >= Student::getNumberOfPages($this->studentsCount))?$this->currentPage:$this->currentPage+1; ?>">Next</a></li>
+				  </ul>
+				</div>
+
 				<table class="table table-bordered table-condensed table-striped"> 
 					<p id="delete"></p>
 					<tr>
@@ -100,19 +117,21 @@
 
 
 	<div id="student-edit" class="modal fade" role="dialog">
-		<form action ="/students" Method="POST">
+
 		  <div class="modal-dialog">
 		    <div class="modal-content">
 		      <div class="modal-header">
 		        <h4 class="modal-title">Student Edit</h4>
 		      </div>
 		      <div class="modal-body">
-		      	<h1> test </h1>
+		      	<h1> Student Edit </h1>
 
 		        <dl>
-		        	<dt>studentID</dt><dd id="studenID"></dd>
-		        	<dt>First Name</dt><dd><input type="text" id="unang_pangalan" /></dd>
-		        	<dt>Last Name</dt><dd><input type="text" id="apilido" /></dd>
+		        	<dt>studentID</dt><dd id="editStudentID"></dd>
+		        	<dt>First Name</dt><dd><input type="text" id="editFirstName" /></dd>
+		        	<dt>Last Name</dt><dd><input type="text" id="editLastName" /></dd>
+		        	<dt>User Name</dt><dd><input type="text" id="editUserName" /></dd>
+		        	<dt>Password </dt><dd><input type="text" id="editPassword" /></dd>
 		        </dl>
 		      </div>
 		      <div class="modal-footer">
@@ -122,7 +141,34 @@
 		    </div>
 
 		  </div>
-		  </form>
+		
 	</div>
 
+	<div id="student-add" class="modal fade" role="dialog">
+
+		  <div class="modal-dialog">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <h4 class="modal-title">Student Add</h4>
+		      </div>
+		      <div class="modal-body">
+		      	<h1> student Add </h1>
+
+		        <dl>
+		        	<dt>First Name</dt><dd><input type="text" id="addFirstName" /></dd>
+		        	<dt>Last Name</dt><dd><input type="text" id="addLastName" /></dd>
+		        	<dt>User Name</dt><dd><input type="text" id="addUserName" /></dd>
+		        	<dt>Password </dt><dd><input type="text" id="addPassword" /></dd>
+		        </dl>
+		      </div>
+		      <div class="modal-footer">
+		      	<button data-dismiss="modal" class="btn btn-default" id="button_save" type="submit" name="edit" value="save" onclick="addStudent()">save</button>
+		        <button type="button" class="btn btn-default btn-danger" data-dismiss="modal">	<i class="icon icon-remove"></i></button>
+		      </div>
+		    </div>
+
+		  </div>
+		
+	</div>
 	</nav>
+

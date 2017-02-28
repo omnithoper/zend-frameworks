@@ -44,6 +44,54 @@ class SubjectsController extends Zend_Controller_Action {
 	}
 
 }
+	public function updateAction() {
+			$this->_helper->viewRenderer->setNoRender();
+			$this->_helper->layout()->disableLayout();
+
+			$subjectID = Request::getParam('subjectID');
+			$subjectName = Request::getParam('subjectName');
+			$subjectLec = Request::getParam('subjectLec');
+			$subjectLab = Request::getParam('subjectLab');
+			$subjectUnit = Request::getParam('subjectUnit');
+	
+
+			$data = array(
+		    	'subject' => $subjectName,
+		    	'lec_unit' => $subjectLec,
+		    	'lab_unit' => $subjectLab,
+		    	'subject_unit' => $subjectUnit,
+			);
+	
+			$subject = new Subject();
+			$details = $subject->updateSubject($data, $subjectID, $subjectName);
+
+			echo Zend_Json::encode($details);
+
+		}
+	public function addsAction() {
+			$this->_helper->viewRenderer->setNoRender();
+			$this->_helper->layout()->disableLayout();
+
+			$subjectID = Request::getParam('subjectID');
+			$subjectName = Request::getParam('subjectName');
+			$subjectLec = Request::getParam('subjectLec');
+			$subjectLab = Request::getParam('subjectLab');
+			$subjectUnit = Request::getParam('subjectUnit');
+
+
+			$data = array(
+		    	'subject' => $subjectName,
+		    	'lec_unit' => $subjectLec,
+		    	'lab_unit' => $subjectLab,
+		    	'subject_unit' => $subjectUnit,
+			);
+
+			$subject = new Subject();
+			$details = $subject->addSubject($data, $subjectName);
+
+			echo Zend_Json::encode($details);
+
+		}	
 	function deleteAction() {
 		$subjectID = Request::getParam('subject_id');
 		

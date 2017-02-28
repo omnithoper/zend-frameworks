@@ -14,6 +14,13 @@
 				</form>
 			</div>
 		</div>
+		<a  
+			class="pull-right btn btn-success" 
+			title="add Subject"
+			data-toggle="modal" data-target="#subject-add"
+			> 
+			<i class="icon icon-plus"></i>
+		</a>
 		<a class="pull-right btn btn-success "  type="submit" href="/subjects/add"><i class="icon icon-plus"></i></a>
 
 	<?php if (empty($this->subjects)): ?>
@@ -48,11 +55,19 @@
 			</a>
 		</td>
 		<td style="width: 1px; wrap: nowrap;">
-			<a href="/subjects/edit?subject_id=<?php echo $details['subject_id']; ?>" 
+		<!--	<a href="/subjects/edit?subject_id=<?php echo $details['subject_id']; ?>" 
 				   class="btn" 
 				   title="edit Subject"> 
 				   <i class="icon icon-edit"></i>
-			</a>
+			</a>-->
+			<a 
+				onclick="editSubject(<?php echo $details['subject_id']; ?>)" 
+				class="btn" 
+				title="edit Student"
+				data-toggle="modal" data-target="#subject-edit"
+				> 
+				<i class="icon icon-edit"></i>
+			</a>	
 		</td>					
 		<td style="width: 1px; wrap: nowrap;">			
 			<a href='/subjects/delete?subject_id=<?php echo $details['subject_id']; ?>' 
@@ -92,5 +107,56 @@
 
   </div>
 </div>
+<div id="subject-edit" class="modal fade" role="dialog">
 
+	  <div class="modal-dialog">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h4 class="modal-title">Subject Edit</h4>
+	      </div>
+	      <div class="modal-body">
+	      	<h1> Subject Edit </h1>
+
+	        <dl>
+	        	<dt>subjectID</dt><dd id="editSubjectID"></dd>
+	        	<dt>Subject</dt><dd><input type="text" id="editSubjectName" /></dd>
+	        	<dt>Subject Lec</dt><dd><input type="text" id="editSubjectLec" /></dd>
+	        	<dt>Subject Lab</dt><dd><input type="text" id="editSubjectLab" /></dd>
+	        	<dt>Subject Unit </dt><dd><input type="text" id="editSubjectUnit" /></dd>
+	        </dl>
+	      </div>
+	      <div class="modal-footer">
+	      	<button data-dismiss="modal" class="btn btn-default" id="button_save" type="submit" name="edit" value="save" onclick="updateSubject()">save</button>
+	        <button type="button" class="btn btn-default btn-danger" data-dismiss="modal">	<i class="icon icon-remove"></i></button>
+	      </div>
+	    </div>
+
+	  </div>	
+</div>
+<div id="subject-add" class="modal fade" role="dialog">
+
+	  <div class="modal-dialog">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h4 class="modal-title">Subject Edit</h4>
+	      </div>
+	      <div class="modal-body">
+	      	<h1> Subject Edit </h1>
+
+	        <dl>
+	        	<dt>subjectID</dt><dd id="addSubjectID"></dd>
+	        	<dt>Subject</dt><dd><input type="text" id="addSubjectName" /></dd>
+	        	<dt>Subject Lec</dt><dd><input type="text" id="addSubjectLec" /></dd>
+	        	<dt>Subject Lab</dt><dd><input type="text" id="addSubjectLab" /></dd>
+	        	<dt>Subject Unit </dt><dd><input type="text" id="addSubjectUnit" /></dd>
+	        </dl>
+	      </div>
+	      <div class="modal-footer">
+	      	<button data-dismiss="modal" class="btn btn-default" id="button_save" type="submit" name="edit" value="save" onclick="addSubject()">save</button>
+	        <button type="button" class="btn btn-default btn-danger" data-dismiss="modal">	<i class="icon icon-remove"></i></button>
+	      </div>
+	    </div>
+
+	  </div>	
+</div>
 </nav>

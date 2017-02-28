@@ -1,10 +1,15 @@
 <?php
 class StudentsController extends Zend_Controller_Action  {
 	public function indexAction() {
+		$page = Request::getParam('page');
+
 		$student = new Student();
-		$students = $student->getViewStudents(); 
+		$students = $student->getViewStudents($page); 
+		$studentsCount = $student->getViewStudentsCount(); 
 
 		$this->view->students = $students;
+		$this->view->studentsCount = $studentsCount;
+		$this->view->currentPage = $page;
 	}
 
 	public function detailsAction() {
@@ -36,8 +41,6 @@ class StudentsController extends Zend_Controller_Action  {
 			$result = [];
 			$result = $student->getAddStudent($data, $firstName, $lastName);
 			$this->view->students = $result;
-			//var_dump($result['error']);
-		
 		}
     }
 	
@@ -66,7 +69,29 @@ class StudentsController extends Zend_Controller_Action  {
 			$this->view->students = $edit;
 		}
 	}
-	
+	public function addsAction() {
+		$this->_helper->viewRenderer->setNoRender();
+		$this->_helper->layout()->disableLayout();
+
+		$first_name = Request::getParam('first_name');
+		$last_name = Request::getParam('last_name');
+		$user_name = Request::getParam('user_name');
+		$password = Request::getParam('password');
+
+		$data = array(
+	    	'first_name' => $first_name,
+	    	'last_name' => $last_name,
+	    	'username' => $user_name,
+	    	'password' => sha1($password),
+		);
+
+		$student = new Student();
+		$details = $student->addStudent($data, $first_name, $last_name);
+
+		echo Zend_Json::encode($details);
+
+	}
+
 	public function updateAction() {
 		$this->_helper->viewRenderer->setNoRender();
 		$this->_helper->layout()->disableLayout();
@@ -74,11 +99,21 @@ class StudentsController extends Zend_Controller_Action  {
 		$studentID = Request::getParam('studentID');
 		$first_name = Request::getParam('first_name');
 		$last_name = Request::getParam('last_name');
+		$user_name = Request::getParam('user_name');
+		$password = Request::getParam('password');
+
+		$data = array(
+	    	'first_name' => $first_name,
+	    	'last_name' => $last_name,
+	    	'username' => $user_name,
+	    	'password' => sha1($password),
+		);
 
 		$student = new Student();
-		$details = $student->updateStudent($studentID, $first_name, $last_name);
+		$details = $student->updateStudent($data, $studentID, $first_name, $last_name);
 
 		echo Zend_Json::encode($details);
+
 	}
 
 	public function studenteditAction() {
