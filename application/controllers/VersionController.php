@@ -1,6 +1,9 @@
 <?php
 class VersionController extends Zend_Rest_Controller
 {
+    /*
+     * http://www.chrisdanielson.com/2009/09/02/creating-a-php-rest-api-using-the-zend-framework/
+     */
 	public function init()
     {
 		#$this->_helper->layout()->disableLayout();
