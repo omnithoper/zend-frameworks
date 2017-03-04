@@ -4,22 +4,6 @@ class VersionController extends Zend_Rest_Controller
     /*
      * http://www.chrisdanielson.com/2009/09/02/creating-a-php-rest-api-using-the-zend-framework/
      */
-	public function init()
-    {
-		#$this->_helper->layout()->disableLayout();
-            #$this->_helper->viewRenderer->setNoRender();
-
-        $bootstrap = $this->getInvokeArg('bootstrap');
- 
-		$options = $bootstrap->getOption('resources');
- 
-		$contextSwitch = $this->_helper->getHelper('contextSwitch');
-		$contextSwitch->addActionContext('index', array('xml','json'))->initContext();
- 
-		//$this->_helper->viewRenderer->setNeverRender();	
-		$this->view->success = "true";
-		$this->view->version = "1.0";
-	}
 
     /**
      * The index action handles index/list requests; it should respond with a
@@ -35,8 +19,6 @@ class VersionController extends Zend_Rest_Controller
     public function listAction()
     {
         $doc = new DOMDocument();
-        $doc->formatOutput = false;
-        $doc->preserveWhiteSpace = false;
         $root_element = $doc->createElement("response");
         $doc->appendChild($root_element);
 
@@ -48,8 +30,27 @@ class VersionController extends Zend_Rest_Controller
         $versionElement->appendChild($doc->createTextNode("1.0"));
         $root_element->appendChild($versionElement);
 
+        $nameElement = $doc->createElement("name");
+        $nameElement->appendChild($doc->createTextNode("anthony"));
+        $root_element->appendChild($nameElement);
+
+        $lastNameElement = $doc->createElement("lastName");
+        $lastNameElement->appendChild($doc->createTextNode("anthony"));
+        $nameElement->appendChild($lastNameElement);
+
         header('Content-Type: application/xml');
-        echo $doc->saveXML(); exit;
+        echo $doc->saveXML(); 
+        exit;
+    }
+
+    public function readAction()
+    {
+        $test = file_get_contents('http://anthony.zend.com/version/list');
+        $test = simplexml_load_string($test);
+        Zend_Debug::dump($test); 
+        Zend_Debug::dump($test->name); 
+        Zend_Debug::dump($test->version); 
+        die();
     }
 
     public function getAction()

@@ -12,6 +12,10 @@ class StudentsController extends Zend_Controller_Action  {
 		$this->view->currentPage = $page;
 	}
 
+	public function studentsapiAction() {
+		
+	}
+
 	public function detailsAction() {
 		$studentID = Request::getParam('studentID');
 
