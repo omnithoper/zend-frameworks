@@ -1,7 +1,6 @@
 <?php
-class VersionController extends Zend_Controller_Action
+class VersionController extends Zend_Rest_Controller
 {
-    /*
 	public function init()
     {
 		#$this->_helper->layout()->disableLayout();
@@ -18,7 +17,6 @@ class VersionController extends Zend_Controller_Action
 		$this->view->success = "true";
 		$this->view->version = "1.0";
 	}
-    */
 
     /**
      * The index action handles index/list requests; it should respond with a

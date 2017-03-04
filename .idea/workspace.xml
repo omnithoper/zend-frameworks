@@ -1,99 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="5afc575f-c1fe-4de4-9154-0f26d4f6ff9a" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Zend/Queue/Adapter/Db/sqlsrv.sql" afterPath="$PROJECT_DIR$/Zend/Queue/Adapter/Db/sqlsrv.sql" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/Bootstrap.php" afterPath="$PROJECT_DIR$/application/Bootstrap.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/configuration/application.ini" afterPath="$PROJECT_DIR$/application/configuration/application.ini" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/configuration/local-template.ini" afterPath="$PROJECT_DIR$/application/configuration/local-template.ini" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/configuration/local.ini" afterPath="$PROJECT_DIR$/application/configuration/local.ini" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/controllers/AdminController.php" afterPath="$PROJECT_DIR$/application/controllers/AdminController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/controllers/BaseController.php" afterPath="$PROJECT_DIR$/application/controllers/BaseController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/controllers/CashierController.php" afterPath="$PROJECT_DIR$/application/controllers/CashierController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/controllers/EnrollmentController.php" afterPath="$PROJECT_DIR$/application/controllers/EnrollmentController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/controllers/IncomeController.php" afterPath="$PROJECT_DIR$/application/controllers/IncomeController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/controllers/IndexController.php" afterPath="$PROJECT_DIR$/application/controllers/IndexController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/controllers/LoginController.php" afterPath="$PROJECT_DIR$/application/controllers/LoginController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/controllers/PaymentController.php" afterPath="$PROJECT_DIR$/application/controllers/PaymentController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/controllers/SemesterController.php" afterPath="$PROJECT_DIR$/application/controllers/SemesterController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/controllers/SettingsController.php" afterPath="$PROJECT_DIR$/application/controllers/SettingsController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/controllers/StudentGradeController.php" afterPath="$PROJECT_DIR$/application/controllers/StudentGradeController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/controllers/StudentsController.php" afterPath="$PROJECT_DIR$/application/controllers/StudentsController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/controllers/SubjectsController.php" afterPath="$PROJECT_DIR$/application/controllers/SubjectsController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/index.php" afterPath="$PROJECT_DIR$/application/index.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/layouts/scripts/layout.phtml" afterPath="$PROJECT_DIR$/application/layouts/scripts/layout.phtml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/migrations/admin.sql" afterPath="$PROJECT_DIR$/application/migrations/admin.sql" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/migrations/payment-update-20161127.sql" afterPath="$PROJECT_DIR$/application/migrations/payment-update-20161127.sql" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/migrations/payment-update-20161215.sql" afterPath="$PROJECT_DIR$/application/migrations/payment-update-20161215.sql" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/migrations/payment.sql" afterPath="$PROJECT_DIR$/application/migrations/payment.sql" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/migrations/semester.sql" afterPath="$PROJECT_DIR$/application/migrations/semester.sql" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/migrations/settings.sql" afterPath="$PROJECT_DIR$/application/migrations/settings.sql" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/migrations/student_subject-20161228.sql" afterPath="$PROJECT_DIR$/application/migrations/student_subject-20161228.sql" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/migrations/student_subject_match-update-20161215.sql" afterPath="$PROJECT_DIR$/application/migrations/student_subject_match-update-20161215.sql" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/migrations/student_subject_match.sql" afterPath="$PROJECT_DIR$/application/migrations/student_subject_match.sql" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/migrations/students.sql" afterPath="$PROJECT_DIR$/application/migrations/students.sql" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/migrations/subjects.sql" afterPath="$PROJECT_DIR$/application/migrations/subjects.sql" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/models/Admin.php" afterPath="$PROJECT_DIR$/application/models/Admin.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/models/BaseModel.php" afterPath="$PROJECT_DIR$/application/models/BaseModel.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/models/Cashier.php" afterPath="$PROJECT_DIR$/application/models/Cashier.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/models/GlobalControllerPlugin.php" afterPath="$PROJECT_DIR$/application/models/GlobalControllerPlugin.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/models/Payment.php" afterPath="$PROJECT_DIR$/application/models/Payment.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/models/Request.php" afterPath="$PROJECT_DIR$/application/models/Request.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/models/Semester.php" afterPath="$PROJECT_DIR$/application/models/Semester.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/models/Session.php" afterPath="$PROJECT_DIR$/application/models/Session.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/models/Settings.php" afterPath="$PROJECT_DIR$/application/models/Settings.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/models/Student.php" afterPath="$PROJECT_DIR$/application/models/Student.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/models/StudentSubjectMatch.php" afterPath="$PROJECT_DIR$/application/models/StudentSubjectMatch.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/models/Subject.php" afterPath="$PROJECT_DIR$/application/models/Subject.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/views/scripts/admin/add.phtml" afterPath="$PROJECT_DIR$/application/views/scripts/admin/add.phtml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/views/scripts/admin/edit.phtml" afterPath="$PROJECT_DIR$/application/views/scripts/admin/edit.phtml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/views/scripts/cashier/index.phtml" afterPath="$PROJECT_DIR$/application/views/scripts/cashier/index.phtml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/views/scripts/enrollment/index.phtml" afterPath="$PROJECT_DIR$/application/views/scripts/enrollment/index.phtml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/views/scripts/index/index.phtml" afterPath="$PROJECT_DIR$/application/views/scripts/index/index.phtml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/views/scripts/payment/index.phtml" afterPath="$PROJECT_DIR$/application/views/scripts/payment/index.phtml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/views/scripts/semester/add.phtml" afterPath="$PROJECT_DIR$/application/views/scripts/semester/add.phtml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/views/scripts/semester/edit.phtml" afterPath="$PROJECT_DIR$/application/views/scripts/semester/edit.phtml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/views/scripts/students/add.phtml" afterPath="$PROJECT_DIR$/application/views/scripts/students/add.phtml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/views/scripts/students/edit.phtml" afterPath="$PROJECT_DIR$/application/views/scripts/students/edit.phtml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/views/scripts/subjects/add.phtml" afterPath="$PROJECT_DIR$/application/views/scripts/subjects/add.phtml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/views/scripts/subjects/edit.phtml" afterPath="$PROJECT_DIR$/application/views/scripts/subjects/edit.phtml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/css/bootstrap.min.css" afterPath="$PROJECT_DIR$/public/css/bootstrap.min.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/css/main.css" afterPath="$PROJECT_DIR$/public/css/main.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/css/mystyles.css" afterPath="$PROJECT_DIR$/public/css/mystyles.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/css/normalize.css" afterPath="$PROJECT_DIR$/public/css/normalize.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/css/vendor/plugins/datepicker.css" afterPath="$PROJECT_DIR$/public/css/vendor/plugins/datepicker.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/font/courier.php" afterPath="$PROJECT_DIR$/public/font/courier.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/font/courierb.php" afterPath="$PROJECT_DIR$/public/font/courierb.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/font/courierbi.php" afterPath="$PROJECT_DIR$/public/font/courierbi.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/font/courieri.php" afterPath="$PROJECT_DIR$/public/font/courieri.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/font/helvetica.php" afterPath="$PROJECT_DIR$/public/font/helvetica.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/font/helveticab.php" afterPath="$PROJECT_DIR$/public/font/helveticab.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/font/helveticabi.php" afterPath="$PROJECT_DIR$/public/font/helveticabi.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/font/helveticai.php" afterPath="$PROJECT_DIR$/public/font/helveticai.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/font/symbol.php" afterPath="$PROJECT_DIR$/public/font/symbol.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/font/times.php" afterPath="$PROJECT_DIR$/public/font/times.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/font/timesb.php" afterPath="$PROJECT_DIR$/public/font/timesb.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/font/timesbi.php" afterPath="$PROJECT_DIR$/public/font/timesbi.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/font/timesi.php" afterPath="$PROJECT_DIR$/public/font/timesi.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/font/zapfdingbats.php" afterPath="$PROJECT_DIR$/public/font/zapfdingbats.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/fpdf.php" afterPath="$PROJECT_DIR$/public/fpdf.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/js/admin.js" afterPath="$PROJECT_DIR$/public/js/admin.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/js/cashier.js" afterPath="$PROJECT_DIR$/public/js/cashier.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/js/semester.js" afterPath="$PROJECT_DIR$/public/js/semester.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/js/semesterAdd.js" afterPath="$PROJECT_DIR$/public/js/semesterAdd.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/js/semesterEdit.js" afterPath="$PROJECT_DIR$/public/js/semesterEdit.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/js/studentAdd.js" afterPath="$PROJECT_DIR$/public/js/studentAdd.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/js/studentEdit.js" afterPath="$PROJECT_DIR$/public/js/studentEdit.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/js/studentEditUserPassword.js" afterPath="$PROJECT_DIR$/public/js/studentEditUserPassword.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/js/studentGrade.js" afterPath="$PROJECT_DIR$/public/js/studentGrade.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/js/studentSubject.js" afterPath="$PROJECT_DIR$/public/js/studentSubject.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/js/studentView.js" afterPath="$PROJECT_DIR$/public/js/studentView.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/js/student_enroly.js" afterPath="$PROJECT_DIR$/public/js/student_enroly.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/js/students.js" afterPath="$PROJECT_DIR$/public/js/students.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/js/subjectAdd.js" afterPath="$PROJECT_DIR$/public/js/subjectAdd.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/js/subjectEdit.js" afterPath="$PROJECT_DIR$/public/js/subjectEdit.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/js/subjects.js" afterPath="$PROJECT_DIR$/public/js/subjects.js" />
-    </list>
+    <list default="true" id="5afc575f-c1fe-4de4-9154-0f26d4f6ff9a" name="Default" comment="" />
     <ignored path="zend-enrollment.iws" />
     <ignored path=".idea/workspace.xml" />
     <ignored path=".idea/dataSources.local.xml" />
@@ -116,7 +24,7 @@
       <file leaf-file-name="VersionController.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/application/controllers/VersionController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="495">
+            <state relative-caret-position="630">
               <caret line="42" column="66" selection-start-line="42" selection-start-column="66" selection-end-line="42" selection-end-column="66" />
               <folding />
             </state>
@@ -813,12 +721,12 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1488653335209</updated>
-      <workItem from="1488653336542" duration="3524000" />
+      <workItem from="1488653336542" duration="3813000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="3524000" />
+    <option name="totallyTimeSpent" value="3813000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="27" width="1920" height="1053" extended-state="6" />
@@ -1193,7 +1101,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/application/controllers/VersionController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="495">
+        <state relative-caret-position="630">
           <caret line="42" column="66" selection-start-line="42" selection-start-column="66" selection-end-line="42" selection-end-column="66" />
           <folding />
         </state>
