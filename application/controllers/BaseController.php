@@ -1,17 +1,11 @@
 <?php
 class BaseController {
 	protected $_template;
-	
+
 	public function __construct() {
-		#$config = parse_ini_file('configuration/application.ini');
-		#$local = parse_ini_file('configuration/local.ini');
-		#$config = array_merge($config, $local);
-		
 		$this->_template = new Smarty();
 	    $this->_template->template_dir = BASE_PATH.'/views/scripts/';
 	    $this->_template->compile_dir = BASE_PATH.'/compile/';
-	    var_dump( $this->_template->template_dir = BASE_PATH.'/views/scripts/');
-	    //die("here");
 
 		if (empty($_SESSION['login_user'])) {
 			header('Location: /login');
@@ -36,6 +30,5 @@ class BaseController {
 		}
 
 		$this->render($controllerName.'/'.$actionName.'.'.'phtml');
-
 	}
 }

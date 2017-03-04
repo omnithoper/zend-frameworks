@@ -4,6 +4,5 @@ class BaseModel {
 
 	public function __construct() {
 		$this->_db = Zend_Registry::get('db');
-	
 	}
-}	
+}

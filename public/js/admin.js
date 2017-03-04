@@ -15,7 +15,7 @@ var viewDetails = function(adminID) {
 			$('#adminPass').html(response.password);
 		}
 	});
-}
+};
 
 document.onload = function(){
 };

@@ -1,14 +1,11 @@
 <?php
 class  Payment extends BaseModel {
 	protected $_name = 'payment';
-	
+
 	function getAddPayment($data) {
-
 		$this->_db->insert($this->_name, $data);
-
-
 	}
-	
+
 	function getViewPayment($studentID, $totalAmount, $change, $transactionDate) {
 		
 		$select = $this->_db->select()
@@ -21,14 +18,14 @@ class  Payment extends BaseModel {
 
 		return $this->_db->fetchAll($select);
 	}
-	
+
 	function ifPayed($paymentID) {
 		//$select = 'UPDATE payment SET payment = 1 WHERE payment_id = ?';
-			$data = array(
-		    'payment' => '1',
-		    );
+        $data = array(
+            'payment' => '1',
+        );
 		$this->_db->update($this->_name, $data, "payment_id =  '$paymentID'");	
-	
+
 		header("Location: /Students/");
 	}
 
@@ -36,7 +33,7 @@ class  Payment extends BaseModel {
 		$select = $this->_db->select()
 		->from($this->_name)
 		;
-		
+
 		return $this->_db->fetchAll($select);
 	}
 
@@ -47,5 +44,3 @@ class  Payment extends BaseModel {
 		return $result;
 	}
 }
-
-?>

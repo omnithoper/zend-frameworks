@@ -21,12 +21,12 @@ body {
 	#container{
 		width:900px;
 		margin: 10px auto 10px auto;
-		border 2px dotted #333333;
+		border: 2px dotted #333333;
 		background-color:white;
 		color:red;
 	}
 	#content{
-		pading:10px;
+		padding:10px;
 	}
 
 	footer{
@@ -41,7 +41,7 @@ body {
 	h1{ 
 		font-family: Arial, Helvettica, sans-serif;
 		color:blue;
-		font=weight:bolder;
+		font-weight:bolder;
 		font-size: 2.5em;
 	}
 	/* 

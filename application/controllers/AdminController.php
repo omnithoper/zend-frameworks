@@ -8,6 +8,7 @@ class AdminController extends Zend_Controller_Action  {
 		$this->view->admin = $records;
 
 	}
+
 	public function detailsAction() {
 	
 		$adminID = Request::getParam('adminID');
@@ -15,12 +16,12 @@ class AdminController extends Zend_Controller_Action  {
 		$details = $admin->getAdminDetails($adminID);
 		echo Zend_Json::encode($details);
 		exit;
-	}	
-	
+	}
+
 	public function addAction() {
 		$session = new Session();
 		$session->getSession();
-		
+
 		if (isset($_POST['save'])){
 
 			$userName = Request::getParam('username');
@@ -37,20 +38,16 @@ class AdminController extends Zend_Controller_Action  {
 		$details = $admin->getAdminDetails($userID);
 		$this->view->admin = $details;
 	
-		$result = [];
 		if (isset($_POST['save'])) {
 			$userName = Request::getParam('username');
 			$password = Request::getParam('password');
-			$edit = new Admin();
 			$admin->getEditUser($userName, sha1($password), $userID);
-
 		}
-	
 	}
 
 	public function deleteAction() {
 		$userID = Request::getParam('user_id');
-		
+
 		$delete = new Admin();
 		$delete->getDeleteUser($userID);
 	

@@ -13,7 +13,6 @@ class StudentsController extends Zend_Controller_Action  {
 	}
 
 	public function detailsAction() {
-		
 		$studentID = Request::getParam('studentID');
 
 		$student = new Student();
@@ -23,7 +22,6 @@ class StudentsController extends Zend_Controller_Action  {
 	}
 
 	public function addAction() {
-			
 		if (isset($_POST['save'])){
 
 			$firstName = Request::getParam('first_name');
@@ -43,7 +41,7 @@ class StudentsController extends Zend_Controller_Action  {
 			$this->view->students = $result;
 		}
     }
-	
+
 	public function editAction() {
 		$studentID = Request::getParam('student_id');
 
@@ -69,6 +67,7 @@ class StudentsController extends Zend_Controller_Action  {
 			$this->view->students = $edit;
 		}
 	}
+
 	public function addsAction() {
 		$this->_helper->viewRenderer->setNoRender();
 		$this->_helper->layout()->disableLayout();
@@ -89,7 +88,6 @@ class StudentsController extends Zend_Controller_Action  {
 		$details = $student->addStudent($data, $first_name, $last_name);
 
 		echo Zend_Json::encode($details);
-
 	}
 
 	public function updateAction() {
@@ -137,9 +135,9 @@ class StudentsController extends Zend_Controller_Action  {
 			$this->view->students = $edit;
 
 		}
-
 	}
-	function deleteAction() {	
+
+	function deleteAction() {
 		$studentID = Request::getParam('student_id');
 		$deleteObject = new Student();
 		$delete = $deleteObject->getDeleteStudent($studentID);
@@ -169,8 +167,5 @@ class StudentsController extends Zend_Controller_Action  {
 		$pdf->Cell(25,10, 'Change:');
 		$pdf->Cell(20,10, $view[0]['change']);
 		$pdf->Output();
-
 	}
-
 }
-

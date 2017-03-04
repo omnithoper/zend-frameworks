@@ -3,7 +3,7 @@ class Student extends BaseModel {
 	const PAGE_SIZE = 5;
 
 	protected $_name = 'student';
-		
+
 	public function getStudentDetails($studentID) {
 		$select = $this->_db->select()
 			->from($this->_name)
@@ -11,8 +11,9 @@ class Student extends BaseModel {
 		;
 		return $this->_db->fetchRow($select);
 	}
+
 	public function getStudentName($studentID) {
-	
+
 			$select = $this->_db->select()
 			->from('student', [
 				"CONCAT(first_name, ' ' , last_name) AS fullName"
@@ -20,20 +21,20 @@ class Student extends BaseModel {
 			->where('student_id = ?', $studentID)
 		;
 		return $this->_db->fetchRow($select);
-
 	}
 
 	public static function getNumberOfPages($studentCount) {
 		return ceil($studentCount/Student::PAGE_SIZE);
 	}
-	
+
 	public function getViewStudents($page = 1) {
 		$page = empty($page)?1:$page;
 		$semesterObject = new Semester();
 		$semDate = $semesterObject->getCurrentSemester();
-		$dateStart = $semDate[0]['date_start'];
+
+        $dateStart = $semDate[0]['date_start'];
 		$dateEnd = $semDate[0]['date_end'];
-		
+
 		$select = $this->_db->select()
 			->from('student', [
 				'student_id',
@@ -56,13 +57,17 @@ class Student extends BaseModel {
 
 		return $students;
 	}
-	
+
 	public function getViewStudentsCount() {
 		$semesterObject = new Semester();
 		$semDate = $semesterObject->getCurrentSemester();
-		$dateStart = $semDate[0]['date_start'];
+        if (empty($semDate)) {
+            return false;
+        }
+
+        $dateStart = $semDate[0]['date_start'];
 		$dateEnd = $semDate[0]['date_end'];
-		
+
 		$select = $this->_db->select()
 			->from('student', [
 				'total' => new Zend_Db_Expr("COUNT(student.student_id)")
@@ -86,16 +91,15 @@ class Student extends BaseModel {
 		if (empty($semDate)) {
 			return false;
 		}
-		
+
 		$dateStart = $semDate[0]['date_start'];
 		$dateEnd = $semDate[0]['date_end'];
 
-
 		$studentID = empty($studentID)?0:$studentID;
-	
+
 		$select = $this->_db->select()
 			->from($this->_name, [
-				'student_id',		
+				'student_id',
 			])
 			->joinLeft(
 				'payment', 
@@ -107,9 +111,8 @@ class Student extends BaseModel {
 			)
 			->where('student.student_id = ?', $studentID)
 		;
-		
-		return $students = $this->_db->fetchAll($select);
 
+		return $students = $this->_db->fetchAll($select);
 	}
 
 	public function getViewStudentsPaginated($per_page) {
@@ -117,12 +120,13 @@ class Student extends BaseModel {
 		$student = $this->_db->connection->query($select);
 		return $student;
 	}
-		
+
 	public function getAllStudentInformation($studentName) {
 		if (empty($studentName)) {
 			return [];
 		}
-			$select = $this->_db->select()
+
+        $select = $this->_db->select()
 			->from('student', [
 				'student_id',
 				'first_name',
@@ -134,10 +138,9 @@ class Student extends BaseModel {
 		;
 
 		return $students = $this->_db->fetchAll($select);
-
 	}
+
 	public function getAllStudentStudentID($studentID) {
-		
 			$select = $this->_db->select()
 			->from('student', [
 				'student_id',
@@ -148,11 +151,11 @@ class Student extends BaseModel {
 			->where('student_id = ?', $studentID)
 		;
 
-	return $students = $this->_db->fetchAll($select);
-
+    	return $students = $this->_db->fetchAll($select);
 	}
+
 	public function studentExist($firstName, $lastName, $studentID = null) {
-		
+
 		$select = $this->_db->select()
 			->from($this->_name)
 			->where('first_name = ?' , $firstName )
@@ -160,53 +163,47 @@ class Student extends BaseModel {
 		;
 		
 		 return $this->_db->fetchRow($select);
-	
-	} 
-	
-	public function getAddStudent($data, $firstName, $lastName) {
+	}
 
+	public function getAddStudent($data, $firstName, $lastName) {
 		if ($this->studentExist($firstName, $lastName)) {
 			return [
 				'error' => 'Student Already Exist',	
 			];
 		}
-	
-			$this->_db->insert($this->_name, $data);
-			header("Location: /students");			
+
+        $this->_db->insert($this->_name, $data);
+        header("Location: /students");
 	}
-	
+
 	public function getViewStudent($studentID = null){
 		if (empty($studentID)) {
 			return false;
 		}
-		
+
 		$select = $this->_db->select()
 			->from($this->_name)
 			->where('student_id = ?', $studentID)
 		;
 		return $this->_db->fetchRow($select);
-			
 	}
-	
-	
-	public function getEditStudent($data, $firstName, $lastName, $studentID) {
 
+	public function getEditStudent($data, $firstName, $lastName, $studentID) {
 		if ($this->studentExist($firstName, $lastName)) {
 			return [
 				'error' => 'Student Already Exist',	
 			];
 		}
-	
+
 		$this->_db->update($this->_name, $data, "student_id =  '$studentID'");
-		
+
 		header("Location: /students");
 	}
 
 	public function getDeleteStudent($studentID) {
 		//$where = $this->getAdapter()->quoteInto('student_id = ?', $studentID);
 
-	 
-		$this->_db->delete($this->_name, "student_id =  '$studentID'");	
+		$this->_db->delete($this->_name, "student_id =  '$studentID'");
 
 		header("Location: /students");
 	}
@@ -222,8 +219,7 @@ class Student extends BaseModel {
 			$params['last_name'] = $last_name;
 		}
 
-	
-		$this->_db->update($this->_name, $data, "student_id =  '$studentID'");	
+		$this->_db->update($this->_name, $data, "student_id =  '$studentID'");
 
 		return [
 			'studentID' => $studentID,
@@ -233,23 +229,20 @@ class Student extends BaseModel {
 	}
 
 	public function addStudent($data, $firstName, $lastName) {
-
-	
 			$this->_db->insert($this->_name, $data);
-			
 	}
-	
+
 	public function getStudentUserPassword($userName, $password) {
  		if (empty($userName)) {
  			return [
  			'error' => 'Please input username and password',
- 			];	
+ 			];
  		}
  
  		if (empty($password)) {
  			return [
  			'error' => 'Please input username and password',
- 			];	
+ 			];
  		}
  
  		$select = $this->_db->select()
@@ -257,12 +250,11 @@ class Student extends BaseModel {
  			->where('username = ?' , $userName )
  			->where('password = ?' , sha1($password) ) 
  		;
- 		
+
  		$result = $this->_db->fetchAll($select);
        	$count = count($result);
  
  		if($count == 1) {
- 			
  			$_SESSION['login_user'] = $userName;
  			$_SESSION['user_type'] = 'student';
  			$_SESSION['student_id'] = $result[0]['student_id'];
@@ -272,25 +264,10 @@ class Student extends BaseModel {
  				'error' => null
  			];
  		} else {
- 			return [			
+ 			return [
  				'status' => false,
  		  		'error' => 'Your Login Name or Password is invalid'
  			];
  		}
  	}   
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

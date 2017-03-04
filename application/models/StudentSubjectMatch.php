@@ -1,7 +1,7 @@
 <?php
 class StudentSubjectMatch extends BaseModel {
-
 	protected $_name = 'student_subject_match';
+
 	public function getStudentSubjectDetails($studentID,$subjectID) {
 		$select = $this->_db->select()
 			->from($this->_name)
@@ -10,12 +10,12 @@ class StudentSubjectMatch extends BaseModel {
 		;
 		return $this->_db->fetchRow($select);
 	}
+
 	public function getStudentSubjects($studentID = NUll){
-	
 		if (empty($studentID)) {
 			return false;
 		}
-		
+
 		$select = $this->_db->select()
 			->from($this->_name)
 			->join(
@@ -23,25 +23,22 @@ class StudentSubjectMatch extends BaseModel {
 				'student_subject_match.subject_id = subjects.subject_id'
 			)
 			->where('student_subject_match.student_id = ?' , $studentID )
-
 		;
 
 		return $this->_db->fetchAll($select);
-	
 	}
+
 	function subjectExist($studentID = NULL , $subjectID = NULL) {
-	
 		$select = $this->_db->select()
 			->from($this->_name)
 			->where('student_id = ?' , $studentID )
 			->where('subject_id = ?' , $subjectID )
 		;
-		
+
 		 return $this->_db->fetchRow($select);
 	} 
-	
-	function getAddStudentSubjectID($studentID, $subjectID) {
 
+	function getAddStudentSubjectID($studentID, $subjectID) {
 		if (empty($studentID)) {
 			return true;
 		}
@@ -49,7 +46,6 @@ class StudentSubjectMatch extends BaseModel {
 		if (empty($subjectID)) {
 			return true;
 		}
-	
 
 		if ($this->subjectExist($studentID, $subjectID)) {
 			return [
@@ -57,7 +53,6 @@ class StudentSubjectMatch extends BaseModel {
 			];
 		}
 
-		
 		$settings = new Settings();
 		if ($settings->isEcceededUnits($studentID, $subjectID)) {
 			return [
@@ -65,40 +60,37 @@ class StudentSubjectMatch extends BaseModel {
 				'status' => 'failed',
 			];
 		}
-		
+
 		$data = array(
 			'student_id' => $studentID,
 			'subject_id' => $subjectID,
 		);
-		
-		$this->_db->insert($this->_name, $data);
-		
 
+		$this->_db->insert($this->_name, $data);
 	}
 
-		public function getEditStudentGrade($data, $studentID, $subjectID) {
-
+    public function getEditStudentGrade($data, $studentID, $subjectID) {
 		$where['student_id = ?'] = $studentID;
 		$where['subject_id = ?']  = $subjectID;
 		$this->_db->update($this->_name, $data, $where);
-		
+
 		header("Location: /studentgrade");
 	}
-		function getDeleteSubject($studentID, $subjectID) {
-	
-		
+
+    public function getDeleteSubject($studentID, $subjectID) {
 		if (empty($studentID)) {
 			return true;
 		}
-		
+
 		if (empty($subjectID)) {
 			return true;
 		}
 
 		$where['student_id = ?'] = $studentID;
 		$where['subject_id = ?']  = $subjectID;
-		$this->_db->delete($this->_name, $where);	
+		$this->_db->delete($this->_name, $where);
 	}
+
 	/*
 	function getStudentSubjects($studentID){
 			$db = new DatabaseConnect();
@@ -120,9 +112,5 @@ class StudentSubjectMatch extends BaseModel {
 		return $result;
 					
 	}
-
-	
 */
-}	
-	
-?>
+}

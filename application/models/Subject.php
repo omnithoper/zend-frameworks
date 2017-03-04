@@ -3,7 +3,7 @@ class Subject extends BaseModel {
 	const PAGE_SIZE = 5;
 
 	protected $_name = 'subjects';
-	
+
 /* this is with zend db table with db connection
 	function getViewSubjects() {
 		$select = "SELECT * FROM subjects";
@@ -12,14 +12,12 @@ class Subject extends BaseModel {
 	}
 */
 
-
 	public function getLaboratoryUnits($studentID = null)	
-	{	
+	{
 		if (empty($studentID)) {
 			return 0;
 		}
 
-			
 		$select = $this->_db->select()
 			->from('student_subject_match', ['laboratory_units' => 'SUM(subjects.lab_unit)'])
 			->join('subjects', 'student_subject_match.subject_id = subjects.subject_id', [])
@@ -27,28 +25,26 @@ class Subject extends BaseModel {
 			;
 		return $this->_db->fetchOne($select);
 	}	
+
 	public function getLectureUnits($studentID = null)
-	{	
+	{
 		if (empty($studentID)) {
 			return 0;
 		}
 
-		
 		$select = $this->_db->select()
 			->from('student_subject_match', ['lecture_units' => 'SUM(subjects.lec_unit)'])
 			->join('subjects', 'student_subject_match.subject_id = subjects.subject_id', [])
 			->where('student_subject_match.student_id = ?', $studentID)
 			;
 		return $this->_db->fetchOne($select);
-			
 	}
-	
+
 	public function getCurrentUnits($studentID = null)
-	{	
+	{
 		if (empty($studentID)) {
 			return 0;
 		}
-
 
 		$select = $this->_db->select()
 			->from('student_subject_match', ['total_units' => 'SUM(subjects.subject_unit)'])
@@ -57,30 +53,20 @@ class Subject extends BaseModel {
 			;
 
 		return $this->_db->fetchOne($select);
-		
 	}
 
 	public function addSubjectyy($data, $subjectName) {
-
-	
-			$this->_db->insert($this->_name, $data);
-			
+        $this->_db->insert($this->_name, $data);
 	}
 
 	public function addSubject($data, $SubjectName) {
-
-	
-			$this->_db->insert($this->_name, $data);
-			
+        $this->_db->insert($this->_name, $data);
 	}
 
 	public function updateSubject($data = null, $subjectID = null, $subjectName = null) {
-	
-
-		$this->_db->update($this->_name, $data, "subject_id =  '$subjectID'");	
-
-
+		$this->_db->update($this->_name, $data, "subject_id =  '$subjectID'");
 	}
+
 	public function getSubjectUnits($subjectID = null)
 	{
 		$select = $this->_db->select()
@@ -89,19 +75,21 @@ class Subject extends BaseModel {
 			->where('subject_id = ?', $subjectID)
 		;	
 		$results = $this->_db->fetchAll($select);
-	
+
 		return (empty($results))?0:$results[0]['subject_unit'];
 	}
+
 	public function getViewSubjectsCount() {
 		$select = $this->_db->select()
 			->from($this->_name, [
 				'total' => new Zend_Db_Expr("COUNT(subjects.subject_id)")
 			])
-			;	
-				$total = $this->_db->fetchOne($select);
+			;
+        $total = $this->_db->fetchOne($select);
 
 		return $total;
 	}
+
 	/*
 	public function getViewSubjects() {
 		$select = $this->_db->select()
@@ -110,9 +98,11 @@ class Subject extends BaseModel {
 		return $this->_db->fetchAll($select);
 	}
 	*/
+
 	public static function getNumberOfPages($subjectsCount) {
 		return ceil($subjectsCount/Subject::PAGE_SIZE);
 	}
+
 	public function getViewSubjects($page = 1) {
 		$page = empty($page)?1:$page;
 		$select = $this->_db->select()
@@ -122,12 +112,13 @@ class Subject extends BaseModel {
 			;	
 		return $this->_db->fetchAll($select);
 	}
-	public function getListSubjects($studentID) {
 
+	public function getListSubjects($studentID) {
 		if (empty($studentID)) {
 			return false;
 		} 
-			$select = $this->_db->select()
+
+        $select = $this->_db->select()
 			->from('student_subject_match')
 			->joinRight(
 				'subjects', 
@@ -136,56 +127,49 @@ class Subject extends BaseModel {
 			)
 			->where('student_subject_match.student_id IS NULL')
 		;
-		
+
 		return $this->_db->fetchAll($select);
 	}
-	
+
 	public function getSubjectDetails($subjectID) {
 		$select = $this->_db->select()
 			->from($this->_name)
 			->where('subject_id = ?', $subjectID)
 		;
+
 		return $this->_db->fetchRow($select);
-	}	
-	function getAddSubject($subject, $lecUnit, $labUnit, $subjectUnit) {
-
-
-		$data = array(
-		    'subject' => $subject,
-		    'lec_unit' => $lecUnit,
-		    'lab_unit' => $labUnit,
-		    'subject_unit' => $subjectUnit
-		);
-		
-		$this->_db->insert($this->_name, $data);
-	
-		header("Location: /subjects");	
-		
 	}
 
-
-
-	function getEditSubject($subject, $lecUnit, $labUnit, $subjectUnit, $subjectID) {
-				
+	public function getAddSubject($subject, $lecUnit, $labUnit, $subjectUnit) {
 		$data = array(
 		    'subject' => $subject,
 		    'lec_unit' => $lecUnit,
 		    'lab_unit' => $labUnit,
 		    'subject_unit' => $subjectUnit
 		);
-	
+
+		$this->_db->insert($this->_name, $data);
+
+		header("Location: /subjects");
+	}
+
+	public function getEditSubject($subject, $lecUnit, $labUnit, $subjectUnit, $subjectID) {
+		$data = array(
+		    'subject' => $subject,
+		    'lec_unit' => $lecUnit,
+		    'lab_unit' => $labUnit,
+		    'subject_unit' => $subjectUnit
+		);
+
 		$this->_db->update($this->_name, $data, "subject_id =  '$subjectID'");	
 		header("Location: /subjects");	
 	}
-	
 
-	function getDeleteSubject($subjectID) {
-
-
-		$this->_db->delete($this->_name, "subject_id =  '$subjectID'");	
-		header("Location: /subjects");		
-	
+	public function getDeleteSubject($subjectID) {
+		$this->_db->delete($this->_name, "subject_id =  '$subjectID'");
+		header("Location: /subjects");
 	}
+
 	/*
  
 	function getSubjects(){
@@ -325,9 +309,5 @@ class Subject extends BaseModel {
 	
 		header("Location: /subjects");
 	}
-
-
 */
-	
 }
-?>

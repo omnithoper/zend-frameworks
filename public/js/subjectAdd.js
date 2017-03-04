@@ -31,4 +31,3 @@ function checkInput() {
 document.onload = function(){
 checkInput();
 };
-

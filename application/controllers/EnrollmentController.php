@@ -1,28 +1,22 @@
 <?php
 class EnrollmentController extends Zend_Controller_Action {
 	public function indexAction() {
-
 		$studentName = Request::getParam('studentName');
 		$studentID = Request::getParam('studentID');
 		$sessionStudentID = (!empty($_SESSION['student_id']))?$_SESSION['student_id']:null;
 		$getSubjectID = Request::getParam('getSubjectID');
 		$subjectID = Request::getParam('subjectID');
-	
-		$students = [];
-		$subjects = new Subject();	
+
+		$subjects = new Subject();
 		$studentSubject = new StudentSubjectMatch();
 		$student = new Student();
 
-
-		#Zend_Debug::dump($subject); die();
 		if (!empty($sessionStudentID)) {
 			$students = $student->getAllStudentStudentID($sessionStudentID);
-		}
-		else { 
+		} else {
 			$students = $student->getAllStudentInformation($studentName);
 		}
 		$selectedStudent = $student->getViewStudent($studentID);
-		#Zend_Debug::dump($students); die();
 
 		if (count($students) == 1) {
 			$selectedStudent = (!empty($students[0]))?$students[0]:NULL;
@@ -49,6 +43,5 @@ class EnrollmentController extends Zend_Controller_Action {
 		$this->view->allSubject = $allSubject;
 		$this->view->selectedStudent = $selectedStudent;
 		$this->view->error = $addStudentSubject;
-	}	
+	}
 }
-?>

@@ -9,14 +9,10 @@ class SettingsController extends Zend_Controller_Action  {
 		$semester = new Semester();
 
 		$settings = $settings->getViewSettings();
-	//	var_dump($settings);
-	//	die("here");
+
 		$semesters = $semester->getViewSemester();
 		$this->view->semesters = $semesters;
 		$this->view->settings = $settings;
 		$this->view->date = $date;
-
-	
 	}
 }
-?>

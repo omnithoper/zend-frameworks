@@ -29,4 +29,3 @@ function checkSubjectName() {
 document.onload = function(){
 checkInput();
 };
-

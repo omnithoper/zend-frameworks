@@ -62,12 +62,8 @@ class StudentGradeController extends Zend_Controller_Action  {
 		    	'mid_term' => $midTerm,
 		    	'final_Term' => $finalTerm,
 			);
-		
+
 			$edit = $studentGrade->getEditStudentGrade($data, $studentID, $subjectID);
-		
-
 		}
-
 	}
-
-}	
+}

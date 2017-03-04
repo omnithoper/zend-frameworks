@@ -1,8 +1,6 @@
 <?php
 class CashierController extends Zend_Controller_Action {
-
 	public function indexAction() {
-
 		$studentID = Request::getParam('studentID');
 
 		$setting = new Settings();
@@ -38,7 +36,5 @@ class CashierController extends Zend_Controller_Action {
 		$this->view->totalUnitPrice = $totalUnitPrice;
 		$this->view->priceMisc = $priceMisc;
 		$this->view->totalPrice = $totalPrice;
-		}
-
-
-}	
+	}
+}

@@ -1,7 +1,6 @@
 <?php
 class Cashier extends BaseModel{
 
-	
 	public function getTotalPrice($studentID) {
 		$setting = new Settings();
 
@@ -11,6 +10,7 @@ class Cashier extends BaseModel{
 		$result = $totalLecPrice + $totalLabPrice + $misc;
 		return $result;
 	}
+
 	public function getTotalLecturePrice($studentID) {
 		$setting = new Settings();
 		$subject = new Subject();
@@ -25,7 +25,7 @@ class Cashier extends BaseModel{
 	public function getTotalLaboratoryPrice($studentID) {
 		$setting = new Settings();
 		$subject = new Subject();
-		
+
 		$totalUnits = $subject->getLaboratoryUnits($studentID);
 		$perUnit = $setting->getPriceLabUnit();
 		$result = $totalUnits * $perUnit;
@@ -33,7 +33,6 @@ class Cashier extends BaseModel{
 	}
 
 	public function getTotalUnitPrice($studentID) {
-
 		$totalLecPrice = $this->getTotalLecturePrice($studentID);
 		$totalLabPrice = $this->getTotalLaboratoryPrice($studentID);
 		$result = $totalLecPrice + $totalLabPrice;
@@ -41,6 +40,4 @@ class Cashier extends BaseModel{
 		return $result;
 	}
 
-}	
-
-?>	
+}
