@@ -12,8 +12,94 @@ class StudentsController extends Zend_Controller_Action  {
 		$this->view->currentPage = $page;
 	}
 
-	public function studentsapiAction() {
+	public function apiAction() {
+		$page = Request::getParam('page');
+
+		$student = new Student();
+		$students = $student->getViewStudents($page); 
+		$studentsCount = $student->getViewStudentsCount();
+ 	
+		$doc = new DOMDocument();
+		$root_element = $doc->createElement("response");
+	    $doc->appendChild($root_element);
 		
+		$statusElement = $doc->createElement("success");
+	    $statusElement->appendChild($doc->createTextNode("true"));
+	    $root_element->appendChild($statusElement);
+
+        $studentsElement = $doc->createElement("students");
+        $root_element->appendChild($studentsElement);
+
+		foreach ($students as $student) { 
+	        $studentElement = $doc->createElement("student");
+	        $studentsElement->appendChild($studentElement);
+
+	        $studentID = $doc->createElement("studentID");
+	        $studentID->appendChild($doc->createTextNode($student['student_id']));
+	        $studentElement->appendChild($studentID);
+
+	        $firstName = $doc->createElement("firstName");
+	        $firstName->appendChild($doc->createTextNode($student['first_name']));
+	        $studentElement->appendChild($firstName);
+
+	        $lastName = $doc->createElement("lastName");
+	        $lastName->appendChild($doc->createTextNode($student['last_name']));
+	        $studentElement->appendChild($lastName);
+
+    	}
+        header('Content-Type: application/xml');
+        echo $doc->saveXML(); 
+        exit;
+	}
+
+	public function apiForAction() {
+		$page = Request::getParam('page');
+
+		$student = new Student();
+		$students = $student->getViewStudents($page); 
+
+		$doc = new DOMDocument();
+		$root_element = $doc->createElement("response");
+	    $doc->appendChild($root_element);
+		
+		$statusElement = $doc->createElement("success");
+	    $statusElement->appendChild($doc->createTextNode("true"));
+	    $root_element->appendChild($statusElement);
+
+        $studentsElement = $doc->createElement("students");
+        $root_element->appendChild($studentsElement);
+
+        for ($ctr = 0; $ctr < count($students); $ctr++) {
+	        $studentElement = $doc->createElement("student");
+	        $studentsElement->appendChild($studentElement);
+
+	        $studentID = $doc->createElement("studentID");
+	        $studentID->appendChild($doc->createTextNode($students[0]['student_id']));
+	        $studentElement->appendChild($studentID);
+
+	        $firstName = $doc->createElement("firstName");
+	        $firstName->appendChild($doc->createTextNode($students[0]['first_name']));
+	        $studentElement->appendChild($firstName);
+
+	        $lastName = $doc->createElement("lastName");
+	        $lastName->appendChild($doc->createTextNode($students[0]['last_name']));
+	        $studentElement->appendChild($lastName);
+
+    	}
+        header('Content-Type: application/xml');
+        echo $doc->saveXML(); 
+        exit;
+	}
+
+	public function apiJsonAction() {
+		$page = Request::getParam('page');
+
+		$student = new Student();
+		$students = $student->getViewStudents($page); 
+
+		header('Content-Type: application/json');
+		echo Zend_Json::encode($students);
+		exit;
 	}
 
 	public function detailsAction() {

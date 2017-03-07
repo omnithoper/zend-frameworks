@@ -1,5 +1,7 @@
 
 <script src="/js/semester.js"></script>
+<script type='text/javascript' src='/js/vendor/plugins/bootstrap-datepicker.js'></script>
+
 <nav id ="searchStudent">
 	<div id="container">
 	<div class="navbar">
@@ -32,6 +34,13 @@
 				<br/>
 				<br/>
 		<table class="table table-bordered table-condensed table-striped">
+			<a  
+				class="pull-right btn btn-success" 
+				title="add Semester"
+				data-toggle="modal" data-target="#semester-add"
+				> 
+				<i class="icon icon-plus"></i>
+			</a>
 			<a class="pull-right btn btn-success" 
 					href="/Semester/add">
 					<i class="icon-plus"></i></a>
@@ -64,10 +73,20 @@
 						<i class="icon icon-search"></i>
 					</a>	
 
-				<td> <a href="/semester/edit?semester_id=<?php echo $details['semester_id']; ?>" 
+				<td> 
+					<a 
+						onclick="editSemester(<?php echo $details['semester_id']; ?>)" 
+						class="btn" 
+						title="edit Semester"
+						data-toggle="modal" data-target="#semester-edit"
+						> 
+						<i class="icon icon-edit"></i>
+					</a>
+
+					<!-- <a href="/semester/edit?semester_id=<?php echo $details['semester_id']; ?>" 
 							class="btn" title="edit Student"> 
 							<i class="icon icon-edit"></i>
-					</a>
+					</a>-->
 
 				</td>
 				<td>
@@ -105,7 +124,62 @@
 
   </div>
 </div>
+<div id="semester-edit" class="modal fade" role="dialog">
 
+		  <div class="modal-dialog">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <h4 class="modal-title">Student Edit</h4>
+		      </div>
+		      <div class="modal-body">
+		      	<h1> Student Edit </h1>
+
+		        <dl>
+		        	<dt>semesterID</dt><dd id="editSemesterID"></dd>
+		        	<dt>Date Start</dt>	<dd><input id="editDateStart" data-date-format="yyyy-mm-dd" type="text" name="date_start" value="" onchange="checkInput();">Date Start<br></dd>
+		        	<dt>Date End</dt><dd>	<input id="editDateEnd" data-date-format="yyyy-mm-dd" type="text" name="date_end" value="" onchange="checkInput();">Date End<br></dd>
+		        </dl>
+		      </div>
+		      <div class="modal-footer">
+		      	<button data-dismiss="modal" class="btn btn-default" id="button_save" type="submit" name="edit" value="save" onclick="updateSemester()">save</button>
+		        <button type="button" class="btn btn-default btn-danger" data-dismiss="modal">	<i class="icon icon-remove"></i></button>
+		      </div>
+		    </div>
+
+		  </div>
+<script type='text/javascript'>
+	$('#editDateStart').datepicker();
+	$('#editDateEnd').datepicker();
+</script>			
+	</div>
+<div id="semester-add" class="modal fade" role="dialog">
+
+		  <div class="modal-dialog">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <h4 class="modal-title">Student Edit</h4>
+		      </div>
+		      <div class="modal-body">
+		      	<h1> Student Edit </h1>
+
+		        <dl>
+		        	<dt>semesterID</dt><dd id="addSemesterID"></dd>
+		        	<dt>Date Start</dt>	<dd><input id="addDateStart" data-date-format="yyyy-mm-dd" type="text" name="date_start" value="" onchange="checkInput();">Date Start<br></dd>
+		        	<dt>Date End</dt><dd>	<input id="addDateEnd" data-date-format="yyyy-mm-dd" type="text" name="date_end" value="" onchange="checkInput();">Date End<br></dd>
+		        </dl>
+		      </div>
+		      <div class="modal-footer">
+		      	<button data-dismiss="modal" class="btn btn-default" id="button_save" type="submit" name="edit" value="save" onclick="addSemester()">save</button>
+		        <button type="button" class="btn btn-default btn-danger" data-dismiss="modal">	<i class="icon icon-remove"></i></button>
+		      </div>
+		    </div>
+
+		  </div>
+<script type='text/javascript'>
+	$('#addDateStart').datepicker();
+	$('#addDateEnd').datepicker();
+</script>			
+	</div>	
 </nav>
 
 

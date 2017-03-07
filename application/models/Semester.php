@@ -1,15 +1,16 @@
 <?php
 class Semester extends BaseModel {
+ 
     protected $_name = 'semester';
 
 	public function getViewSemester() {
+
 		$select = $this->_db->select()
 			->from('semester')
-			->order('semester_id');
-
+			->order('semester_id')	
+		;
 		return $this->_db->fetchAll($select);
 	}
-
 	public function getSemesterDetails($semesterID) {
 		$select = $this->_db->select()
 			->from($this->_name)
@@ -17,11 +18,10 @@ class Semester extends BaseModel {
 		;
 		return $this->_db->fetchRow($select);
 	}
-
 	public function getAddSemester($data) {
 		$this->_db->insert($this->_name, $data);
 
-		header("Location: /settings/");
+		header("Location: /settings/");			
 	}
 
 	public function getDeleteSemester($semesterID) {
@@ -38,6 +38,9 @@ class Semester extends BaseModel {
 	}
 
 	public function getPaymentDate($dateStart = NULL, $dateEnd = NULL) {
+		
+	
+			
 		$select = $this->_db->select()
 			->from('student', [
 				"CONCAT(student.first_name, ' ' , student.last_name) AS fullName"
@@ -52,9 +55,10 @@ class Semester extends BaseModel {
 					'transaction_date'
 				]
 			)
+		
 		;
-
 		$results = $this->_db->fetchAll($select);
+
 
 		$result = [];
 		if (!empty($results)) {
@@ -67,7 +71,6 @@ class Semester extends BaseModel {
 
 		return $result;
 	}
-
 	public function getSemesterTotalIncome($dateStart, $dateEnd) {
 		$select = $this->_db->select()
 			->from('payment', [
@@ -77,6 +80,7 @@ class Semester extends BaseModel {
 				'transaction_date'
 			])
 			->where("transaction_date between '$dateStart' and '$dateEnd' ")
+
 		;
 		$results = $this->_db->fetchAll($select);
 
@@ -95,6 +99,20 @@ class Semester extends BaseModel {
 			
 		$result[] = $payment;	
 		return $result;
+	}
+	public function addSemester($data) {
+
+	
+			$this->_db->insert($this->_name, $data);
+			
+	}
+	
+
+	public function updateSemester($data = null, $semesterID = null) {
+
+		$this->_db->update($this->_name, $data, "semester_id =  '$semesterID'");	
+
+
 	}
 	/*
 
@@ -216,7 +234,6 @@ class Semester extends BaseModel {
 		return $result;
 	}
 	*/
-
 	public function getCurrentSemester() {
 		$date = date("Y-m-d");
 
@@ -230,6 +247,8 @@ class Semester extends BaseModel {
 			->where('? BETWEEN date_start AND date_end', $date)
 		;
 
+
 		return $this->_db->fetchAll($select);
+
 	}
 }

@@ -27,3 +27,5 @@ window.onload = function(){
 	document.getElementById('change_display').classList.add('hide');
 	console.log(document.getElementById('change_display'));
 };
+
+
