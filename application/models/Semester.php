@@ -74,11 +74,12 @@ class Semester extends BaseModel {
 		}
 
 		$select = $this->_db->select()
-			->from('payment', ['total_income' => new Zend_Db_Expr('SUM(total_amount)')])
+			->from('payment', ['total_income' => new Zend_Db_Expr('SUM(total_amount)'),
+					'total_student' => new Zend_Db_Expr("COUNT(student_id)")])
 			->where("transaction_date between '$dateStart' and '$dateEnd' ")
 		;
-
-		return $this->_db->fetchOne($select);
+		
+		return $this->_db->fetchRow($select);
 	}
 	
 	public function addSemester($data) {

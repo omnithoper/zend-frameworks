@@ -49,13 +49,12 @@
 						</td>
 						<td><button type="submit" name="saveSemDate" >Go</button>	</td>		
 					</tr>
-					<tr>
-						<td colspan="1"><span class="pull-right">Total Income</span></td>
-						<td> <label for="Price"><?php echo $this->totalAmount; ?></label> </td>
-						<td colspan="3"></td>
-					</tr>
 				</table> 
-				<br/> <br/>
+				<br/>
+				<br/>
+
+				 <label id="totalAmount" for="Price">total Income <?php echo $this->totalAmount; ?></label> <br/>
+				 <label id="totalAmount" for="Price">number of student Paid <?php echo $this->numberOfStudent; ?></label> 
 			<?php endif; ?>
 		</div>
 	</nav>
