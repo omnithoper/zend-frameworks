@@ -38,9 +38,6 @@ class Semester extends BaseModel {
 	}
 
 	public function getPaymentDate($dateStart = NULL, $dateEnd = NULL) {
-		
-	
-			
 		$select = $this->_db->select()
 			->from('student', [
 				"CONCAT(student.first_name, ' ' , student.last_name) AS fullName"
@@ -55,67 +52,44 @@ class Semester extends BaseModel {
 					'transaction_date'
 				]
 			)
-		
 		;
-		$results = $this->_db->fetchAll($select);
 
+		$results = $this->_db->fetchAll($select);
 
 		$result = [];
 		if (!empty($results)) {
 			foreach ($results as $payment){
 				$payment['paid'] = NULL;
- 			    $payment['paid'] = $payment['total_amount'] - $payment['change'];
+ 			    $payment['paid'] = $payment['total_amount'];
 				$result[] = $payment;			
 			}
 		}
 
 		return $result;
 	}
+	
 	public function getSemesterTotalIncome($dateStart, $dateEnd) {
+		if (empty($dateStart) && empty($dateEnd)) {
+			return false;
+		}
+
 		$select = $this->_db->select()
-			->from('payment', [
-				'payment',
-				'total_amount',
-				'change',
-				'transaction_date'
-			])
+			->from('payment', ['total_income' => new Zend_Db_Expr('SUM(total_amount)')])
 			->where("transaction_date between '$dateStart' and '$dateEnd' ")
-
 		;
-		$results = $this->_db->fetchAll($select);
 
-		$payment = [];
-		$sumTotal = 0;
-		$sumChange = 0;
-		foreach ($results as $payment){
-			$payment['total_paid'] = NULL;
-
-			if ($payment['payment'] == 1 )  {
-					$payment['total_amount'] = $sumTotal += $payment['total_amount'] ;
-					$payment['change'] = $sumChange += $payment['change'];
-			}			
-				$payment['total_paid'] = $payment['total_amount'] - $payment['change'];			
-		}	
-			
-		$result[] = $payment;	
-		return $result;
+		return $this->_db->fetchOne($select);
 	}
+	
 	public function addSemester($data) {
-
-	
-			$this->_db->insert($this->_name, $data);
-			
+		$this->_db->insert($this->_name, $data);
 	}
-	
 
 	public function updateSemester($data = null, $semesterID = null) {
-
 		$this->_db->update($this->_name, $data, "semester_id =  '$semesterID'");	
-
-
 	}
-	/*
 
+	/*
 	public function isEcceededUnits($studentID = null, $subjectID = null) {
 		$subjectObject = new Subject();
 		$currentUnits = $subjectObject->getCurrentUnits($studentID);

@@ -19,55 +19,43 @@
 				<div class="alert alert-info">No students yet</div>
 			<?php else: ?>
 				<table class="table table-bordered table-condensed table-striped"> 
-					<p id="delete"></p>
-						<tr>
-							<th>Studend Name</th>
-							<th>Amount</th>
-							<th>Change</th>
-							<th>Total Income</th>
-							<th>Date Paid</th>
-							<th>Semeser Date</th>
-						</tr>	
-
-			  
-					<?php foreach ($this->result as $details): ?>
-					<?php if ($details['payment'] == 0): ?>
-						<tr>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-					<?php else: ?>	
-						<tr>
-							<td align="center"><?php echo $details['fullName']; ?></td>
-							<td align="center"><?php echo $details['total_amount']; ?></td>
-							<td align="center"><?php echo $details['change']; ?></td>
-							<td align="center"><?php echo $details['paid'];?></td>
-							<td	align="center"><?php echo $details['transaction_date']; ?></td>
-					
-					<?php endif; ?>			
-					<?php endforeach; ?>
-							<td>
-								<select id="list" name="semDate" >
-									<option >(Select Semester)</option>
-								<?php foreach ($this->semesterDate as $details): ?>
-									<option 
-										value="<?php echo $details['date_start'].', '.$details['date_end']; ?>"><?php echo $details['date_start'].' - '.$details['date_end']; ?>
-									</option>
-								<?php endforeach; ?> 	
-								</select>
-							</td>
-							<td><button type="submit" name="saveSemDate" >Go</button>	</td>		
+					<tr>
+						<th>Studend Name</th>
+						<th>Income</th>
+						<th>Date Paid</th>
+					</tr>	
+						<?php foreach ($this->result as $details): ?>
+							<?php if ($details['payment'] == 0): ?>
+							<?php else: ?>
+								<tr>
+									<td align="center"><?php echo $details['fullName']; ?></td>
+									<td align="center"><?php echo $details['total_amount']; ?></td>
+									<td	align="center"><?php echo $details['transaction_date']; ?></td>
+								</tr>
+							<?php endif; ?>
+						<?php endforeach; ?>	
 					</tr>
 					<tr>
-						<td colspan="1"><span class="pull-right">Price</span></td>
+						<td></td>
+						<td>
+							<select id="list" name="semDate" >
+								<option >(Select Semester)</option>
+							<?php foreach ($this->semesterDate as $details): ?>
+								<option 
+									value="<?php echo $details['date_start'].', '.$details['date_end']; ?>"><?php echo $details['date_start'].' - '.$details['date_end']; ?>
+								</option>
+							<?php endforeach; ?> 	
+							</select>
+						</td>
+						<td><button type="submit" name="saveSemDate" >Go</button>	</td>		
+					</tr>
+					<tr>
+						<td colspan="1"><span class="pull-right">Total Income</span></td>
 						<td> <label for="Price"><?php echo $this->totalAmount; ?></label> </td>
-						<td> <label for="Price"><?php echo $this->change; ?></label> </td>
-						<td> <label for="Price"><?php echo $this->totalPaid; ?> </label> </td>
 						<td colspan="3"></td>
 					</tr>
-				</table> <br/> <br/>
+				</table> 
+				<br/> <br/>
 			<?php endif; ?>
 		</div>
 	</nav>
