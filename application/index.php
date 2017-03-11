@@ -1,16 +1,12 @@
 <?php
 
-defined('APPLICATION_PATH')
-        || define('APPLICATION_PATH', realpath(dirname(__FILE__) . '/../application'));
 
-set_include_path(implode(PATH_SEPARATOR, array(
-    realpath(APPLICATION_PATH . '/../'),
-    get_include_path(),
-)));
 
 require_once 'Zend/Application.php';
 require_once 'Zend/Config/Ini.php';
 require_once 'Zend/Loader/Autoloader.php';
+defined('APPLICATION_PATH')
+        || define('APPLICATION_PATH', realpath(dirname(__FILE__) . '/../application'));
 
 
 $loader = Zend_Loader_Autoloader::getInstance();
