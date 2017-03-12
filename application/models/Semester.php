@@ -117,22 +117,26 @@ class Semester extends BaseModel {
 	return $this->_db->fetchAll($select);
 	
 	}
-<<<<<<< HEAD
+
 	public function getSemesterSubject() {
 		$select = $this->_db->select()
-			->from('student',[
-			'student_name' => new Zend_Db_Expr("CONCAT(student.first_name, ' ', student.last_name)")])
-			->join('student_subject_match',
-			'student_subject_match.student_id = student.student_id')
-			->join('semester',
-				'semester.semester_id = 35')
-			->where('student.student_id = 49')
+			->from('student_subject_match',[
+				'student_id',
+				'subject_id',
+			])
+			->join('payment', 'student_subject_match.student_id = payment.student_id')
+			->join('semester', 'payment.transaction_date BETWEEN semester.date_start AND semester.date_end')
+			->order('student_subject_match.student_id')
+			->order('semester.semester_id')
 			;
+			return $this->_db->fetchAll($select);
+			return array_map(function($details){
+				$details['semester_id'] = 35;
+				return $details;
+			}, $data);
 		return $this->_db->fetchAll($select);
 	}
-=======
 
->>>>>>> fe58b8596712aebb7c67109512f39d83f57e74c7
 	public function addSemester($data) {
 		$this->_db->insert($this->_name, $data);
 	}
