@@ -117,6 +117,7 @@ class Semester extends BaseModel {
 	return $this->_db->fetchAll($select);
 	
 	}
+<<<<<<< HEAD
 	public function getSemesterSubject() {
 		$select = $this->_db->select()
 			->from('student',[
@@ -129,6 +130,9 @@ class Semester extends BaseModel {
 			;
 		return $this->_db->fetchAll($select);
 	}
+=======
+
+>>>>>>> fe58b8596712aebb7c67109512f39d83f57e74c7
 	public function addSemester($data) {
 		$this->_db->insert($this->_name, $data);
 	}
