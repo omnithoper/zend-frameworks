@@ -102,17 +102,22 @@ class Semester extends BaseModel {
 		$select = $this->_db->select()		
 			->from('student',[
 				'student_name' => new Zend_Db_Expr("CONCAT(student.first_name, ' ', student.last_name)")])
-			->join('payment',
-				'student.student_id = payment.student_id',[
-					'payment_per_student' => new Zend_Db_Expr("SUM(payment.total_amount)"),
-				]
-			)
+		
 			->join('student_subject_match',
 				'student_subject_match.student_id = student.student_id',[
 				'number_of_subject' => new Zend_Db_Expr("COUNT(student_subject_match.student_id)")])
+			->join('semester',
+				'semester.semester_id = student_subject_match.semester_id')
+			->join('payment',
+			'student.student_id = payment.student_id',[
+				'payment_per_student' => new Zend_Db_Expr("SUM(payment.total_amount)"),
+				]
+			)
 			->where('payment.payment = 1')
 			->group('student.student_id')		
 		;
+
+		echo $select; die();
 
 		echo $select;
 		return $this->_db->fetchAll($select);

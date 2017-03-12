@@ -18,6 +18,10 @@ class IncomeController extends Zend_Controller_Action  {
 		$semesterIncome = $semester->getAllSemesterIncome();
 		$studentIncome = $semester->getpaymentPerStudent();
 
+
+		Zend_Debug::dump($studentIncome);
+		die("here");
+
 		$this->view->result = $result;
 		$this->view->studentIncome = $studentIncome;
 		$this->view->semesterIncome = $semesterIncome;
@@ -28,14 +32,60 @@ class IncomeController extends Zend_Controller_Action  {
 
 	public function debugAction()
 	{
+		ini_set('xdebug.var_display_max_depth', 20);
 		$semester = new Semester();
 		$sample = $semester->getSemesterSubject();
 
+		$batch = [];
 		foreach ($sample as $details) {
+			$batch[$details['student_id']][$details['semester_id']][] = $details; 
+		}
+
+		$batch2 = [];
+		foreach ($batch as $key => $details) {
+			$batch2[$key] = array_values($details); 
+		}
+
+		foreach ($batch2 as $studentID => $semester) {
+			foreach ($semester as $key => $subjects) {
+				foreach ($subjects as $subject) {
+					// Zend_Debug::dump($subject); continue;
+					$sql = '';
+
+					if ($key == 0) {
+						$sql .= 'UPDATE student_subject_match SET ';
+						$sql .= 'semester_id = '.$subject['semester_id'].' ';
+						$sql .= 'WHERE student_id = '.$subject['student_id'].' AND subject_id = '.$subject['subject_id'];
+					} else {
+						$sql .= 'INSERT IGNORE INTO  student_subject_match SET ';
+						$sql .= 'semester_id = '.$subject['semester_id'].', ';
+						$sql .= 'student_id = '.$subject['student_id'].', ';
+						$sql .= 'subject_id = '.$subject['subject_id'].' ';
+					}
+					$sql .= ';';
+
+					echo $sql.'<br/>';
+				}
+			}
+		}
+
+		Zend_Debug::dump($batch2);
+
+		die();
+
+		foreach ($sample as $key => $details) {
 			$sql = '';
-			$sql .= 'UPDATE student_subject_match SET ';
-			$sql .= 'semester_id = '.$details['semester_id'].' ';
-			$sql .= 'WHERE student_id = '.$details['student_id'].' AND subject_id = '.$details['subject_id'];
+
+			if ($studentID != $details['student_id']) {
+				$sql .= 'UPDATE student_subject_match SET ';
+				$sql .= 'semester_id = '.$details['semester_id'].' ';
+				$sql .= 'WHERE student_id = '.$details['student_id'].' AND subject_id = '.$details['subject_id'];
+			} else {
+				$sql .= 'INSERT INTO student_subject_match SET ';
+				$sql .= 'semester_id = '.$details['semester_id'].', ';
+				$sql .= 'student_id = '.$details['student_id'].', ';
+				$sql .= 'subject_id = '.$details['subject_id'].', ';
+			}
 			$sql .= ';';
 
 			echo $sql.'<br/>';
