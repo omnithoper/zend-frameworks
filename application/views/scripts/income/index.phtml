@@ -56,6 +56,40 @@
 				 <label id="totalAmount" for="Price">total Income <?php echo $this->totalAmount; ?></label> <br/>
 				 <label id="totalAmount" for="Price">number of student Paid <?php echo $this->numberOfStudent; ?></label> 
 			<?php endif; ?>
+			<br/>
+			<br/>
+				<table class="table table-bordered table-condensed table-striped"> 
+					<tr>
+						<th>Number of Student</th>
+						<th>Payment of all Student </th>
+						<th>Semester Period</th>
+					</tr>	
+						<?php foreach ($this->semesterIncome as $details): ?>
+								<tr>
+									<td align="center"><?php echo $details['number_of_student']; ?></td>
+									<td align="center"><?php echo $details['payment_per_student']; ?></td>
+									<td	align="center"><?php echo $details['semester_period']; ?></td>
+								</tr>
+						<?php endforeach; ?>	
+					</tr>
+				</table>	
+			<br/>
+			<br/>
+				<table class="table table-bordered table-condensed table-striped"> 
+					<tr>
+						<th>Student Name</th>
+						<th>Total Student Paid </th>
+						<th>Total Subject Enroled </th>
+					</tr>	
+						<?php foreach ($this->studentIncome as $details): ?>
+								<tr>
+									<td align="center"><?php echo $details['payment_per_student']; ?></td>
+									<td align="center"><?php echo $details['student_name']; ?></td>
+									<td	align="center"><?php echo $details['number_of_subject']; ?></td>
+								</tr>
+						<?php endforeach; ?>	
+					</tr>
+				</table>		
 		</div>
 	</nav>
 </form>	

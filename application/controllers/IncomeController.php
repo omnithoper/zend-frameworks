@@ -15,10 +15,14 @@ class IncomeController extends Zend_Controller_Action  {
 		$totalAmount = empty($studentPaid['total_income'])?null:$studentPaid['total_income'];
 		$numberOfStudent =empty($studentPaid['total_student'])?null:$studentPaid['total_student'];
 
-		$test = $semester->getIncomePerSemester($dateStart, $dateEnd);
-		Zend_Debug::dump($test);
-	
+		$semesterIncome = $semester->getAllSemesterIncome();
+		$studentIncome = $semester->getpaymentPerStudent();
+		Zend_Debug::Dump($studentIncome);
+		die("here");
+
 		$this->view->result = $result;
+		$this->view->studentIncome = $studentIncome;
+		$this->view->semesterIncome = $semesterIncome;
 		$this->view->semesterDate = $semesterDate;
 		$this->view->totalAmount = $totalAmount;
 		$this->view->numberOfStudent = $numberOfStudent;

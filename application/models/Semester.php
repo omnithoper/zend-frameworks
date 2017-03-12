@@ -81,19 +81,42 @@ class Semester extends BaseModel {
 		
 		return $this->_db->fetchRow($select);
 	}
+	public function getAllSemesterIncome(){
+
+	$select = $this->_db->select()	
+	->from('payment',
+		[
+			'number_of_student' => new Zend_Db_Expr("COUNT(DISTINCT(payment.student_id))"),
+			'payment_per_student' => new Zend_Db_Expr("SUM(payment.total_amount)"),
+			'semester_period' => new Zend_Db_Expr("CONCAT(semester.date_start, ' to ', semester.date_end)")
+		])
+	->join('semester',
+		'semester.date_start <= payment.transaction_date AND semester.date_end >= payment.transaction_date')
+	->group('semester.semester_id')		
+	;
+	return $this->_db->fetchAll($select);
 	
-	public function getIncomePerSemester() {
-		$select = $this->_db->select()
-			->from('payment', ['total_income' => new Zend_Db_Expr('SUM(total_amount)'),
-					'total_student' => new Zend_Db_Expr("COUNT(student_id)")])
-			->join('semester', 'date_start >= payment.transaction_date AND date_end <= payment.transaction_date', [])
-			->group('semester.semester_id')
-		;
-		echo $select;
-		
-		return $this->_db->fetchRow($select);
 	}
+	public function getpaymentPerStudent(){
+
+	$select = $this->_db->select()	
 	
+	->from('student',[
+		'student_name' => new Zend_Db_Expr("CONCAT(student.first_name, ' ', student.last_name)")])
+	->join('payment',
+		'student.student_id = payment.student_id',[
+			'payment_per_student' => new Zend_Db_Expr("SUM(payment.total_amount)"),
+		])
+	->join('student_subject_match',
+		'student_subject_match.student_id = payment.student_id',[
+		'number_of_subject' => new Zend_Db_Expr("COUNT(student_subject_match.student_id)")])
+	->where('payment.payment = 1')
+	->group('student.student_id')		
+	;
+	return $this->_db->fetchAll($select);
+	
+	}
+
 	public function addSemester($data) {
 		$this->_db->insert($this->_name, $data);
 	}
