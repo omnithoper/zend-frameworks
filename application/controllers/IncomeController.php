@@ -17,8 +17,6 @@ class IncomeController extends Zend_Controller_Action  {
 
 		$semesterIncome = $semester->getAllSemesterIncome();
 		$studentIncome = $semester->getpaymentPerStudent();
-		Zend_Debug::Dump($studentIncome);
-		die("here");
 
 		$this->view->result = $result;
 		$this->view->studentIncome = $studentIncome;
@@ -26,5 +24,26 @@ class IncomeController extends Zend_Controller_Action  {
 		$this->view->semesterDate = $semesterDate;
 		$this->view->totalAmount = $totalAmount;
 		$this->view->numberOfStudent = $numberOfStudent;
+	}
+
+	public function debugAction()
+	{
+		$semester = new Semester();
+		$sample = $semester->getSemesterSubject();
+
+		foreach ($sample as $details) {
+			$sql = '';
+			$sql .= 'UPDATE student_subject_match SET ';
+			$sql .= 'semester_id = '.$details['semester_id'].' ';
+			$sql .= 'WHERE student_id = '.$details['student_id'].' AND subject_id = '.$details['subject_id'];
+			$sql .= ';';
+
+			echo $sql.'<br/>';
+		}
+
+		Zend_Debug::Dump($sample);
+		die("here");
+
+
 	}
 }

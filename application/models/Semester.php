@@ -116,7 +116,25 @@ class Semester extends BaseModel {
 
 		echo $select;
 		return $this->_db->fetchAll($select);
-		
+	}
+
+	public function getSemesterSubject() {
+		$select = $this->_db->select()
+			->from('student_subject_match',[
+				'student_id',
+				'subject_id',
+			])
+			->join('payment', 'student_subject_match.student_id = payment.student_id')
+			->join('semester', 'payment.transaction_date BETWEEN semester.date_start AND semester.date_end')
+			->order('student_subject_match.student_id')
+			->order('semester.semester_id')
+			;
+			return $this->_db->fetchAll($select);
+			return array_map(function($details){
+				$details['semester_id'] = 35;
+				return $details;
+			}, $data);
+		return $this->_db->fetchAll($select);
 	}
 
 	public function addSemester($data) {
