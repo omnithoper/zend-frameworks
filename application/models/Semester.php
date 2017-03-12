@@ -82,6 +82,18 @@ class Semester extends BaseModel {
 		return $this->_db->fetchRow($select);
 	}
 	
+	public function getIncomePerSemester() {
+		$select = $this->_db->select()
+			->from('payment', ['total_income' => new Zend_Db_Expr('SUM(total_amount)'),
+					'total_student' => new Zend_Db_Expr("COUNT(student_id)")])
+			->join('semester', 'date_start >= payment.transaction_date AND date_end <= payment.transaction_date', [])
+			->group('semester.semester_id')
+		;
+		echo $select;
+		
+		return $this->_db->fetchRow($select);
+	}
+	
 	public function addSemester($data) {
 		$this->_db->insert($this->_name, $data);
 	}
