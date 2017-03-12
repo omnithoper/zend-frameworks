@@ -17,7 +17,8 @@ class IncomeController extends Zend_Controller_Action  {
 
 		$semesterIncome = $semester->getAllSemesterIncome();
 		$studentIncome = $semester->getpaymentPerStudent();
-		Zend_Debug::Dump($studentIncome);
+		$sample = $semester->getSemesterSubject();
+		Zend_Debug::Dump($sample);
 		die("here");
 
 		$this->view->result = $result;
