@@ -1,6 +1,7 @@
 <?php
 class EnrollmentController extends Zend_Controller_Action {
 	public function indexAction() {
+		$date = date("Y-m-d");
 		$studentName = Request::getParam('studentName');
 		$studentID = Request::getParam('studentID');
 		$sessionStudentID = (!empty($_SESSION['student_id']))?$_SESSION['student_id']:null;
@@ -10,6 +11,9 @@ class EnrollmentController extends Zend_Controller_Action {
 		$subjects = new Subject();
 		$studentSubject = new StudentSubjectMatch();
 		$student = new Student();
+		$semester = new Semester();
+
+		$semesterID = $semester->getSemesterID($date);
 
 		if (!empty($sessionStudentID)) {
 			$students = $student->getAllStudentStudentID($sessionStudentID);
@@ -23,15 +27,16 @@ class EnrollmentController extends Zend_Controller_Action {
 			$studentID = $students[0]['student_id'];
 		}
 
-		$addStudentSubject = $studentSubject->getAddStudentSubjectID($studentID, $getSubjectID);
+		$addStudentSubject = $studentSubject->getAddStudentSubjectID($studentID, $getSubjectID, $semesterID);
 
 		if (Request::getParam('action') == 'delete') {
-			$delete = $studentSubject->getDeleteSubject($studentID, $subjectID);
+			$delete = $studentSubject->getDeleteSubject($studentID, $subjectID, $semesterID);
 		}
-		$subject = $subjects->getListSubjects($studentID);
+		$subject = $subjects->getListSubjects($studentID, $semesterID);
 	
-		$allSubject = $studentSubject->getStudentSubjects($studentID);
-		$totalUnit = $subjects->getCurrentUnits($studentID);
+		$allSubject = $studentSubject->getStudentSubjects($studentID, $semesterID);
+		$totalUnit = $subjects->getCurrentUnits($studentID, $semesterID);
+
 		$isStudentPayed = $student->isStudentPayed($studentID);
 		$isStudentPayed = empty($isStudentPayed[0]['payment'])?NULL:$isStudentPayed[0]['payment'];
 

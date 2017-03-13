@@ -22,10 +22,11 @@ class Settings extends BaseModel {
 		return $this->_db->fetchAll($select);
 	}
 
-	public function isEcceededUnits($studentID = null, $subjectID = null) {
+	public function isEcceededUnits($studentID = null, $subjectID = null, $semesterID = null) {
+		
 		$subjectObject = new Subject();
 
-		$currentUnits = $subjectObject->getCurrentUnits($studentID);
+		$currentUnits = $subjectObject->getCurrentUnits($studentID,$semesterID);
 		$subjectUnits = $subjectObject->getSubjectUnits($subjectID);
 		$allowedUnits = $this->getAllowedUnits();
 

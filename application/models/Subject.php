@@ -40,7 +40,7 @@ class Subject extends BaseModel {
 		return $this->_db->fetchOne($select);
 	}
 
-	public function getCurrentUnits($studentID = null)
+	public function getCurrentUnits($studentID = null, $semesterID = null)
 	{
 		if (empty($studentID)) {
 			return 0;
@@ -50,6 +50,7 @@ class Subject extends BaseModel {
 			->from('student_subject_match', ['total_units' => 'SUM(subjects.subject_unit)'])
 			->join('subjects', 'student_subject_match.subject_id = subjects.subject_id', [])
 			->where('student_subject_match.student_id = ?', $studentID)
+			->where('student_subject_match.semester_id = ?', $semesterID)
 			;
 
 		return $this->_db->fetchOne($select);
@@ -113,21 +114,23 @@ class Subject extends BaseModel {
 		return $this->_db->fetchAll($select);
 	}
 
-	public function getListSubjects($studentID) {
+	public function getListSubjects($studentID = NULL, $semesterID = NULL) {
 		if (empty($studentID)) {
 			return false;
 		} 
-
-        $select = $this->_db->select()
-			->from('student_subject_match')
-			->joinRight(
-				'subjects', 
-				'student_subject_match.subject_id = subjects.subject_id AND
-				student_subject_match.student_id = "'.$studentID.'"'
-			)
-			->where('student_subject_match.student_id IS NULL')
-		;
-
+		Zend_Debug::dump($studentID);
+	      $select = $this->_db->select()
+				->from('student_subject_match')
+				->joinRight (
+					'subjects', 
+					'student_subject_match.subject_id = subjects.subject_id AND
+					student_subject_match.student_id = "'.$studentID.'" AND
+					student_subject_match.semester_id = "'.$semesterID.'"'
+				)
+				
+				->where('student_subject_match.student_id IS NULL')
+			;
+			
 		return $this->_db->fetchAll($select);
 	}
 

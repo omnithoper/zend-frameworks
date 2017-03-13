@@ -68,6 +68,20 @@ class Semester extends BaseModel {
 		return $result;
 	}
 	
+	public function getSemesterID($date) {
+		if (empty($date)) {
+			return true;
+		}
+
+		$select = $this->_db->select()
+			->from('semester',[
+				'semester_id'])
+			->where("'$date' between semester.date_start and semester.date_end ")
+		;	
+
+		return $this->_db->fetchOne($select);
+	}
+
 	public function getSemesterTotalIncome($dateStart, $dateEnd) {
 		if (empty($dateStart) && empty($dateEnd)) {
 			return false;
@@ -99,27 +113,40 @@ class Semester extends BaseModel {
 	}
 	
 	public function getpaymentPerStudent(){
+
 		$select = $this->_db->select()		
 			->from('student',[
 				'student_name' => new Zend_Db_Expr("CONCAT(student.first_name, ' ', student.last_name)")])
-		
-			->join('student_subject_match',
-				'student_subject_match.student_id = student.student_id',[
-				'number_of_subject' => new Zend_Db_Expr("COUNT(student_subject_match.student_id)")])
-			->join('semester',
-				'semester.semester_id = student_subject_match.semester_id')
 			->join('payment',
 			'student.student_id = payment.student_id',[
 				'payment_per_student' => new Zend_Db_Expr("SUM(payment.total_amount)"),
 				]
 			)
+			->join('student_subject_match',
+				'student_subject_match.student_id = student.student_id',[
+				'number_of_subject' => new Zend_Db_Expr("COUNT(student_subject_match.student_id)")])
+		
 			->where('payment.payment = 1')
 			->group('student.student_id')		
 		;
 
-		echo $select; die();
+		$select = "SELECT 
+			student.student_id,
+			CONCAT(last_name, ', ', first_name) AS student_name,
+			SUM(payment.total_amount) AS total_income,
+			SUM(subjects.total_subjects) as total_subjects
+			FROM payment
+			JOIN student ON payment.student_id = student.student_id
+			JOIN semester ON payment.transaction_date BETWEEN semester.date_start AND semester.date_end
+			JOIN (
+				SELECT COUNT(student_subject_match.student_id) AS total_subjects, student_subject_match.student_id , student_subject_match.semester_id FROM student_subject_match
+				GROUP BY student_subject_match.semester_id, student_subject_match.student_id
+			) AS subjects ON subjects.student_id = payment.student_id AND subjects.semester_id = semester.semester_id
+			GROUP BY payment.student_id
+			";
 
-		echo $select;
+		Zend_Debug::dump($this->_db->fetchAll($select));
+		die("here");
 		return $this->_db->fetchAll($select);
 	}
 
