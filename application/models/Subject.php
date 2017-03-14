@@ -118,7 +118,7 @@ class Subject extends BaseModel {
 		if (empty($studentID)) {
 			return false;
 		} 
-		Zend_Debug::dump($studentID);
+
 	      $select = $this->_db->select()
 				->from('student_subject_match')
 				->joinRight (

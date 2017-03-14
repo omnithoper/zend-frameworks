@@ -145,8 +145,7 @@ class Semester extends BaseModel {
 			GROUP BY payment.student_id
 			";
 
-		Zend_Debug::dump($this->_db->fetchAll($select));
-		die("here");
+	
 		return $this->_db->fetchAll($select);
 	}
 
