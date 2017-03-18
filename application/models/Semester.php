@@ -145,7 +145,32 @@ class Semester extends BaseModel {
 			GROUP BY payment.student_id
 			";
 
-	
+			$innerQuery = $this->_db->select()
+				->from('student_subject_match', [
+						'total_subjects' => new Zend_Db_Expr('COUNT(student_subject_match.student_id)'),
+						'student_id',
+						'semester_id'
+					])
+				->group('student_subject_match.semester_id')
+				->group('student_subject_match.student_id')
+				;
+
+			$outerQuery = $this->_db->select()
+				->from('payment', [
+						'total_income' => new Zend_Db_Expr('SUM(payment.total_amount)')
+					])
+				->join('student', 'payment.student_id = student.student_id', [
+						'student_id',
+						'student_name' => new Zend_Db_Expr('CONCAT(last_name, " ", first_name)')
+					])
+				->join('semester', 'payment.transaction_date BETWEEN semester.date_start AND semester.date_end', [])
+				->join(['subjects' => new Zend_Db_Expr('('.$innerQuery.')')], 'subjects.student_id = payment.student_id AND subjects.semester_id = semester.semester_id', ['total_subjects' => new Zend_Db_Expr('SUM(subjects.total_subjects)')])
+				->group('payment.student_id')
+				;
+
+				#echo $outerQuery; die();
+				//Zend_Debug::Dump($this->_db->fetchAll($outerQuery));
+				//die("here");
 		return $this->_db->fetchAll($select);
 	}
 
