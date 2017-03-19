@@ -64,7 +64,7 @@ class TestController extends Zend_Controller_Action {
 			  exit;
 			}
 
-			echo 'Logged in as ' . $userNode->getName();
+			//echo 'Logged in as ' . $userNode->getName();
 			try {
 			// Returns a `Facebook\FacebookResponse` object
 
@@ -90,9 +90,9 @@ class TestController extends Zend_Controller_Action {
 
 			$user = $response->getGraphUser();
 
-			echo 'Name: ' . $user['name'];
-			echo '<img src="//graph.facebook.com/'.$user['id'].'/picture?type=large" />';
-			Zend_Debug::dump($user);
+			//echo 'Name: ' . $user['name'];
+			//echo '<img src="//graph.facebook.com/'.$user['id'].'/picture?type=large" />';
+			//Zend_Debug::dump($user);
 			//Zend_Debug::dump('/me?'.join(',', $fields));
 		}
 			$data = array(
@@ -104,7 +104,8 @@ class TestController extends Zend_Controller_Action {
 			$student = new Student();
 			$result = [];
 			$result = $student->getAddFacebookStudent($data, $user['id']);
-
+			$studentID = $student->facebookStudentExist($user['id']);
+			
 		#if (isset($accessToken)) {
   		// Logged in!
   		#$_SESSION['facebook_access_token'] = (string) $accessToken;
@@ -119,8 +120,8 @@ class TestController extends Zend_Controller_Action {
 		//Zend_Debug::dump($fb);
 
 
-		Zend_Debug::dump($firstName);	
-		Zend_Debug::dump($user['first_name']);
+		//Zend_Debug::dump($firstName);	
+		//Zend_Debug::dump($user['first_name']);
 		
 	}
 }

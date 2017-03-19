@@ -167,11 +167,11 @@ class Student extends BaseModel {
 	public function facebookStudentExist($facebookID = null) {
 
 		$select = $this->_db->select()
-			->from($this->_name)
+			->from($this->_name,['student_id'])
 			->where('facebook_id = ?' , $facebookID)
 		;
 		
-		 return $this->_db->fetchRow($select);
+		 return $this->_db->fetchOne($select);
 	}
 	public function getAddStudent($data, $firstName, $lastName) {
 		if ($this->studentExist($firstName, $lastName)) {
