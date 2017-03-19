@@ -36,7 +36,9 @@ class IncomeController extends Zend_Controller_Action  {
 		foreach ($sample as $details) {
 			$batch[$details['student_id']][$details['semester_id']][] = $details; 
 		}
+	Zend_Debug::dump($batch);
 
+		die();
 		$batch2 = [];
 		foreach ($batch as $key => $details) {
 			$batch2[$key] = array_values($details); 

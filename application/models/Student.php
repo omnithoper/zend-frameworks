@@ -164,9 +164,28 @@ class Student extends BaseModel {
 		
 		 return $this->_db->fetchRow($select);
 	}
+	public function facebookStudentExist($facebookID = null) {
 
+		$select = $this->_db->select()
+			->from($this->_name)
+			->where('facebook_id = ?' , $facebookID)
+		;
+		
+		 return $this->_db->fetchRow($select);
+	}
 	public function getAddStudent($data, $firstName, $lastName) {
 		if ($this->studentExist($firstName, $lastName)) {
+			return [
+				'error' => 'Student Already Exist',	
+			];
+		}
+
+        $this->_db->insert($this->_name, $data);
+        header("Location: /students");
+	}
+	
+	public function getAddFacebookStudent($data, $facebookID) {
+		if ($this->facebookStudentExist($facebookID)) {
 			return [
 				'error' => 'Student Already Exist',	
 			];

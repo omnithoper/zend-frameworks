@@ -76,6 +76,8 @@ class TestController extends Zend_Controller_Action {
 					'email',
 					'gender',
 					'picture',
+					'first_name',
+					'last_name',
 				];
 			$response = $fb->get('/me?fields='.join(',', $fields), $_SESSION['facebook_access_token']);
 			} catch(Facebook\Exceptions\FacebookResponseException $e) {
@@ -91,8 +93,17 @@ class TestController extends Zend_Controller_Action {
 			echo 'Name: ' . $user['name'];
 			echo '<img src="//graph.facebook.com/'.$user['id'].'/picture?type=large" />';
 			Zend_Debug::dump($user);
-			Zend_Debug::dump('/me?'.join(',', $fields));
+			//Zend_Debug::dump('/me?'.join(',', $fields));
 		}
+			$data = array(
+				'facebook_id' => $user['id'],  
+		    	'first_name' => $user['first_name'],
+		    	'last_name' => $user['last_name'],
+			);
+	
+			$student = new Student();
+			$result = [];
+			$result = $student->getAddFacebookStudent($data, $user['id']);
 
 		#if (isset($accessToken)) {
   		// Logged in!
@@ -102,11 +113,14 @@ class TestController extends Zend_Controller_Action {
   		// access token from $_SESSION['facebook_access_token']
 		#}					
 		//Zend_Debug::dump('$accessToken');
-		if (!empty($_SESSION['facebook_access_token'])) {
-			Zend_Debug::dump($_SESSION['facebook_access_token']);
-		}
-		//Zend_Debug::dump('$fb');
-		Zend_Debug::dump($fb);
-		die('here');
+		//if (!empty($_SESSION['facebook_access_token'])) {
+		//	Zend_Debug::dump($_SESSION['facebook_access_token']);
+		//}
+		//Zend_Debug::dump($fb);
+
+
+		Zend_Debug::dump($firstName);	
+		Zend_Debug::dump($user['first_name']);
+		
 	}
 }

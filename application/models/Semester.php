@@ -185,11 +185,13 @@ class Semester extends BaseModel {
 			->order('student_subject_match.student_id')
 			->order('semester.semester_id')
 			;
-			return $this->_db->fetchAll($select);
+
+		return $this->_db->fetchAll($select);
 			return array_map(function($details){
 				$details['semester_id'] = 35;
 				return $details;
 			}, $data);
+
 		return $this->_db->fetchAll($select);
 	}
 
