@@ -13,7 +13,7 @@ class GlobalControllerPlugin extends Zend_Controller_Plugin_Abstract {
 		if ($params['controller'] == 'version') {
 			return;
 		}
-
+		
 		if (empty($_SESSION['login_user'])) {
 			header('Location: /login');
 		}
