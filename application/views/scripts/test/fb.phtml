@@ -1,0 +1,22 @@
+<head>
+    <link type="text/css" rel="stylesheet" href="../../../../css/bootstrap.min.css" />
+    <link type="text/css" rel="stylesheet" href="../../../../css/mystyles.css" />
+</head>
+
+<form>
+	<h1 align="center">Enrollent System</h1>
+	<div id="container"> 
+<?php 
+	if (Zend_Registry::get('config')->debug) {
+		Zend_Debug::dump($_SESSION); 
+	}
+?>
+    <?php if (!empty($_SESSION['facebook_access_token']) ): ?>
+    	<table class="table table-bordered table-condensed table-striped"> 
+    		<tr><td><a href="/students/studentedit?student_id=<?php echo $_SESSION['student_id']; ?>" class="btn btn-block" title="edit Student">change your password</a></td></tr>
+			<tr><td><a href="/enrollment/" class="btn btn-block">Enroll</a></td></tr>
+			<tr><td><a href="/login/logout" class="btn btn-block">Log Out</a></td></tr>
+		</table>
+	<?php endif; ?>	
+	</div>
+</form>
