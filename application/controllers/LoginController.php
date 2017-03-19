@@ -1,7 +1,8 @@
 <?php
 class LoginController extends Zend_Controller_Action {
 	public function indexAction() {
-			$url = 'http://sample.enrollment.com/';
+		date_default_timezone_set('America/Los_Angeles');
+		$url = 'http://sample.enrollment.com/';
 
 		$fb = new Facebook\Facebook([
 		  'app_id' => '1729933903964760',
@@ -14,10 +15,6 @@ class LoginController extends Zend_Controller_Action {
 			$helper = $fb->getRedirectLoginHelper();
 			try {
 	  			$accessToken = $helper->getAccessToken();
-				#$_SESSION['facebook_access_token'] = (string)$accessToken;
-	  			#Zend_Debug::dump($accessToken); die();
-	  			#Zend_Debug::dump($accessToken); die();
-				#Zend_Debug::dump($_SESSION['facebook_access_token']); die();
 
 				if (!empty($accessToken)) {
 					$_SESSION['facebook_access_token'] = (string)$accessToken;
@@ -29,17 +26,17 @@ class LoginController extends Zend_Controller_Action {
 						$response = $fb->get('/me?fields='.join(',', $fields), $_SESSION['facebook_access_token']);
 						$user = $response->getGraphUser();
 						$_SESSION['login_user'] = $user['name'];
+			  			$_SESSION['user_type'] = 'student';
+	  			
+	  					$student = new Student();
+	  					$_SESSION['student_id'] = $student->facebookStudentExist($user['id']);
 						$this->_redirect('/index');
 						return;
 					} catch(Facebook\Exceptions\FacebookSDKException $e) {
 					  echo 'Facebook SDK returned an error: ' . $e->getMessage();
 					  exit;
 					}
-
-
 				}
-					$this->_redirect('/login/login');
-				
 			} catch(Facebook\Exceptions\FacebookResponseException $e) {
 	 		 // When Graph returns an error
 	  		echo 'Graph returned an error: ' . $e->getMessage();
@@ -49,7 +46,6 @@ class LoginController extends Zend_Controller_Action {
 	 		 	echo 'Facebook SDK returned an error: ' . $e->getMessage();
 	  			exit;
 			}
-
 		}
 
 		// step 1
@@ -57,26 +53,24 @@ class LoginController extends Zend_Controller_Action {
 			$helper = $fb->getRedirectLoginHelper();
 			$permissions = ['email', 'user_likes']; // optional
 			try {
-				$loginUrl = $helper->getLoginUrl($url.'login/login', $permissions);
+				$loginUrl = $helper->getLoginUrl($url.'login/index', $permissions);
 			} catch (Exception $e) {
 				Zend_Debug::dump($e->getMessage()); die();
 			}
 
-			#Zend_Debug::dump($loginUrl); die();
 			echo '<a href="' . $loginUrl . '">Log in with Facebook!</a>';	
 
 			$this->view->fbloginurl = $loginUrl;
 		}
-Zend_Debug::dump($_SESSION['facebook_access_token']); die();	
-		if (!empty($_SESSION['facebook_access_token']) && !empty($_SESSION['login_user'])) {
-			$response = $fb->get('/me?fields=name', $_SESSION['facebook_access_token']);
-			$user = $response->getGraphUser();
-			$_SESSION['login_user'] = $user['name'];
-  			$_SESSION['user_type'] = 'student';
 
-  			$student = new Student();
-  			
-  			$_SESSION['student_id'] = $student->facebookStudentExist($user['id']);
+		if (!empty($_SESSION['facebook_access_token'])) {
+			$fields = [
+				'first_name',
+			];
+			$response = $fb->get('/me?fields='.join(',', $fields), $_SESSION['facebook_access_token']);
+			$user = $response->getGraphUser();
+			$_SESSION['login_user'] = $user['first_name'];
+  			$_SESSION['user_type'] = 'student';
 			$this->_redirect('/index');
 		}
 	}
