@@ -7,7 +7,7 @@ class TestController extends Zend_Controller_Action {
 	
 	public function fbAction() {
 		date_default_timezone_set('America/Los_Angeles');
-		$url = 'http://sample.enrollment.com/';
+			$url = 'http://sample.enrollment.com/';
 		$fb = new Facebook\Facebook([
 		  'app_id' => '1729933903964760',
 		  'app_secret' => 'af7d04a68993ac028425a4daa3c154a4',
@@ -30,7 +30,7 @@ class TestController extends Zend_Controller_Action {
 	  			exit;
 			}
 
-			$this->_redirect('/test/fb');
+		//	$this->_redirect('/test/fb');
 		}
 
 		if (empty($_SESSION['facebook_access_token']) && isset($accessToken)) {
@@ -102,7 +102,9 @@ class TestController extends Zend_Controller_Action {
   		// access token from $_SESSION['facebook_access_token']
 		#}					
 		//Zend_Debug::dump('$accessToken');
-		Zend_Debug::dump($_SESSION['facebook_access_token']);
+		if (!empty($_SESSION['facebook_access_token'])) {
+			Zend_Debug::dump($_SESSION['facebook_access_token']);
+		}
 		//Zend_Debug::dump('$fb');
 		Zend_Debug::dump($fb);
 		die('here');

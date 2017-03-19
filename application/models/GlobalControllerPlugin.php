@@ -6,6 +6,10 @@ class GlobalControllerPlugin extends Zend_Controller_Plugin_Abstract {
 			return;
 		}
 
+	//	if ($params['action'] == 'index') {
+	//		return;
+	//	}
+ 
 		if ($params['controller'] == 'version') {
 			return;
 		}

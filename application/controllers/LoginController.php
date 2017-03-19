@@ -26,6 +26,7 @@ class LoginController extends Zend_Controller_Action {
 			unset($_SESSION['login_user']);
 			unset($_SESSION['user_type']);
 			unset($_SESSION['student_id']);
+			unset($_SESSION['facebook_access_token']);
 		}
 		session_write_close();
 	    header('Location: /');
