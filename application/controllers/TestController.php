@@ -6,9 +6,10 @@ class TestController extends Zend_Controller_Action {
 	}
 	public function googleAction(){
 	//https://developers.google.com/identity/sign-in/web/sign-in
-
+		echo '<script src="https://apis.google.com/js/platform.js" async defer></script>';
+		echo '<meta name="google-signin-client_id" content="86800409401-u4ol0t7jbegcpvle0taev56lnospsbfh.apps.googleusercontent.com">';
 		echo '<div class="g-signin2" data-onsuccess="onSignIn"></div>';
-
+		die();
 	}
 	public function fbAction() {
 		date_default_timezone_set('America/Los_Angeles');
