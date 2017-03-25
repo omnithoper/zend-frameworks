@@ -11,14 +11,15 @@ class LoginController extends Zend_Controller_Action {
 		]);
 
 		// step 2
-		if (empty($_SESSION['facebook_access_token'])) {
+		if (empty($_SESSION['facebook_access_token'])) {	 
 			$helper = $fb->getRedirectLoginHelper();
+	  			Zend_Debug::dump($helper); 
 			try {
 	  			$accessToken = $helper->getAccessToken();
+	  			Zend_Debug::dump($accessToken); 
 
 				if (!empty($accessToken)) {
 					$_SESSION['facebook_access_token'] = (string)$accessToken;
-
 					try {
 						$fields = [
 							'first_name',
@@ -34,6 +35,7 @@ class LoginController extends Zend_Controller_Action {
 						return;
 					} catch(Facebook\Exceptions\FacebookSDKException $e) {
 					  echo 'Facebook SDK returned an error: ' . $e->getMessage();
+					  die('here');
 					  exit;
 					}
 				}
@@ -53,14 +55,14 @@ class LoginController extends Zend_Controller_Action {
 			$helper = $fb->getRedirectLoginHelper();
 			$permissions = ['email', 'user_likes']; // optional
 			try {
-				$loginUrl = $helper->getLoginUrl($url.'login/login', $permissions);
+				$loginUrl = $helper->getLoginUrl($url, $permissions);
 			} catch (Exception $e) {
 				Zend_Debug::dump($e->getMessage()); die();
 			}
 
 			echo '<a href="' . $loginUrl . '">Log in with Facebook!</a>';	
 
-			$this->view->fbloginurl = $loginUrl;
+		//	$this->view->fbloginurl = $loginUrl;
 		}
 
 		if (!empty($_SESSION['facebook_access_token'])) {

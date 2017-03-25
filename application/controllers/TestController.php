@@ -17,9 +17,12 @@ class TestController extends Zend_Controller_Action {
 
 		// step 2
 		if (empty($_SESSION['facebook_access_token'])) {
+
 			$helper = $fb->getRedirectLoginHelper();
 			try {
 	  			$accessToken = $helper->getAccessToken();
+	  				  			Zend_Debug::dump($accessToken); 
+
 			} catch(Facebook\Exceptions\FacebookResponseException $e) {
 	 		 // When Graph returns an error
 	  		echo 'Graph returned an error: ' . $e->getMessage();
@@ -39,6 +42,7 @@ class TestController extends Zend_Controller_Action {
 
 		// step 1
 		if (empty($_SESSION['facebook_access_token'])) {
+
 			$helper = $fb->getRedirectLoginHelper();
 			$permissions = ['email', 'user_likes']; // optional
 			$loginUrl = $helper->getLoginUrl($url.'test/fb', $permissions);
@@ -95,17 +99,19 @@ class TestController extends Zend_Controller_Action {
 			//Zend_Debug::dump($user);
 			//Zend_Debug::dump('/me?'.join(',', $fields));
 		}
+		if (!empty($accessToken)) {
 			$data = array(
 				'facebook_id' => $user['id'],  
 		    	'first_name' => $user['first_name'],
 		    	'last_name' => $user['last_name'],
 			);
-	
+
 			$student = new Student();
 			$result = [];
 			$result = $student->getAddFacebookStudent($data, $user['id']);
 			$studentID = $student->facebookStudentExist($user['id']);
-			
+			$_SESSION['student_id'] = $studentID;
+		}	
 		#if (isset($accessToken)) {
   		// Logged in!
   		#$_SESSION['facebook_access_token'] = (string) $accessToken;
