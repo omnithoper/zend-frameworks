@@ -9,6 +9,16 @@ class TestController extends Zend_Controller_Action {
 		echo '<script src="https://apis.google.com/js/platform.js" async defer></script>';
 		echo '<meta name="google-signin-client_id" content="86800409401-u4ol0t7jbegcpvle0taev56lnospsbfh.apps.googleusercontent.com">';
 		echo '<div class="g-signin2" data-onsuccess="onSignIn"></div>';
+		echo '<script type="text/javascript">';
+		echo "alert('what')";
+		echo 'console.log(googleUser.getBasicProfile());';
+		//echo "alert('what')";
+		#echo 'var profile = googleUser.getBasicProfile();';
+		#echo "console.log('ID: ' + profile.getId())";
+		#echo "console.log('Name: ' + profile.getName())";
+		#echo "console.log('Image URL: ' + profile.getImageUrl())";
+		#echo "console.log('Email: ' + profile.getEmail())";
+		echo "</script>";
 		die();
 	}
 	public function fbAction() {
