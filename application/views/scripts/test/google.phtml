@@ -1,11 +1,15 @@
-	<head>
+
+<head>
     <link type="text/css" rel="stylesheet" href="../../../../css/bootstrap.min.css" />
     <link type="text/css" rel="stylesheet" href="../../../../css/mystyles.css" />
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
 </head>
-
+		
 <form>
 	<h1 align="center">Enrollent System</h1>
 	<div id="container"> 
+<div class="g-signin2" data-onsuccess="onSignIn"></div>
+         </div> 	
 <?php 
 	if (Zend_Registry::get('config')->debug) {
 		Zend_Debug::dump($_SESSION); 
@@ -17,6 +21,7 @@
 			<tr><td><a href="/enrollment/" class="btn btn-block">Enroll</a></td></tr>
 			<tr><td><a href="/login/logout" class="btn btn-block">Log Out</a></td></tr>
 		</table>
-	<?php endif; ?>	
+	<?php endif; ?>
+
 	</div>
 </form>
