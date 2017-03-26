@@ -5,6 +5,35 @@ class TestController extends Zend_Controller_Action {
 		die('end');
 	}
 	
+	public function g2Action() {
+		$id = '86800409401-1rtftn4eek1r2t8mlvune9srfbnm40j9.apps.googleusercontent.com';
+		$secret = 'V49N5ZMe6Cw_NU1tH98JvZVw';
+		require_once 'Google/Client.php';
+		#require_once 'Google/contrib/Google_AnalyticsService.php';
+
+		$scriptUri = "http://".$_SERVER["HTTP_HOST"].$_SERVER['PHP_SELF'];
+
+		$client = new Google_Client();
+		$client->setAccessType('online'); // default: offline
+		$client->setApplicationName('My Application name');
+		$client->setClientId($id);
+		$client->setClientSecret($secret);
+		$client->setRedirectUri($scriptUri);
+		$client->setDeveloperKey('INSERT HERE'); // API key
+
+		// $service implements the client interface, has to be set before auth call
+		#$service = new Google_AnalyticsService($client);
+		#if (isset($_GET['code'])) { // we received the positive auth callback, get the token and store it in session
+		    $client->authenticate();
+		    $accessToken = $client->getAccessToken();
+
+			Zend_Debug::dump($accessToken);
+		    $_SESSION['token'] = $accessToken;
+		#}
+		Zend_Debug::dump($client);
+		die('end');
+
+	}
 	public function googleAction(){
 //		session_start();
 		require_once 'Google/Client.php';
