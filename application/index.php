@@ -2,6 +2,8 @@
 require_once 'Zend/Application.php';
 require_once 'Zend/Config/Ini.php';
 require_once 'Zend/Loader/Autoloader.php';
+require_once 'google/vendor/autoload.php';
+
 defined('APPLICATION_PATH')
         || define('APPLICATION_PATH', realpath(dirname(__FILE__) . '/../application'));
 

@@ -8,11 +8,18 @@ class LoginController extends Zend_Controller_Action {
 		  'app_id' => '1729933903964760',
 		  'app_secret' => 'af7d04a68993ac028425a4daa3c154a4',
 		  'default_graph_version' => 'v2.5',
+
 		]);
 
 		// step 2
 		if (empty($_SESSION['facebook_access_token'])) {	 
 			$helper = $fb->getRedirectLoginHelper();
+ 			if(isset($_GET['state'])) {
+     			if($_SESSION['FBRLH_' . 'state']) {
+        			  $_SESSION['FBRLH_' . 'state'] = $_GET['state'];
+      			}
+			}
+
 			try {
 	  			$accessToken = $helper->getAccessToken();
 

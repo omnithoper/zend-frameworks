@@ -4,6 +4,7 @@ class TestController extends Zend_Controller_Action {
 		phpinfo();
 		die('end');
 	}
+	
 	public function googleAction(){
 	//https://developers.google.com/identity/sign-in/web/sign-in
 		echo '<script src="https://apis.google.com/js/platform.js" async defer></script>';
