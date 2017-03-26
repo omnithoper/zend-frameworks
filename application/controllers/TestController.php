@@ -6,20 +6,73 @@ class TestController extends Zend_Controller_Action {
 	}
 	
 	public function g2Action() {
-		$id = '86800409401-1rtftn4eek1r2t8mlvune9srfbnm40j9.apps.googleusercontent.com';
-		$secret = 'V49N5ZMe6Cw_NU1tH98JvZVw';
-		require_once 'Google/Client.php';
+		$clientId = '662849423141-3vuo44osa65tf2p0qdlctgpfpdb57ofr.apps.googleusercontent.com';
+		$clientSecret = '9mx90fubwpwCY8JpicSzdBKq';
+		$redirectURL = 'http://sample.enrollment.com';
+
+		//Call Google API
+		$gClient = new Google_Client();
+		$gClient->setApplicationName('sample enrollment');
+		$gClient->setClientId($clientId);
+		$gClient->setClientSecret($clientSecret);
+		$gClient->setRedirectUri($redirectURL);
+
+		$google_oauthV2 = new Google_Oauth2Service($gClient);
+		Zend_Debug::dump($google_oauthV2); 
+		die();
+
+set_include_path(__DIR__.'/../' . PATH_SEPARATOR . get_include_path());
+	    $client = new Google_Client();
+	    $client->setApplicationName('sample enrollment');
+	    #$client->setScopes(SCOPES);
+	    $client->setAuthConfigFile(APPLICATION_PATH.'/configuration/client_credentials.json');
+	    $client->setAccessType('offline');
+
+	    #$credentialsPath = expandHomeDirectory(APPLICATION_PATH.'/configuration/client_credentials.json');
+        $accessToken = file_get_contents(APPLICATION_PATH.'/configuration/client_credentials.json');
+        #Zend_Debug::dump($accessToken); die();
+
+		#define('APPLICATION_NAME', 'sample enrollment');
+		#define('CREDENTIALS_PATH', APPLICATION_PATH.'/configuration');
+		#define('CLIENT_SECRET_PATH', APPLICATION_PATH.'/configuration/client_credentials.json');
+
+		#require_once APPLICATION_PATH.'/../vendor/google/apiclient/src/Google/autoload.php';
+		#require_once APPLICATION_PATH.'/../vendor/google/auth/autoload.php';
+
+		$client = new Google_Client();
+		#$client->setAuthConfig(APPLICATION_PATH.'/configuration/client_credentials.json');
+		#$client->useApplicationDefaultCredentials();
+		#ar_dump(CLIENT_SECRET_PATH); die();
+
+		#$authUrl = $client->createAuthUrl();
+		#Zend_Debug::dump($authUrl);
+		#die('end');
+		$redirect_uri = 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['PHP_SELF'];
+		$client->setRedirectUri($redirect_uri);
+		#$token = $client->fetchAccessTokenWithAuthCode();
+
+	    #$client->authenticate($accessToken);
+    	$token = $client->getAccessToken();
+
+		Zend_Debug::dump($client);
+		Zend_Debug::dump($token);
+		die('end');
+		#$id = '662849423141-3vuo44osa65tf2p0qdlctgpfpdb57ofr.apps.googleusercontent.com';
+		#$id = '86800409401-1rtftn4eek1r2t8mlvune9srfbnm40j9.apps.googleusercontent.com';
+		#$secret = '9mx90fubwpwCY8JpicSzdBKq';
+		#$secret = 'V49N5ZMe6Cw_NU1tH98JvZVw';
+		#require_once 'Google/Client.php';
 		#require_once 'Google/contrib/Google_AnalyticsService.php';
 
 		$scriptUri = "http://".$_SERVER["HTTP_HOST"].$_SERVER['PHP_SELF'];
 
 		$client = new Google_Client();
 		$client->setAccessType('online'); // default: offline
-		$client->setApplicationName('My Application name');
+		$client->setApplicationName('sample enrollment');
 		$client->setClientId($id);
 		$client->setClientSecret($secret);
 		$client->setRedirectUri($scriptUri);
-		$client->setDeveloperKey('INSERT HERE'); // API key
+		#$client->setDeveloperKey('INSERT HERE'); // API key
 
 		// $service implements the client interface, has to be set before auth call
 		#$service = new Google_AnalyticsService($client);
