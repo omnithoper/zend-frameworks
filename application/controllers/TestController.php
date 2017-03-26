@@ -45,6 +45,7 @@ class TestController extends Zend_Controller_Action {
 		}
 		echo 'Hello, world.';
 	}
+	
 	public function fbAction() {
 		date_default_timezone_set('America/Los_Angeles');
 			$url = 'http://sample.enrollment.com/';
