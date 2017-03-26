@@ -6,21 +6,44 @@ class TestController extends Zend_Controller_Action {
 	}
 	
 	public function googleAction(){
-	//https://developers.google.com/identity/sign-in/web/sign-in
-		echo '<script src="https://apis.google.com/js/platform.js" async defer></script>';
-		echo '<meta name="google-signin-client_id" content="86800409401-u4ol0t7jbegcpvle0taev56lnospsbfh.apps.googleusercontent.com">';
-		echo '<div class="g-signin2" data-onsuccess="onSignIn"></div>';
-		echo '<script type="text/javascript">';
-		echo "alert('what')";
-		echo 'console.log(googleUser.getBasicProfile());';
-		//echo "alert('what')";
-		#echo 'var profile = googleUser.getBasicProfile();';
-		#echo "console.log('ID: ' + profile.getId())";
-		#echo "console.log('Name: ' + profile.getName())";
-		#echo "console.log('Image URL: ' + profile.getImageUrl())";
-		#echo "console.log('Email: ' + profile.getEmail())";
-		echo "</script>";
-		die();
+//		session_start();
+		require_once 'Google/Client.php';
+		//require_once 'Google/Service/Google_AnalyticsService.php';
+
+		$scriptUri = "http://".$_SERVER["HTTP_HOST"].$_SERVER['PHP_SELF'];
+
+		$client = new Google_Client();
+		$client->setAccessType('online'); // default: offline
+		$client->setApplicationName('My Application name');
+		$client->setClientId('INSERT HERE');
+		$client->setClientSecret('INSERT HERE');
+		$client->setRedirectUri($scriptUri);
+		$client->setDeveloperKey('INSERT HERE'); // API key
+
+		// $service implements the client interface, has to be set before auth call
+		// $service = new Google_AnalyticsService($client);
+
+		if (isset($_GET['logout'])) { // logout: destroy token
+		    unset($_SESSION['token']);
+			die('Logged out.');
+		}
+
+		if (isset($_GET['code'])) { // we received the positive auth callback, get the token and store it in session
+		    $client->authenticate();
+		    $_SESSION['token'] = $client->getAccessToken();
+		}
+
+		if (isset($_SESSION['token'])) { // extract token from session and configure client
+		    $token = $_SESSION['token'];
+		    $client->setAccessToken($token);
+		}
+
+		if (!$client->getAccessToken()) { // auth call to google
+		    $authUrl = $client->createAuthUrl();
+		    header("Location: ".$authUrl);
+		    die;
+		}
+		echo 'Hello, world.';
 	}
 	public function fbAction() {
 		date_default_timezone_set('America/Los_Angeles');
