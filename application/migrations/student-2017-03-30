@@ -1,0 +1,5 @@
+ALTER TABLE `student` CHANGE `facebook_id` `facebook_id` VARCHAR(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL;
+
+ALTER TABLE `student` CHANGE `google_id` `google_id` VARCHAR(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL;
+
+ALTER TABLE `student` ADD `google_id` VARCHAR(100) NOT NULL AFTER `facebook_id`;

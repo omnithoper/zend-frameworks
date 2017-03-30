@@ -164,6 +164,7 @@ class Student extends BaseModel {
 		
 		 return $this->_db->fetchRow($select);
 	}
+
 	public function facebookStudentExist($facebookID = null) {
 
 		$select = $this->_db->select()
@@ -173,6 +174,16 @@ class Student extends BaseModel {
 		
 		 return $this->_db->fetchOne($select);
 	}
+
+	public function googleStudentExist($googleID = null) {
+
+		$select = $this->_db->select()
+			->from($this->_name,['student_id'])
+			->where('google_id = ?' , $googleID)
+		;
+		 return $this->_db->fetchOne($select);
+	}
+
 	public function getAddStudent($data, $firstName, $lastName) {
 		if ($this->studentExist($firstName, $lastName)) {
 			return [
@@ -194,7 +205,16 @@ class Student extends BaseModel {
         $this->_db->insert($this->_name, $data);
         header("Location: /students");
 	}
-
+	public function getAddGoogleStudent($data = null, $googleID = null) {
+		if ($this->googleStudentExist($googleID)) {
+			return [
+				'error' => 'Student Already Exist',	
+			];
+		}
+		
+        $this->_db->insert($this->_name, $data);
+        header("Location: /students");
+	}
 	public function getViewStudent($studentID = null){
 		if (empty($studentID)) {
 			return false;

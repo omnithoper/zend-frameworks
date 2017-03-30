@@ -9,12 +9,13 @@
 <form>
 	<h1 align="center">Enrollent System</h1>
 	<div id="container"> 
-
+<?php 
 	if (Zend_Registry::get('config')->debug) {
 		Zend_Debug::dump($_SESSION); 
 	}
+	
 ?>
-    <?php if (!empty($_SESSION['facebook_access_token']) ): ?>
+    <?php if (!empty($_SESSION['google_access_token']) ): ?>
     	<table class="table table-bordered table-condensed table-striped"> 
     		<tr><td><a href="/students/studentedit?student_id=<?php echo $_SESSION['student_id']; ?>" class="btn btn-block" title="edit Student">change your password</a></td></tr>
 			<tr><td><a href="/enrollment/" class="btn btn-block">Enroll</a></td></tr>

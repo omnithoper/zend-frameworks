@@ -98,7 +98,7 @@ set_include_path(__DIR__.'/../' . PATH_SEPARATOR . get_include_path());
 		//Include Google client library 
 		require_once 'google/Google_Client.php';
 		require_once 'google/contrib/Google_Oauth2Service.php';
-		//unset($_SESSION['token']);
+		
 
 
 		/*
@@ -119,12 +119,12 @@ set_include_path(__DIR__.'/../' . PATH_SEPARATOR . get_include_path());
 
 		if(isset($_GET['code'])){
 			$gClient->authenticate($_GET['code']);
-			$_SESSION['token'] = $gClient->getAccessToken();
+			$_SESSION['google_access_token'] = $gClient->getAccessToken();
 			header('Location: ' . filter_var($redirectURL, FILTER_SANITIZE_URL));
 		}
 
-		if (isset($_SESSION['token'])) {
-			$gClient->setAccessToken($_SESSION['token']);
+		if (isset($_SESSION['google_access_token'])) {
+			$gClient->setAccessToken($_SESSION['google_access_token']);
 		}
 
 		if ($gClient->getAccessToken()) {
@@ -137,24 +137,36 @@ set_include_path(__DIR__.'/../' . PATH_SEPARATOR . get_include_path());
 			//Insert or update user data to the database
 		    $gpUserData = array(
 		        'oauth_provider'=> 'google',
-		        'oauth_uid'     => $gpUserProfile['id'],
+		        'id'     		=> $gpUserProfile['id'],
 		        'first_name'    => $gpUserProfile['given_name'],
 		        'last_name'     => $gpUserProfile['family_name'],
-		        'email'         => $gpUserProfile['email'],
+		        //'email'         => $gpUserProfile['email'],
 		       // 'gender'        => $gpUserProfile['gender'],
-		        'locale'        => $gpUserProfile['locale'],
-		        'picture'       => $gpUserProfile['picture'],
+		        //'locale'        => $gpUserProfile['locale'],
+		       // 'picture'       => $gpUserProfile['picture'],
 		        //'link'          => $gpUserProfile['link']
 		    );
 
-		  
+		
 			
 		} else {	
 			$authUrl = $gClient->createAuthUrl();
-			echo '<a href="'.filter_var($authUrl, FILTER_SANITIZE_URL).'"><img src="images/glogin.png" alt=""/></a>';
+			echo '<a href="'.filter_var($authUrl, FILTER_SANITIZE_URL).'">login in gmail</a>';
 		}
-		     Zend_Debug::dump($gpUserData);
-				die("here");
+		if (!empty($gpUserData)) {
+			$data = array(
+				'google_id' => $gpUserData['id'],  
+		    	'first_name' => $gpUserData['first_name'],
+		    	'last_name' => $gpUserData['last_name'],
+			);
+
+			$student = new Student();
+			$result = [];
+			$result = $student->getAddGoogleStudent($data, $gpUserData['id']);
+			$studentID = $student->googleStudentExist($gpUserData['id']);
+			$_SESSION['student_id'] = $studentID;
+		}	
+		   
 	}
 	public function fbAction() {
 		date_default_timezone_set('America/Los_Angeles');
