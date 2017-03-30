@@ -64,7 +64,7 @@ class LoginController extends Zend_Controller_Action {
 				Zend_Debug::dump($e->getMessage()); die();
 			}
 
-			echo '<a href="' . $loginUrl . '">Log in with Facebook!</a>';	
+		//	echo '<a href="' . $loginUrl . '">Log in with Facebook!</a>';	
 
 			$this->view->fbloginurl = $loginUrl;
 		}

@@ -4,8 +4,15 @@ class TestController extends Zend_Controller_Action {
 		phpinfo();
 		die('end');
 	}
-	
+	public function googleIDAction(){
+
+
+		
+	}
 	public function g2Action() {
+		include_once 'google/Google_Client.php';
+		include_once 'google/contrib/Google_Oauth2Service.php';
+
 		$clientId = '662849423141-3vuo44osa65tf2p0qdlctgpfpdb57ofr.apps.googleusercontent.com';
 		$clientSecret = '9mx90fubwpwCY8JpicSzdBKq';
 		$redirectURL = 'http://sample.enrollment.com';
@@ -88,46 +95,67 @@ set_include_path(__DIR__.'/../' . PATH_SEPARATOR . get_include_path());
 
 	}
 	public function googleAction(){
-//		session_start();
-		require_once 'Google/Client.php';
-		//require_once 'Google/Service/Google_AnalyticsService.php';
+		//Include Google client library 
+		require_once 'google/Google_Client.php';
+		require_once 'google/contrib/Google_Oauth2Service.php';
+		//unset($_SESSION['token']);
 
-		$scriptUri = "http://".$_SERVER["HTTP_HOST"].$_SERVER['PHP_SELF'];
 
-		$client = new Google_Client();
-		$client->setAccessType('online'); // default: offline
-		$client->setApplicationName('My Application name');
-		$client->setClientId('INSERT HERE');
-		$client->setClientSecret('INSERT HERE');
-		$client->setRedirectUri($scriptUri);
-		$client->setDeveloperKey('INSERT HERE'); // API key
+		/*
+		 * Configuration and setup Google API
+		 */
+		$clientId = '86800409401-u4ol0t7jbegcpvle0taev56lnospsbfh.apps.googleusercontent.com'; //Google client ID
+		$clientSecret = 'DWZZ8rIg85r2KBEF-BoPPhtU'; //Google client secret
+		$redirectURL = 'http://sample.enrollment.com/test/google'; //Callback URL
 
-		// $service implements the client interface, has to be set before auth call
-		// $service = new Google_AnalyticsService($client);
+		//Call Google API
+		$gClient = new Google_Client();
+		$gClient->setApplicationName('Login to CodexWorld.com');
+		$gClient->setClientId($clientId);
+		$gClient->setClientSecret($clientSecret);
+		$gClient->setRedirectUri($redirectURL);
 
-		if (isset($_GET['logout'])) { // logout: destroy token
-		    unset($_SESSION['token']);
-			die('Logged out.');
+		$google_oauthV2 = new Google_Oauth2Service($gClient);
+
+		if(isset($_GET['code'])){
+			$gClient->authenticate($_GET['code']);
+			$_SESSION['token'] = $gClient->getAccessToken();
+			header('Location: ' . filter_var($redirectURL, FILTER_SANITIZE_URL));
 		}
 
-		if (isset($_GET['code'])) { // we received the positive auth callback, get the token and store it in session
-		    $client->authenticate();
-		    $_SESSION['token'] = $client->getAccessToken();
+		if (isset($_SESSION['token'])) {
+			$gClient->setAccessToken($_SESSION['token']);
 		}
 
-		if (isset($_SESSION['token'])) { // extract token from session and configure client
-		    $token = $_SESSION['token'];
-		    $client->setAccessToken($token);
-		}
+		if ($gClient->getAccessToken()) {
+			//Get user profile data from google
+			$gpUserProfile = $google_oauthV2->userinfo->get();
+			
+			//Initialize User class
+		
+			
+			//Insert or update user data to the database
+		    $gpUserData = array(
+		        'oauth_provider'=> 'google',
+		        'oauth_uid'     => $gpUserProfile['id'],
+		        'first_name'    => $gpUserProfile['given_name'],
+		        'last_name'     => $gpUserProfile['family_name'],
+		        'email'         => $gpUserProfile['email'],
+		       // 'gender'        => $gpUserProfile['gender'],
+		        'locale'        => $gpUserProfile['locale'],
+		        'picture'       => $gpUserProfile['picture'],
+		        //'link'          => $gpUserProfile['link']
+		    );
 
-		if (!$client->getAccessToken()) { // auth call to google
-		    $authUrl = $client->createAuthUrl();
-		    header("Location: ".$authUrl);
-		    die;
+		  
+			
+		} else {	
+			$authUrl = $gClient->createAuthUrl();
+			echo '<a href="'.filter_var($authUrl, FILTER_SANITIZE_URL).'"><img src="images/glogin.png" alt=""/></a>';
 		}
-		echo 'Hello, world.';
+		     Zend_Debug::dump($gpUserData);
+				die("here");
 	}
-	
 	public function fbAction() {
 		date_default_timezone_set('America/Los_Angeles');
 			$url = 'http://sample.enrollment.com/';
