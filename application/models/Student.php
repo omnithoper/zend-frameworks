@@ -203,7 +203,7 @@ class Student extends BaseModel {
 		}
 
         $this->_db->insert($this->_name, $data);
-        header("Location: /students");
+       
 	}
 	public function getAddGoogleStudent($data = null, $googleID = null) {
 		if ($this->googleStudentExist($googleID)) {
@@ -213,7 +213,7 @@ class Student extends BaseModel {
 		}
 		
         $this->_db->insert($this->_name, $data);
-        header("Location: /students");
+       
 	}
 	public function getViewStudent($studentID = null){
 		if (empty($studentID)) {
