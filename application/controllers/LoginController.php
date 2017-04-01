@@ -1,19 +1,26 @@
 <?php
 class LoginController extends Zend_Controller_Action {
 	protected $_fb;
+	protected $_gCLient;
+	protected $_redirectURL;
 	
 	public function indexAction() {
 		$loginType = Request::getParam('loginType');
-
+		
 		$this->__setupFacebookCredentials();
 		$this->__setupGoogleCredentials();
 
 		$this->__getFacebookURL();
 		$this->__getGoogleURL();
 
+		if(!empty($_GET['code'])){
+			$loginType = 'google';
+			die('wat');
+		}
 
 		if (!empty($loginType)) {
-			call_user_method('__'.$loginType.'Login', $this);
+			die($loginType);
+			call_user_func('self::__'.$loginType.'Login');
 		}
 	}
 
@@ -32,6 +39,23 @@ class LoginController extends Zend_Controller_Action {
 	}
 
 	protected function __setupGoogleCredentials() {
+		//Include Google client library 
+		require_once 'google/Google_Client.php';
+		require_once 'google/contrib/Google_Oauth2Service.php';
+		
+		/*
+		 * Configuration and setup Google API
+		 */
+		$clientId = '86800409401-u4ol0t7jbegcpvle0taev56lnospsbfh.apps.googleusercontent.com'; //Google client ID
+		$clientSecret = 'DWZZ8rIg85r2KBEF-BoPPhtU'; //Google client secret
+		$this->_redirectURL = 'http://sample.enrollment.com'; //Callback URL
+
+		//Call Google API
+		$this->_gClient = new Google_Client();
+		$this->_gClient->setApplicationName('Login to CodexWorld.com');
+		$this->_gClient->setClientId($clientId);
+		$this->_gClient->setClientSecret($clientSecret);
+		$this->_gClient->setRedirectUri($this->_redirectURL);
 	}
 
 	protected function __getFacebookURL() {
@@ -52,42 +76,37 @@ class LoginController extends Zend_Controller_Action {
 	}
 
 	protected function __getGoogleURL() {
+		if(isset($_GET['code'])){
+			//return true;
+		}
+		$authUrl = $this->_gClient->createAuthUrl();
+		$this->view->googleLoginUrl = filter_var($authUrl, FILTER_SANITIZE_URL);
+	
+
+	//	echo '<a href="'.filter_var($authUrl, FILTER_SANITIZE_URL).'">login in gmail</a>';
 		
 	}
 
 	protected function __googleLogin() {
-		die('google this');
-		//Include Google client library 
-		require_once 'google/Google_Client.php';
-		require_once 'google/contrib/Google_Oauth2Service.php';
-		
-		/*
-		 * Configuration and setup Google API
-		 */
-		$clientId = '86800409401-u4ol0t7jbegcpvle0taev56lnospsbfh.apps.googleusercontent.com'; //Google client ID
-		$clientSecret = 'DWZZ8rIg85r2KBEF-BoPPhtU'; //Google client secret
-		$redirectURL = 'http://sample.enrollment.com'; //Callback URL
-
-		//Call Google API
-		$gClient = new Google_Client();
-		$gClient->setApplicationName('Login to CodexWorld.com');
-		$gClient->setClientId($clientId);
-		$gClient->setClientSecret($clientSecret);
-		$gClient->setRedirectUri($redirectURL);
-
-		$google_oauthV2 = new Google_Oauth2Service($gClient);
-
+		Zend_Debug::dump($_GET['code']);
+		die('here');
 		if(isset($_GET['code'])){
-			$gClient->authenticate($_GET['code']);
-			$_SESSION['google_access_token'] = $gClient->getAccessToken();
-			header('Location: ' . filter_var($redirectURL, FILTER_SANITIZE_URL));
+			$this->_gClient->authenticate($_GET['code']);
+			$_SESSION['google_access_token'] = $this->_gClient->getAccessToken();
+
+			$google_oauthV2 = new Google_Oauth2Service($this->_gClient);
+			$gpUserProfile = $google_oauthV2->userinfo->get();
+			Zend_Debug::dump($gpUserProfile); die();
+
+				$this->_redirect('/index');
+			#header('Location: ' . filter_var($this->_redirectURL, FILTER_SANITIZE_URL));
 		}
 
 		if (isset($_SESSION['google_access_token'])) {
-			$gClient->setAccessToken($_SESSION['google_access_token']);
+			$this->_gClient->setAccessToken($_SESSION['google_access_token']);
 		}
 
-		if ($gClient->getAccessToken()) {
+		if ($this->_gClient->getAccessToken()) {
 			//Get user profile data from google
 			$gpUserProfile = $google_oauthV2->userinfo->get();
 			
@@ -106,7 +125,7 @@ class LoginController extends Zend_Controller_Action {
 		        //'link'          => $gpUserProfile['link']
 		    );
 		} else {	
-			$authUrl = $gClient->createAuthUrl();
+			$authUrl = $this->_gClient->createAuthUrl();
 			echo '<a href="'.filter_var($authUrl, FILTER_SANITIZE_URL).'">login in gmail</a>';
 		}
 		
@@ -133,6 +152,7 @@ class LoginController extends Zend_Controller_Action {
 	}
 
 	protected function __facebookLogin() {
+	
 		if (!empty($_SESSION['facebook_access_token'])) {
 			$fields = [
 				'first_name',
