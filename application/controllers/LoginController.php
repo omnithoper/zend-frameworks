@@ -3,6 +3,7 @@ class LoginController extends Zend_Controller_Action {
 	protected $_fb;
 	protected $_gCLient;
 	protected $_redirectURL;
+	protected $_googleService;
 	
 	public function indexAction() {
 		$loginType = Request::getParam('loginType');
@@ -15,11 +16,9 @@ class LoginController extends Zend_Controller_Action {
 
 		if(!empty($_GET['code'])){
 			$loginType = 'google';
-			die('wat');
 		}
 
 		if (!empty($loginType)) {
-			die($loginType);
 			call_user_func('self::__'.$loginType.'Login');
 		}
 	}
@@ -76,30 +75,15 @@ class LoginController extends Zend_Controller_Action {
 	}
 
 	protected function __getGoogleURL() {
-		if(isset($_GET['code'])){
-			//return true;
-		}
+		$this->_googleService = new Google_Oauth2Service($this->_gClient);
 		$authUrl = $this->_gClient->createAuthUrl();
-		$this->view->googleLoginUrl = filter_var($authUrl, FILTER_SANITIZE_URL);
-	
-
-	//	echo '<a href="'.filter_var($authUrl, FILTER_SANITIZE_URL).'">login in gmail</a>';
-		
+		$this->view->googleLoginUrl = $authUrl;
 	}
 
 	protected function __googleLogin() {
-		Zend_Debug::dump($_GET['code']);
-		die('here');
 		if(isset($_GET['code'])){
 			$this->_gClient->authenticate($_GET['code']);
 			$_SESSION['google_access_token'] = $this->_gClient->getAccessToken();
-
-			$google_oauthV2 = new Google_Oauth2Service($this->_gClient);
-			$gpUserProfile = $google_oauthV2->userinfo->get();
-			Zend_Debug::dump($gpUserProfile); die();
-
-				$this->_redirect('/index');
-			#header('Location: ' . filter_var($this->_redirectURL, FILTER_SANITIZE_URL));
 		}
 
 		if (isset($_SESSION['google_access_token'])) {
@@ -108,7 +92,7 @@ class LoginController extends Zend_Controller_Action {
 
 		if ($this->_gClient->getAccessToken()) {
 			//Get user profile data from google
-			$gpUserProfile = $google_oauthV2->userinfo->get();
+			$gpUserProfile = $this->_googleService->userinfo->get();
 			
 			//Initialize User class
 					
@@ -145,9 +129,9 @@ class LoginController extends Zend_Controller_Action {
 		}	
 		
 		if (!empty($gpUserData)){
-		   		$_SESSION['login_user'] = $gpUserData['first_name'];
-  				$_SESSION['user_type'] = 'student';
-				$this->_redirect('/index');
+	   		$_SESSION['login_user'] = $gpUserData['first_name'];
+			$_SESSION['user_type'] = 'student';
+			$this->_redirect('/index');
 		}
 	}
 
