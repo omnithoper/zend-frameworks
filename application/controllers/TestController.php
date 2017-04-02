@@ -82,6 +82,31 @@ class TestController extends Zend_Controller_Action {
 		}	
 		   
 	}
+
+	public function testAction() {
+		$this->view->url = 'https://www.facebook.com/temyong';
+	}
+
+	public function fbwhatAction() {
+		$fb = new Facebook\Facebook([
+		  'app_id' => '1729933903964760',
+		  'app_secret' => 'af7d04a68993ac028425a4daa3c154a4',
+		  'default_graph_version' => 'v2.5',
+		]);
+
+		$fb->setDefaultAccessToken($_SESSION['facebook_access_token']);
+		$response = $fb->get('/me');
+		$user = $response->getGraphUser();
+		Zend_Debug::dump($user['id']);
+
+		// GET /v2.8/{user-id} HTTP/1.1
+		//$response = $fb->get('/'.$user['id'].'/friendlists');
+		$response = $fb->get('/'.$user['id'].'/user_friends');
+		$test = $response->getGraphUser();
+		Zend_Debug::dump($test);
+		die();
+	}
+	
 	public function fbAction() {
 		date_default_timezone_set('America/Los_Angeles');
 			$url = 'http://sample.enrollment.com/';

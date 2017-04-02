@@ -14,7 +14,7 @@ class LoginController extends Zend_Controller_Action {
 		$this->__getFacebookURL();
 		$this->__getGoogleURL();
 
-		if(!empty($_GET['code'])){
+		if(!empty($_GET['code']) && empty($loginType)){
 			$loginType = 'google';
 		}
 
