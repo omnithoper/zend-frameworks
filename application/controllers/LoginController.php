@@ -21,6 +21,7 @@ class LoginController extends Zend_Controller_Action {
 		if (!empty($loginType)) {
 			call_user_func('self::__'.$loginType.'Login');
 		}
+		
 	}
 
 	protected function __setupFacebookCredentials() {

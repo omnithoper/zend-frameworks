@@ -84,7 +84,11 @@ class TestController extends Zend_Controller_Action {
 	}
 
 	public function testAction() {
-		$this->view->url = 'https://www.facebook.com/temyong';
+		$this->view->url = 'https://www.facebook.com/zuck';
+	}
+
+	public function gplusAction() {
+
 	}
 
 	public function fbwhatAction() {
