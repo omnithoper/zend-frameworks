@@ -1,4 +1,4 @@
-<head>
+  <head>
     <link type="text/css" rel="stylesheet" href="../../../../css/bootstrap.min.css" />
     <link type="text/css" rel="stylesheet" href="../../../../css/mystyles.css" />
 </head>
@@ -33,7 +33,7 @@
 </form>
 <footer>
 	<center>
-		<div class="fb-follow" data-href="<?php echo $this->url; ?>" data-width="200px" data-layout="		standard" data-size="large" data-show-faces="true"></div>
+		<div class="fb-follow" data-href="<?php echo $this->url; ?>" data-width="200px" data-layout="standard" data-size="large" data-show-faces="true"></div>
 		<div id="fb-root"></div>
 		<script>(function(d, s, id) {
 		  var js, fjs = d.getElementsByTagName(s)[0];
@@ -43,5 +43,32 @@
 		  fjs.parentNode.insertBefore(js, fjs);
 		}(document, 'script', 'facebook-jssdk'));
 		</script>
+		<div class="fb-like" 
+		    data-href="http://sample.enrollment.com/index.phtml" 
+		    data-layout="standard" 
+		    data-action="like" 
+		    data-show-faces="true">
+		</div>
+ 		<div class="fb-share-button" 
+    		data-href="http://sample.enrollment.com/index.phtml" 
+    		data-action="share"
+   		 	data-layout="button_count">
+  		</div>
+  		<div class="fb-comments" 
+  			data-href="http://sample.enrollment.com/index.phtml" 
+  			data-numposts="5">		
+  		</div>
+	  <a href="https://twitter.com/intent/tweet?button_hashtag=LoveTwitter" 
+	  class="twitter-hashtag-button" data-show-count="false">Tweet #LoveTwitter</a>
+	  <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
 	</center>
-</footer>	
+	 <script src="https://apis.google.com/js/platform.js" async defer>
+    </script>
+
+	 <div data-callback="subscribeGooglePlusOne" 
+	 	data-href="http://sample.enrollment.com/index.phtml" 
+	 	data-size="medium" class="g-plusone">
+	 </div>
+
+   
+</footer>
