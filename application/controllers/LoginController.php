@@ -14,6 +14,7 @@ class LoginController extends Zend_Controller_Action {
 		$this->__getFacebookURL();
 		$this->__getGoogleURL();
 
+
 		if(!empty($_GET['code']) && empty($loginType)){
 			$loginType = 'google';
 		}
@@ -21,9 +22,19 @@ class LoginController extends Zend_Controller_Action {
 		if (!empty($loginType)) {
 			call_user_func('self::__'.$loginType.'Login');
 		}
-		
+		/*
+		$connection = getConnectionWithAccessToken("447588865-0D7CFC7uhYxULcYLnnEeaTTI7eKxn9zBtUSZCFjK", "VXR0mlrx57BOEzg3On8qjRUUHWZRFPKub6ZzYSnSDrBcW");
+		$content = $connection->get("statuses/home_timeline");	
+	*/
+
 	}
 
+	protected function getConnectionWithAccessToken($oauth_token, $oauth_token_secret) {
+	  $connection = new TwitterOAuth('2irRW5VTuaEi8lGXNSCbDbQEb', 'tnl4d6DDVn2lqyaOCKSM4c7D9pGfaFRT8YcwcIJtsvWwmmrpWW', $oauth_token, $oauth_token_secret);
+	  return $connection;
+	}
+
+	
 	protected function __setupFacebookCredentials() {
 		if (!empty($this->_fb)) {
 			return true;
