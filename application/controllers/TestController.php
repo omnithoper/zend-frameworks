@@ -4,9 +4,15 @@ class TestController extends Zend_Controller_Action {
 		phpinfo();
 		die('end');
 	}
-	public function googleIDAction(){
-
-
+	public function twitterAction(){
+		require_once "twitter/autoload.php";
+		require_once "twitter/abraham/TwitterOAuth/src/TwitterOAuth.php";
+	
+		$connection = new TwitterOAuth("2irRW5VTuaEi8lGXNSCbDbQEb", 
+				"tnl4d6DDVn2lqyaOCKSM4c7D9pGfaFRT8YcwcIJtsvWwmmrpWW", 
+				$access_token, $access_token_secret);
+			die("here");
+		$content = $connection->get("account/verify_credentials");
 		
 	}
 	
