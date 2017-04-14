@@ -13,9 +13,9 @@ class SubjectsController extends Zend_Controller_Action {
 	}
 
 	public function detailsAction() {
-		
+	
 		$subjectID = Request::getParam('subjectID');
-
+	
 		$subject = new Subject();
 		$details = $subject->getSubjectDetails($subjectID);
 		echo Zend_Json::encode($details);
@@ -57,6 +57,7 @@ class SubjectsController extends Zend_Controller_Action {
         $subjectLec = Request::getParam('subjectLec');
         $subjectLab = Request::getParam('subjectLab');
         $subjectUnit = Request::getParam('subjectUnit');
+        $semesterNumber = Request::getParam('semesterNumber');
 
 
         $data = array(
@@ -64,6 +65,7 @@ class SubjectsController extends Zend_Controller_Action {
             'lec_unit' => $subjectLec,
             'lab_unit' => $subjectLab,
             'subject_unit' => $subjectUnit,
+            'semester_number' => $semesterNumber,
         );
 
         $subject = new Subject();
@@ -80,12 +82,14 @@ class SubjectsController extends Zend_Controller_Action {
 			$subjectLec = Request::getParam('subjectLec');
 			$subjectLab = Request::getParam('subjectLab');
 			$subjectUnit = Request::getParam('subjectUnit');
+			$semesterNumber = Request::getParam('semesterNumber');
 
 			$data = array(
 		    	'subject' => $subjectName,
 		    	'lec_unit' => $subjectLec,
 		    	'lab_unit' => $subjectLab,
 		    	'subject_unit' => $subjectUnit,
+		    	'semester_number' => $semesterNumber
 			);
 
 			$subject = new Subject();

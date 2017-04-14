@@ -6,10 +6,8 @@ var viewDetails = function(subjectID) {
 		contentType: 'application/json; charset=utf-8',
 		success: function(response){
 			console.log(response);
-			console.log(response.first_name);
 			response = $.parseJSON(response);
 			console.log(response);
-			console.log(response.first_name);
 			$('#subjectID').html(response.subject_id);
 			$('#subjectName').html(response.subject);
 			$('#subjectUnit').html(response.subject_unit);
@@ -25,15 +23,14 @@ var editSubject = function(subjectID)
 		success: function(response){
 			console.log('response');
 			console.log(response);
-			console.log(response.first_name);
 			response = $.parseJSON(response);
 			console.log(response);
-			console.log(response.first_name);
 			$('#editSubjectID').html(response.subject_id);
 			$('#editSubjectName').val(response.subject);
 			$('#editSubjectLec').val(response.lec_unit);
 			$('#editSubjectLab').val(response.lab_unit);
 			$('#editSubjectUnit').val(response.subject_unit);
+			$('#editSemesterNumber').val(response.semester_number);
 
 		}
 	});
@@ -45,6 +42,7 @@ var updateSubject = function()
 	var subjectLec = $('#editSubjectLec').val();
 	var subjectLab = $('#editSubjectLab').val();
 	var subjectUnit = $('#editSubjectUnit').val();
+	var semesterNumber = $('#editSemesterNumber').val();
 	$.ajax({
 		url: '/subjects/update', 
 		data: {
@@ -52,7 +50,8 @@ var updateSubject = function()
 			subjectName: subjectName,
 			subjectLec: subjectLec,
 			subjectLab: subjectLab,
-			subjectUnit: subjectUnit
+			subjectUnit: subjectUnit,
+			semesterNumber: semesterNumber
 
 		},
 		contentType: 'application/json; charset=utf-8',
@@ -68,6 +67,7 @@ var updateSubject = function()
 			$('#editSubjectLec').val(response.lec_unit);
 			$('#editSubjectLab').val(response.lab_unit);
 			$('#editSubjectUnit').val(response.subject_unit);
+			$('#editSemesterNumber').val(response.semester_number);
 		}
 	});	
 	
@@ -80,6 +80,7 @@ var addSubject = function()
 	var subjectLec = $('#addSubjectLec').val();
 	var subjectLab = $('#addSubjectLab').val();
 	var subjectUnit = $('#addSubjectUnit').val();
+	var semesterNumber = $('#addSemesterNumber').val();
 	$.ajax({
 		url: '/subjects/adds', 
 		data: {
@@ -87,10 +88,10 @@ var addSubject = function()
 			subjectName: subjectName,
 			subjectLec: subjectLec,
 			subjectLab: subjectLab,
-			subjectUnit: subjectUnit
+			subjectUnit: subjectUnit,
+			semesterNumber: semesterNumber
 
 		},
-		contentType: 'application/json; charset=utf-8',
 		success: function(response){
 			console.log('response');
 			console.log(response);
@@ -103,6 +104,7 @@ var addSubject = function()
 			$('#addSubjectLec').val(response.lec_unit);
 			$('#addSubjectLab').val(response.lab_unit);
 			$('#addSubjectUnit').val(response.subject_unit);
+			$('#addSemesterNumber').val(response.semester_number);
 		}
 	});	
 	
