@@ -7,14 +7,26 @@ class EnrollmentController extends Zend_Controller_Action {
 		$sessionStudentID = (!empty($_SESSION['student_id']))?$_SESSION['student_id']:null;
 		$getSubjectID = Request::getParam('getSubjectID');
 		$subjectID = Request::getParam('subjectID');
+		$blockSection = Request::getParam('blockSection');
+
+		$blockSection = explode(',' , $blockSection);
+		$sectionBlock = empty($blockSection[0])?NULL:$blockSection[0];
+		$semesterNumber = empty($blockSection[1])?NULL:$blockSection[1];
 
 		$subjects = new Subject();
 		$studentSubject = new StudentSubjectMatch();
 		$student = new Student();
 		$semester = new Semester();
+		$bSection = new BlockSection();
 
+		$bbSection = $bSection->getViewBlockSection();
 		$semesterID = $semester->getSemesterID($date);
+		$viewSubjects = $bSection->getBlockSection($sectionBlock, $semesterNumber);
 
+	Zend_Debug::dump($viewSubjects);
+	Zend_Debug::dump($studentID);
+	Zend_Debug::dump($semesterID);	
+	//	die("here");
 		if (!empty($sessionStudentID)) {
 			$students = $student->getAllStudentStudentID($sessionStudentID);
 		} else {
@@ -27,8 +39,14 @@ class EnrollmentController extends Zend_Controller_Action {
 			$studentID = $students[0]['student_id'];
 		}
 
-		$addStudentSubject = $studentSubject->getAddStudentSubjectID($studentID, $getSubjectID, $semesterID);
+		if (!empty($getSubjectID)) {
 
+			$addStudentSubject = $studentSubject->getAddStudentSubjectID($studentID, $getSubjectID, $semesterID);
+		} else {
+			$addStudentSubject = $studentSubject->getAddStudentSubjectID($studentID, $getSubjectID, $semesterID);
+		}	
+
+		 	
 		if (Request::getParam('action') == 'delete') {
 			$delete = $studentSubject->getDeleteSubject($studentID, $subjectID, $semesterID);
 		}
@@ -48,5 +66,6 @@ class EnrollmentController extends Zend_Controller_Action {
 		$this->view->allSubject = $allSubject;
 		$this->view->selectedStudent = $selectedStudent;
 		$this->view->error = $addStudentSubject;
+		$this->view->bbSection = $bbSection;
 	}
 }

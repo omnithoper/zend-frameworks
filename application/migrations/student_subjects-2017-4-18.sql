@@ -2,7 +2,7 @@
 --
 -- Host: localhost    Database: student_subjects
 -- ------------------------------------------------------
--- Server version	5.7.17-0ubuntu0.16.04.2
+-- Server version 5.7.17-0ubuntu0.16.04.1
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -49,7 +49,8 @@ DROP TABLE IF EXISTS `block_section`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `block_section` (
   `subject_id` int(5) DEFAULT NULL,
-  `block_section` varchar(10) DEFAULT NULL
+  `block_section` varchar(10) DEFAULT NULL,
+  `semester_number` varchar(50) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -59,7 +60,7 @@ CREATE TABLE `block_section` (
 
 LOCK TABLES `block_section` WRITE;
 /*!40000 ALTER TABLE `block_section` DISABLE KEYS */;
-INSERT INTO `block_section` VALUES (1,'BCSA'),(2,'BCSA'),(3,'BCSA'),(4,'BCSA'),(5,'BCSA'),(6,'BCSA'),(7,'BCSA'),(8,'BCSA'),(1,'BCSB'),(2,'BCSB'),(3,'BCSB'),(4,'BCSB'),(5,'BCSB'),(6,'BCSB'),(7,'BCSB'),(8,'BCSB'),(1,'BCSC'),(2,'BCSC'),(3,'BCSC'),(4,'BCSC'),(5,'BCSC'),(6,'BCSC'),(7,'BCSC'),(8,'BCSC'),(1,'BCSD'),(2,'BCSD'),(3,'BCSD'),(4,'BCSD'),(5,'BCSD'),(6,'BCSD'),(7,'BCSD'),(8,'BCSD');
+INSERT INTO `block_section` VALUES (1,'BCSA','First Semester'),(2,'BCSA','First Semester'),(3,'BCSA','First Semester'),(4,'BCSA','First Semester'),(5,'BCSA','First Semester'),(6,'BCSA','First Semester'),(7,'BCSA','First Semester'),(8,'BCSA','First Semester'),(1,'BCSB','First Semester'),(2,'BCSB','First Semester'),(3,'BCSB','First Semester'),(4,'BCSB','First Semester'),(5,'BCSB','First Semester'),(6,'BCSB','First Semester'),(7,'BCSB','First Semester'),(8,'BCSB','First Semester'),(1,'BCSC','First Semester'),(2,'BCSC','First Semester'),(3,'BCSC','First Semester'),(4,'BCSC','First Semester'),(5,'BCSC','First Semester'),(6,'BCSC','First Semester'),(7,'BCSC','First Semester'),(8,'BCSC','First Semester'),(1,'BCSD','First Semester'),(2,'BCSD','First Semester'),(3,'BCSD','First Semester'),(4,'BCSD','First Semester'),(5,'BCSD','First Semester'),(6,'BCSD','First Semester'),(7,'BCSD','First Semester'),(8,'BCSD','First Semester'),(9,'BCSA','Second Semester'),(10,'BCSA','Second Semester'),(11,'BCSA','Second Semester'),(12,'BCSA','Second Semester'),(13,'BCSA','Second Semester'),(14,'BCSA','Second Semester'),(15,'BCSA','Second Semester'),(16,'BCSA','Second Semester'),(9,'BCSB','Second Semester'),(10,'BCSB','Second Semester'),(11,'BCSB','Second Semester'),(12,'BCSB','Second Semester'),(13,'BCSB','Second Semester'),(14,'BCSB','Second Semester'),(15,'BCSB','Second Semester'),(16,'BCSB','Second Semester'),(9,'BCSC','Second Semester'),(10,'BCSC','Second Semester'),(11,'BCSC','Second Semester'),(12,'BCSC','Second Semester'),(13,'BCSC','Second Semester'),(14,'BCSC','Second Semester'),(15,'BCSC','Second Semester'),(16,'BCSC','Second Semester'),(9,'BCSD','Second Semester'),(10,'BCSD','Second Semester'),(11,'BCSD','Second Semester'),(12,'BCSD','Second Semester'),(13,'BCSD','Second Semester'),(14,'BCSD','Second Semester'),(15,'BCSD','Second Semester'),(16,'BCSD','Second Semester');
 /*!40000 ALTER TABLE `block_section` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -349,7 +350,7 @@ CREATE TABLE `subjects` (
 
 LOCK TABLES `subjects` WRITE;
 /*!40000 ALTER TABLE `subjects` DISABLE KEYS */;
-INSERT INTO `subjects` VALUES (1,'Communication Skills 1',3,NULL,3),(2,'College Algebra',3,0,3),(3,'Plane and Spherical Trigonometry',3,0,3),(4,'Introduction to Computing',2,1,3),(5,'Knowledge Work Software and Presentation Skills',2,1,3),(6,'Physical Fitness',2,0,2),(7,'Euthenics 1',1,0,1),(8,'National Service Training Program 1',0,0,3),(9,'Communication Skills 2',3,NULL,3),(10,'Komunikasyon sa Akademikong Filipino',3,0,3),(11,'Analytic Geometry',3,0,3),(12,'Computer Programming 1',2,1,3),(44,'bostons',3,1,4),(38,'test',1,1,2),(42,'teats',3,1,4);
+INSERT INTO `subjects` VALUES (1,'Communication Skills 1',3,NULL,3),(2,'College Algebra',3,0,3),(3,'Plane and Spherical Trigonometry',3,0,3),(4,'Introduction to Computing',2,1,3),(5,'Knowledge Work Software and Presentation Skills',2,1,3),(6,'Physical Fitness',2,0,2),(7,'Euthenics 1',1,0,1),(8,'National Service Training Program 1',0,0,3),(9,'Communication Skills 2',3,NULL,3),(10,'Komunikasyon sa Akademikong Filipino',3,0,3),(11,'Analytic Geometry',3,0,3),(12,'Computer Programming 1',2,1,3),(44,'bostons',3,1,4),(38,'test',1,1,2),(42,'teats',3,1,4),(13,'Introduction to Information System',2,1,3),(14,'Rhythim Activities',2,0,2),(15,'Euthenics 2',1,0,1),(16,'National Service Training Program',0,0,3);
 /*!40000 ALTER TABLE `subjects` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -396,4 +397,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-04-18 10:59:23
+-- Dump completed on 2017-04-18 17:23:56

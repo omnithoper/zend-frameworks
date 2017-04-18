@@ -40,10 +40,18 @@
 					<input type="hidden" name="studentID" value="<?php echo $this->studentID; ?>" />
 					<select id="subject_list" name="getSubjectID" onchange="checkSubjectName();">		
 						<option value="">(Select Subject)</option>		
-						<?php foreach ($this->subject as $subjects):?>
-							<option value="<?php echo $subjects['subject_id']; ?>"> <?php echo $subjects['subject'];?></option>	
-						<?php endforeach;?>	
+							<?php foreach ($this->subject as $subjects):?>
+								<option value="<?php echo $subjects['subject_id']; ?>"> <?php echo $subjects['subject'];?></option>	
+							<?php endforeach;?>	
 					</select>	
+					<select id="list" name="blockSection" >
+						<option >(Select Block Section)</option>
+							<?php foreach ($this->bbSection as $details): ?>
+								<option 
+									value="<?php echo $details['block_section'].','.$details['semester_number']; ?>"><?php echo $details['block_section'].' - '.$details['semester_number']; ?>
+								</option>
+							<?php endforeach; ?> 	
+							</select>
 					<button id="button_save" type="submit" name="saveSubject" value="saveSubject" disabled>Save</button>
 					<?php if (!empty($this->error)): ?>
 						<div class="alert alert-danger">
