@@ -15,16 +15,16 @@ class  BlockSection extends BaseModel {
 	public function getBlockSection($bSection = null, $semesterNumber = null) {
 	
 		if (empty($bSection)) {
-			return true;
+			return ;
 		}
 
 		if (empty($semesterNumber)) {
-			return true;
+			return ;
 		}
 
 		$select = $this->_db->select()
-		->from($this->_name)
-		->join('subjects', 'subjects.subject_id = block_section.subject_id',['subject',])
+		->from($this->_name,['subject_id'])
+		->join('subjects', 'subjects.subject_id = block_section.subject_id',[])
 		->where('block_section.block_section = ?', $bSection)
 		->where('block_section.semester_number = ?', $semesterNumber)
 		;

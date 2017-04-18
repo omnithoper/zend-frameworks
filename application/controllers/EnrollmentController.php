@@ -8,6 +8,7 @@ class EnrollmentController extends Zend_Controller_Action {
 		$getSubjectID = Request::getParam('getSubjectID');
 		$subjectID = Request::getParam('subjectID');
 		$blockSection = Request::getParam('blockSection');
+		$addStudentSubject = "";
 
 		$blockSection = explode(',' , $blockSection);
 		$sectionBlock = empty($blockSection[0])?NULL:$blockSection[0];
@@ -23,9 +24,9 @@ class EnrollmentController extends Zend_Controller_Action {
 		$semesterID = $semester->getSemesterID($date);
 		$viewSubjects = $bSection->getBlockSection($sectionBlock, $semesterNumber);
 
-	Zend_Debug::dump($viewSubjects);
-	Zend_Debug::dump($studentID);
-	Zend_Debug::dump($semesterID);	
+	//Zend_Debug::dump($viewSubjects);
+	//Zend_Debug::dump($studentID);
+	//Zend_Debug::dump($semesterID);	
 	//	die("here");
 		if (!empty($sessionStudentID)) {
 			$students = $student->getAllStudentStudentID($sessionStudentID);
@@ -40,10 +41,13 @@ class EnrollmentController extends Zend_Controller_Action {
 		}
 
 		if (!empty($getSubjectID)) {
-
 			$addStudentSubject = $studentSubject->getAddStudentSubjectID($studentID, $getSubjectID, $semesterID);
-		} else {
-			$addStudentSubject = $studentSubject->getAddStudentSubjectID($studentID, $getSubjectID, $semesterID);
+		} elseif (!empty($viewSubjects)) {
+				foreach ($viewSubjects as $listSubject) {
+		//			echo $listSubject['subject_id'];
+					$addStudentSubject = $studentSubject->getAddStudentSubjectID($studentID, $listSubject['subject_id'], $semesterID);
+			}	
+				
 		}	
 
 		 	
