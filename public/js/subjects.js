@@ -30,7 +30,7 @@ var editSubject = function(subjectID)
 			$('#editSubjectLec').val(response.lec_unit);
 			$('#editSubjectLab').val(response.lab_unit);
 			$('#editSubjectUnit').val(response.subject_unit);
-			$('#editSemesterNumber').val(response.semester_number);
+			//$('#editSemesterNumber').val(response.semester_number);
 
 		}
 	});
@@ -42,7 +42,7 @@ var updateSubject = function()
 	var subjectLec = $('#editSubjectLec').val();
 	var subjectLab = $('#editSubjectLab').val();
 	var subjectUnit = $('#editSubjectUnit').val();
-	var semesterNumber = $('#editSemesterNumber').val();
+	//var semesterNumber = $('#editSemesterNumber').val();
 	$.ajax({
 		url: '/subjects/update', 
 		data: {
@@ -51,7 +51,7 @@ var updateSubject = function()
 			subjectLec: subjectLec,
 			subjectLab: subjectLab,
 			subjectUnit: subjectUnit,
-			semesterNumber: semesterNumber
+			//semesterNumber: semesterNumber
 
 		},
 		contentType: 'application/json; charset=utf-8',
@@ -67,7 +67,7 @@ var updateSubject = function()
 			$('#editSubjectLec').val(response.lec_unit);
 			$('#editSubjectLab').val(response.lab_unit);
 			$('#editSubjectUnit').val(response.subject_unit);
-			$('#editSemesterNumber').val(response.semester_number);
+		//	$('#editSemesterNumber').val(response.semester_number);
 		}
 	});	
 	
@@ -80,7 +80,7 @@ var addSubject = function()
 	var subjectLec = $('#addSubjectLec').val();
 	var subjectLab = $('#addSubjectLab').val();
 	var subjectUnit = $('#addSubjectUnit').val();
-	var semesterNumber = $('#addSemesterNumber').val();
+	//var semesterNumber = $('#addSemesterNumber').val();
 	$.ajax({
 		url: '/subjects/adds', 
 		data: {
@@ -89,7 +89,7 @@ var addSubject = function()
 			subjectLec: subjectLec,
 			subjectLab: subjectLab,
 			subjectUnit: subjectUnit,
-			semesterNumber: semesterNumber
+		//	semesterNumber: semesterNumber
 
 		},
 		success: function(response){
@@ -104,7 +104,7 @@ var addSubject = function()
 			$('#addSubjectLec').val(response.lec_unit);
 			$('#addSubjectLab').val(response.lab_unit);
 			$('#addSubjectUnit').val(response.subject_unit);
-			$('#addSemesterNumber').val(response.semester_number);
+		//	$('#addSemesterNumber').val(response.semester_number);
 		}
 	});	
 	

@@ -65,7 +65,7 @@ class SubjectsController extends Zend_Controller_Action {
             'lec_unit' => $subjectLec,
             'lab_unit' => $subjectLab,
             'subject_unit' => $subjectUnit,
-            'semester_number' => $semesterNumber,
+           // 'semester_number' => $semesterNumber,
         );
 
         $subject = new Subject();
@@ -89,7 +89,7 @@ class SubjectsController extends Zend_Controller_Action {
 		    	'lec_unit' => $subjectLec,
 		    	'lab_unit' => $subjectLab,
 		    	'subject_unit' => $subjectUnit,
-		    	'semester_number' => $semesterNumber
+		    //	'semester_number' => $semesterNumber
 			);
 
 			$subject = new Subject();

@@ -6,6 +6,7 @@ class LoginController extends Zend_Controller_Action {
 	protected $_googleService;
 	
 	public function indexAction() {
+	
 		$loginType = Request::getParam('loginType');
 		
 		$this->__setupFacebookCredentials();
