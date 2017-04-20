@@ -129,6 +129,7 @@ class Subject extends BaseModel {
 				)
 				
 				->where('student_subject_match.student_id IS NULL')
+				->order('subjects.subject_id')
 			;
 			
 		return $this->_db->fetchAll($select);

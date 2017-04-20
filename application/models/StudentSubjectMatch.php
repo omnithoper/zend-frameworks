@@ -11,10 +11,23 @@ class StudentSubjectMatch extends BaseModel {
 		return $this->_db->fetchRow($select);
 	}
 
+	public function isThereSubjects($studentID,$semesterID) {
+		$select = $this->_db->select()
+			->from($this->_name)
+			->where('student_id = ?', $studentID)
+			->where('semester_id = ?', $semesterID )
+		;
+		return $this->_db->fetchRow($select);
+	}
+
 	public function getStudentSubjects($studentID = NUll, $semesterID = NULL){
 
 		if (empty($studentID)) {
-			return false;
+			return true;
+		}
+
+		if (empty($semesterID)) {
+			return true;
 		}
 
 		$select = $this->_db->select()
@@ -27,7 +40,6 @@ class StudentSubjectMatch extends BaseModel {
 			->where('student_subject_match.semester_id = ?' , $semesterID )
 
 		;	
-
 		return $this->_db->fetchAll($select);
 	}
 
@@ -50,9 +62,11 @@ class StudentSubjectMatch extends BaseModel {
 		if (empty($subjectID)) {
 			return true;
 		}
+
 		if (empty($semesterID)) {
 			return true;
 		}
+
 		if ($this->subjectExist($studentID, $subjectID, $semesterID)) {
 			return [
 				'error' => 'Subject Already Exist',	
@@ -60,6 +74,15 @@ class StudentSubjectMatch extends BaseModel {
 		}
 
 		$settings = new Settings();
+		$studentBlockSectionMatch = new StudentBlockSectionMatch();
+
+		if ($studentBlockSectionMatch->isStudentBlockSectionMatchExist($studentID, $semesterID)) {
+			return [
+				'error' => ' Already Selected Block Section!!',
+				'status' => 'failed',	
+			];
+		}
+
 		if ($settings->isEcceededUnits($studentID, $subjectID, $semesterID)) {
 			return [
 				'error' => 'ERROR: Number of allowed units has exceeded!',

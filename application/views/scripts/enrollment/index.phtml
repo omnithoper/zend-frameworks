@@ -44,7 +44,7 @@
 								<option value="<?php echo $subjects['subject_id']; ?>"> <?php echo $subjects['subject'];?></option>	
 							<?php endforeach;?>	
 					</select>	
-					<select id="list" name="blockSection" >
+					<select id="list" name="blockSection" onchange="checkSubjectName();">
 						<option >(Select Block Section)</option>
 							<?php foreach ($this->bbSection as $details): ?>
 								<option 
@@ -53,13 +53,13 @@
 							<?php endforeach; ?> 	
 							</select>
 					<button id="button_save" type="submit" name="saveSubject" value="saveSubject" disabled>Save</button>
-					<?php if (!empty($this->error)): ?>
+			
 						<div class="alert alert-danger">
-							<?php	echo $this->error['error']; ?>
-							<?php echo $this->error['status']; ?>
-					
-						</div>
-					<?php	endif; ?>
+							<?php if (!empty($this->error)): ?>		
+								<?php echo $this->error['error']; ?>
+								<?php echo $this->error['status']; ?>
+							<?php endif; ?>	
+						</div
 
 			<?php endif; ?>
 			
@@ -79,9 +79,12 @@
 						<td><?php echo  $subject['subject']; ?></td>
 						<td><?php echo  $subject['subject_unit']; ?></td>
 						<td style="width: 1px; wrap: nowrap;">
-							<a 
-								href="/enrollment/?subjectID=<?php echo $subject['subject_id']; ?>
-								&studentID=<?php echo $subject['student_id']; ?>&action=delete" class="btn btn-danger" title="Delete Subject"><i class="icon icon-remove"></i></a>
+							<?php if (empty($this->viewBlockSection)): ?>		
+								<a 
+									href="/enrollment/?subjectID=<?php echo $subject['subject_id']; ?>
+									&studentID=<?php echo $subject['student_id']; ?>&action=delete" class="btn btn-danger" title="Delete Subject"><i class="icon icon-remove"></i>
+								</a>
+							<?php endif; ?>		
 						</td>		
 						</tr>
 					<?php endforeach; ?>

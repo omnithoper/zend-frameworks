@@ -19,15 +19,11 @@ class EnrollmentController extends Zend_Controller_Action {
 		$student = new Student();
 		$semester = new Semester();
 		$bSection = new BlockSection();
+		$studentBlockSectionMatch = new StudentBlockSectionMatch();
 
 		$bbSection = $bSection->getViewBlockSection();
 		$semesterID = $semester->getSemesterID($date);
-		$viewSubjects = $bSection->getBlockSection($sectionBlock, $semesterNumber);
 
-	//Zend_Debug::dump($viewSubjects);
-	//Zend_Debug::dump($studentID);
-	//Zend_Debug::dump($semesterID);	
-	//	die("here");
 		if (!empty($sessionStudentID)) {
 			$students = $student->getAllStudentStudentID($sessionStudentID);
 		} else {
@@ -40,36 +36,46 @@ class EnrollmentController extends Zend_Controller_Action {
 			$studentID = $students[0]['student_id'];
 		}
 
-		if (!empty($getSubjectID)) {
-			$addStudentSubject = $studentSubject->getAddStudentSubjectID($studentID, $getSubjectID, $semesterID);
-		} elseif (!empty($viewSubjects)) {
+		$addBlockSection = $studentBlockSectionMatch->getAddBlockSection($studentID, $sectionBlock, $semesterNumber, $semesterID);
+		$addStudentSubject = $studentSubject->getAddStudentSubjectID($studentID, $getSubjectID, $semesterID);
+		$viewBlockSection = $studentBlockSectionMatch->getBlockSection($studentID, $semesterID);
+
+		if (!empty($viewBlockSection)) {
+			$allSubject = $studentBlockSectionMatch->getBlockSection($studentID, $semesterID);
+		} else {
+			$allSubject = $studentSubject->getStudentSubjects($studentID, $semesterID);
+			/*
 				foreach ($viewSubjects as $listSubject) {
 		//			echo $listSubject['subject_id'];
 					$addStudentSubject = $studentSubject->getAddStudentSubjectID($studentID, $listSubject['subject_id'], $semesterID);
-			}	
-				
+			}
+			*/		
 		}	
 
-		 	
 		if (Request::getParam('action') == 'delete') {
 			$delete = $studentSubject->getDeleteSubject($studentID, $subjectID, $semesterID);
 		}
 		$subject = $subjects->getListSubjects($studentID, $semesterID);
-	
-		$allSubject = $studentSubject->getStudentSubjects($studentID, $semesterID);
+
 		$totalUnit = $subjects->getCurrentUnits($studentID, $semesterID);
 
 		$isStudentPayed = $student->isStudentPayed($studentID);
 		$isStudentPayed = empty($isStudentPayed[0]['payment'])?NULL:$isStudentPayed[0]['payment'];
 
+		if ($addStudentSubject != "true") {
+			$this->view->error = $addStudentSubject;
+		} elseif ($addBlockSection != "true") {
+			$this->view->error = $addBlockSection;
+		}	
+		
 		$this->view->totalUnit = $totalUnit;
 		$this->view->isStudentPayed = $isStudentPayed;
 		$this->view->students = $students;
 		$this->view->studentID = $studentID;
 		$this->view->subject = $subject;
+		$this->view->viewBlockSection = $viewBlockSection;
 		$this->view->allSubject = $allSubject;
 		$this->view->selectedStudent = $selectedStudent;
-		$this->view->error = $addStudentSubject;
 		$this->view->bbSection = $bbSection;
 	}
 }
