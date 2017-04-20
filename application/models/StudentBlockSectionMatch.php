@@ -80,9 +80,31 @@ class  StudentBlockSectionMatch extends BaseModel {
 		->join('subjects', 'subjects.subject_id = block_section.subject_id',['subjects.subject_id','subjects.subject',
 				'subjects.subject_unit'])
 		->where('student_bsection_match.student_id = ?', $studentID)
-		->where('student_bsection_match.semester_id = ?', $semesterID )
-		//->where('student_bsection_match.semester_number = ?', $semesterNumber)
+		->where('student_bsection_match.semester_id = ?', $semesterID)
 		;
 		return $this->_db->fetchAll($select);
+	}
+
+	public function getBlockSectionUnits($studentID = null, $semesterID = null) {
+
+		if (empty($studentID)) {
+			return true;
+		}
+
+		if (empty($semesterID)) {
+			return true;
+		}
+
+
+		$select = $this->_db->select()
+		->from('subjects',['total_units' => new Zend_Db_Expr('SUM(subjects.subject_unit)')])
+		->join('block_section', 'block_section.subject_id = subjects.subject_id',[])
+		->join('student_bsection_match', '  block_section.block_section = student_bsection_match.block_section and 
+				 block_section.semester_number = student_bsection_match.semester_number ',[])
+		->where('student_bsection_match.student_id = ?', $studentID)
+		->where('student_bsection_match.semester_id = ?', $semesterID)
+		;	
+
+		return $this->_db->fetchOne($select);
 	}
 }

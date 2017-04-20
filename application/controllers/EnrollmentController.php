@@ -40,10 +40,21 @@ class EnrollmentController extends Zend_Controller_Action {
 		$addStudentSubject = $studentSubject->getAddStudentSubjectID($studentID, $getSubjectID, $semesterID);
 		$viewBlockSection = $studentBlockSectionMatch->getBlockSection($studentID, $semesterID);
 
+		$subject = $subjects->getListSubjects($studentID, $semesterID);
+
+		$totalUnit = $subjects->getCurrentUnits($studentID, $semesterID);
+		$blockSectionUnit = $studentBlockSectionMatch->getBlockSectionUnits($studentID, $semesterID);
+		$isStudentPayed = $student->isStudentPayed($studentID);
+		$isStudentPayed = empty($isStudentPayed[0]['payment'])?NULL:$isStudentPayed[0]['payment'];
+
 		if (!empty($viewBlockSection)) {
 			$allSubject = $studentBlockSectionMatch->getBlockSection($studentID, $semesterID);
+					$this->view->totalUnit = $blockSectionUnit;
+
 		} else {
 			$allSubject = $studentSubject->getStudentSubjects($studentID, $semesterID);
+					$this->view->totalUnit = $totalUnit;
+
 			/*
 				foreach ($viewSubjects as $listSubject) {
 		//			echo $listSubject['subject_id'];
@@ -55,12 +66,6 @@ class EnrollmentController extends Zend_Controller_Action {
 		if (Request::getParam('action') == 'delete') {
 			$delete = $studentSubject->getDeleteSubject($studentID, $subjectID, $semesterID);
 		}
-		$subject = $subjects->getListSubjects($studentID, $semesterID);
-
-		$totalUnit = $subjects->getCurrentUnits($studentID, $semesterID);
-
-		$isStudentPayed = $student->isStudentPayed($studentID);
-		$isStudentPayed = empty($isStudentPayed[0]['payment'])?NULL:$isStudentPayed[0]['payment'];
 
 		if ($addStudentSubject != "true") {
 			$this->view->error = $addStudentSubject;
@@ -68,7 +73,6 @@ class EnrollmentController extends Zend_Controller_Action {
 			$this->view->error = $addBlockSection;
 		}	
 		
-		$this->view->totalUnit = $totalUnit;
 		$this->view->isStudentPayed = $isStudentPayed;
 		$this->view->students = $students;
 		$this->view->studentID = $studentID;
