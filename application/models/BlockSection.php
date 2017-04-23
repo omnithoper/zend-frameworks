@@ -1,6 +1,11 @@
 <?php
 class  BlockSection extends BaseModel {
 	protected $_name = 'block_section';
+	const PAGE_SIZE = 5;
+
+	public static function getNumberOfPages($blockSectionCount) {
+		return ceil($blockSectionCount/BlockSection::PAGE_SIZE);
+	}
 
 	public function getViewBlockSection() {
 		$select = $this->_db->select()
@@ -12,47 +17,149 @@ class  BlockSection extends BaseModel {
 		;	
 		return $this->_db->fetchAll($select);
 	}
-	/*
-	public function getBlockSection($studentID = null, $bSection = null, $semesterNumber = null) {
-		
-		if (empty($studentID)) {
-			return true;
-		}
 
-		if (empty($bSection)) {
-			return true;
-		}
-		if (empty($semesterNumber)) {
-			return true;
-		}
-				Zend_Debug::dump($studentID);
-				Zend_Debug::dump($bSection);
-				Zend_Debug::dump($semesterNumber);
-
-
-		//die("here");
-
-
+	public function getBlockSection($page = 1) {
+		$page = empty($page)?1:$page;
 		$select = $this->_db->select()
-		->from($this->_name,['subject_id'])
-		->join('subjects', 'subjects.subject_id = block_section.subject_id',[])
-		->where('block_section.block_section = ?', $bSection)
-		->where('block_section.semester_number = ?', $semesterNumber)
-		;
+			->from($this->_name)
+			->limit(self::PAGE_SIZE, ($page - 1) * self::PAGE_SIZE)
+			->order('block_section')
+			;	
+		return $this->_db->fetchAll($select);
+	}
+	
+	public function getViewBlockSecionCount() {
+		$select = $this->_db->select()
+			->from($this->_name, [
+				'total' => new Zend_Db_Expr("COUNT(block_section.subject_id)")
+			])
+			;
+        $total = $this->_db->fetchOne($select);
+
+		return $total;
+	}
+
+	public function getAddBlockSectionSubject($data, $subjectID, $blockSection, $semesterNumber) {
+		
+
+		if (empty($subjectID)) {
+			return true;
+		}
+
+		if (empty($blockSection)) {
+			return true;
+		}
+		if(empty($semesterNumber)){
+			return true;
+		}
+		
+
+		if ($this->blockSectionSubjectExist($subjectID, $blockSection, $semesterNumber)) {
+			return [
+				'error' => 'subject Already Exist',	
+			];
+		}
+
+        $this->_db->insert($this->_name, $data);
+        header("Location: /blocksection");
+	}
+
+	public function blockSectionSubjectExist($subjectID, $blockSection, $semesterNumber ) {
+
+		
+		if (empty($subjectID)) {
+			return true;
+		}
+
+		if (empty($blockSection)) {
+			return true;
+		}
+		if(empty($semesterNumber)){
+			return true;
+		}
 		
 
 		$select = $this->_db->select()
 		->from($this->_name)
-		->join('student_bsection_match', ' student_bsection_match.block_section = block_section.block_section' and 
-				'student_bsection_match.semester_number=block_section.semester_number ')
-		->join('student', 'student_bsection_match.student_id=student.student_id',['student.first_name','student.last_name'])
-		->where('student_bsection_match.student_id = ?', $studentID)
-		->where('student_bsection_match.block_section = ?', $bSection )
-		->where('student_bsection_match.semester_number = ?', $semesterNumber)
+		->where('subject_id = ?' , $subjectID)
+		->where('block_section = ?' , $blockSection)
+		->where('semester_number = ?' , $semesterNumber)
 		;
-		Zend_Debug::dump($this->_db->fetchAll($select));
-		die("here");
-		return $this->_db->fetchAll($select);
-	} 
-	*/
+		Zend_Debug::dump($this->_db->fetchRow($select));
+		return $this->_db->fetchRow($select);
+	}
+	
+	public function delecteBlockSectionSubject($subjectID, $blockSection, $semesterNumber) {
+
+		if (empty($subjectID)) {
+			return true;
+		}
+
+		if (empty($blockSection)) {
+			return true;
+		}
+		if(empty($semesterNumber)){
+			return true;
+		}
+
+		$where['subject_id = ?'] = $subjectID;
+		$where['block_section = ?']  = $blockSection;
+		$where['semester_number= ?'] = $semesterNumber;
+		$this->_db->delete($this->_name, $where);
+		header("Location: /blocksection");
+	}
+		
+	public function getBlockSectionSubjectDetails($subjectID, $blockSection, $semesterNumber ) {
+	
+		if (empty($subjectID)) {
+			return true;
+		}
+
+		if (empty($blockSection)) {
+			return true;
+		}
+		if(empty($semesterNumber)){
+			return true;
+		}
+		$select = $this->_db->select()
+			->from($this->_name)
+			->where('subject_id = ?', $subjectID)
+			->where('block_section = ?', $blockSection)
+			->where('semester_number = ?', $semesterNumber)
+		;
+
+		return $this->_db->fetchRow($select);
+	
+	}	
+	public function getEditblockSectionSubject($data, $subjectID, $blockSection, $semesterNumber) {
+		
+
+		if (empty($subjectID)) {
+			return true;
+		}
+
+		if (empty($blockSection)) {
+			return true;
+		}
+		if(empty($semesterNumber)){
+			return true;
+		}
+		
+	
+		if ($this->blockSectionSubjectExist($subjectID, $blockSection, $semesterNumber)) {
+			return [
+				'error' => 'subject Already Exist',	
+			];
+		}
+
+		$where['subject_id = ?']  = $subjectID;
+		$where['block_section = ?'] = $blockSection;
+		$where['semester_number = ?']  = $semesterNumber;
+		$this->_db->update($this->_name, $data, $where);
+
+		header("Location: /blocksection");
+
+
+	
+	}
 }	

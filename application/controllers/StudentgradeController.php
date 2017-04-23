@@ -1,5 +1,5 @@
 <?php
-class StudentGradeController extends Zend_Controller_Action  {
+class StudentgradeController extends Zend_Controller_Action  {
 	public function indexAction() {
 		$studentName = Request::getParam('studentName');
 		$studentID = Request::getParam('studentID');

@@ -1,0 +1,19 @@
+
+<form  method ="POST">
+<nav id ="searchStudent">
+	<div id="container"> 
+		<h1>Edit Block Section Subject</h1>
+
+		<h3 id="input"></h3>
+		<input id="subjectID"  type="text" value="<?php echo $this->bSection['subject_id']; ?>" name="subjectID" "  /> subject_id<br/>
+		<input id="blockSection" type="text" value="<?php echo $this->bSection['block_section']; ?>" name="blockSection" "  />
+		 Block Section<br/>
+		<input id="semesterNumber" type="text" value="<?php echo $this->bSection['semester_number']; ?>" name="semesterNumber" "  /> 
+		Semester Number<br/>
+		<input class="btn" id="button_save" type="submit" name="edit" value="save" />		
+		<a style="float:right" href="/blocksection">(Return)</a>
+	</div>
+</nav>	
+</form>
+
+
