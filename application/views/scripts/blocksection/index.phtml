@@ -11,7 +11,7 @@
 	</form>
 		<div id="subjects-pagination" class="pagination">
 		  <ul>
-		    <li><a href="/blockSection/index?page=<?php echo $this->currentPage <= 1?1:$this->currentPage-1; ?>">Prev</a></li>
+		    <li><a href="/blocksection/index?page=<?php echo $this->currentPage <= 1?1:$this->currentPage-1; ?>">Prev</a></li>
 		    <?php for ($pageNumber = 1; $pageNumber <= BlockSection::getNumberOfPages($this->blockSectionCount); $pageNumber++) { ?>
 		    	<li class="<?php echo ($pageNumber == $this->currentPage)?'active':'';?>"><a href="/blocksection/index?page=<?php echo $pageNumber; ?>"><?php echo $pageNumber; ?></a></li>
 		    <?php } ?>

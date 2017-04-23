@@ -97,7 +97,8 @@
 				</table>
 			
 					<?php if ($this->isStudentPayed == 0 || $this->isStudentPayed == 'NULL'): ?>
-						<a id="payment"  href="/Cashier/?studentID=<?php echo $this->studentID;?>" 
+						<a id="payment"  href="/Cashier/?studentID=<?php echo $this->studentID;?>&semesterID=<?php echo $this->semesterID;?>
+							&checkBlockSection=<?php echo $this->checkBlockSection;?>" 
 						class="btn btn-success pull-right"  title="payment"  >pay</a>
 						<div class="clearfix"></div>
 					<?php endif; ?>

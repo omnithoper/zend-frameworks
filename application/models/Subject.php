@@ -12,9 +12,13 @@ class Subject extends BaseModel {
 	}
 */
 
-	public function getLaboratoryUnits($studentID = null)	
+	public function getLaboratoryUnits($studentID = null, $semesterID = null)	
 	{
 		if (empty($studentID)) {
+			return 0;
+		}
+
+		if (empty($semesterID)) {
 			return 0;
 		}
 
@@ -22,20 +26,25 @@ class Subject extends BaseModel {
 			->from('student_subject_match', ['laboratory_units' => 'SUM(subjects.lab_unit)'])
 			->join('subjects', 'student_subject_match.subject_id = subjects.subject_id', [])
 			->where('student_subject_match.student_id = ?', $studentID)
+			->where('student_subject_match.semester_id = ?', $semesterID)
 			;
 		return $this->_db->fetchOne($select);
 	}	
 
-	public function getLectureUnits($studentID = null)
+	public function getLectureUnits($studentID = null, $semesterID = null)
 	{
 		if (empty($studentID)) {
 			return 0;
 		}
 
+		if (empty($semesterID)) {
+			return 0;
+		}
 		$select = $this->_db->select()
 			->from('student_subject_match', ['lecture_units' => 'SUM(subjects.lec_unit)'])
 			->join('subjects', 'student_subject_match.subject_id = subjects.subject_id', [])
 			->where('student_subject_match.student_id = ?', $studentID)
+			->where('student_subject_match.semester_id = ?', $semesterID)
 			;
 		return $this->_db->fetchOne($select);
 	}

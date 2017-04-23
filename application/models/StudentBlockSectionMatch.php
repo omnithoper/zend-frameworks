@@ -77,8 +77,7 @@ class  StudentBlockSectionMatch extends BaseModel {
 		->join('block_section', '  block_section.block_section = student_bsection_match.block_section and 
 				 block_section.semester_number = student_bsection_match.semester_number ',[])
 		->join('student', 'student_bsection_match.student_id=student.student_id',[])
-		->join('subjects', 'subjects.subject_id = block_section.subject_id',['subjects.subject_id','subjects.subject',
-				'subjects.subject_unit'])
+		->join('subjects', 'subjects.subject_id = block_section.subject_id',['subjects.subject_id','subjects.lec_unit','subjects.lab_unit','subjects.subject','subjects.subject_unit'])
 		->where('student_bsection_match.student_id = ?', $studentID)
 		->where('student_bsection_match.semester_id = ?', $semesterID)
 		;

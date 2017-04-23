@@ -9,6 +9,7 @@ class EnrollmentController extends Zend_Controller_Action {
 		$subjectID = Request::getParam('subjectID');
 		$blockSection = Request::getParam('blockSection');
 		$addStudentSubject = "";
+		$checkBlockSection = empty($checkblockSection)?'blockSectionUnit':$checkblockSection;
 
 		$blockSection = explode(',' , $blockSection);
 		$sectionBlock = empty($blockSection[0])?NULL:$blockSection[0];
@@ -49,11 +50,12 @@ class EnrollmentController extends Zend_Controller_Action {
 
 		if (!empty($viewBlockSection)) {
 			$allSubject = $studentBlockSectionMatch->getBlockSection($studentID, $semesterID);
-					$this->view->totalUnit = $blockSectionUnit;
+			$this->view->totalUnit = $blockSectionUnit;
+			$this->view->checkBlockSection = $checkBlockSection;
 
 		} else {
 			$allSubject = $studentSubject->getStudentSubjects($studentID, $semesterID);
-					$this->view->totalUnit = $totalUnit;
+			$this->view->totalUnit = $totalUnit;
 
 			/*
 				foreach ($viewSubjects as $listSubject) {
@@ -76,10 +78,12 @@ class EnrollmentController extends Zend_Controller_Action {
 		$this->view->isStudentPayed = $isStudentPayed;
 		$this->view->students = $students;
 		$this->view->studentID = $studentID;
+		$this->view->semesterID = $semesterID;
 		$this->view->subject = $subject;
 		$this->view->viewBlockSection = $viewBlockSection;
 		$this->view->allSubject = $allSubject;
 		$this->view->selectedStudent = $selectedStudent;
 		$this->view->bbSection = $bbSection;
+
 	}
 }

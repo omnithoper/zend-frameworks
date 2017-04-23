@@ -2,6 +2,7 @@
 class PaymentController extends Zend_Controller_Action{
 
 	public function indexAction() {
+		
 		$studentID = Request::getParam('studentID');
 		$totalAmount = Request::getParam('totalPrice');
 		$change = Request::getParam('change');
