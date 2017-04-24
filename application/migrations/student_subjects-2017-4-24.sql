@@ -2,7 +2,7 @@
 --
 -- Host: localhost    Database: student_subjects
 -- ------------------------------------------------------
--- Server version 5.7.17-0ubuntu0.16.04.1
+-- Server version 5.7.17-0ubuntu0.16.04.2
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -76,7 +76,7 @@ CREATE TABLE `bsection` (
   `bsection` varchar(10) DEFAULT NULL,
   `semester_number` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`bsection_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -85,8 +85,31 @@ CREATE TABLE `bsection` (
 
 LOCK TABLES `bsection` WRITE;
 /*!40000 ALTER TABLE `bsection` DISABLE KEYS */;
-INSERT INTO `bsection` VALUES (1,'BCSA','First_Semester'),(2,'BCSB','First_Semester'),(3,'BCSC','First_Semester'),(4,'BCSD','First_Semester'),(5,'BCSA','Second_Semester'),(6,'BCSB','Second_Semester'),(7,'BCSC','Second_Semester'),(8,'BCSD','Second_Semester');
+INSERT INTO `bsection` VALUES (28,'BCSA','First Semester'),(29,'BCSB','First Semester'),(30,'BCSC','First Semester'),(31,'BCSD','First Semester'),(32,'BCSA','Second Semester'),(33,'BCSB','Second Semester'),(34,'BCSC','Second Semester'),(35,'BCSD','Second Semester');
 /*!40000 ALTER TABLE `bsection` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `bsection_subject_match`
+--
+
+DROP TABLE IF EXISTS `bsection_subject_match`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `bsection_subject_match` (
+  `bsection_id` int(5) DEFAULT NULL,
+  `subject_id` int(5) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `bsection_subject_match`
+--
+
+LOCK TABLES `bsection_subject_match` WRITE;
+/*!40000 ALTER TABLE `bsection_subject_match` DISABLE KEYS */;
+INSERT INTO `bsection_subject_match` VALUES (28,1),(28,2),(28,3);
+/*!40000 ALTER TABLE `bsection_subject_match` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -447,4 +470,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-04-23 16:38:34
+-- Dump completed on 2017-04-24 10:21:53

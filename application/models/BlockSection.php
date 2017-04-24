@@ -85,7 +85,6 @@ class  BlockSection extends BaseModel {
 		->where('block_section = ?' , $blockSection)
 		->where('semester_number = ?' , $semesterNumber)
 		;
-		Zend_Debug::dump($this->_db->fetchRow($select));
 		return $this->_db->fetchRow($select);
 	}
 	
