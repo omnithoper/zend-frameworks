@@ -5,7 +5,11 @@ class  BSection extends BaseModel {
 		public function getViewBSection() {
 		$select = $this->_db->select()
 		->from($this->_name)
-		;	
+			->joinleft('bsection_subject_match','bsection.bsection_id = bsection_subject_match.bsection_id',[
+				'total' => new Zend_Db_Expr("COUNT(bsection_subject_match.subject_id)")
+			])
+			->group('bsection.bsection_id')
+		;		
 		return $this->_db->fetchAll($select);
 	}
 	
@@ -24,6 +28,45 @@ class  BSection extends BaseModel {
 		return $this->_db->fetchRow($select);
 	
 	}	
+
+	public function getBSectionSubjectDetails($bSectionID) {
+
+		if (empty($bSectionID)) {
+			return true;
+		}
+		
+		$select = $this->_db->select()
+			->from($this->_name)
+			->join('bsection_subject_match','bsection.bsection_id = bsection_subject_match.bsection_id',[])
+			->join('subjects','bsection_subject_match.subject_id = subjects.subject_id',[
+				'subjects.subject'])
+			->where('bsection.bsection_id = ?', $bSectionID)
+		;
+
+		return $this->_db->fetchAll($select);
+	
+	}	
+
+
+	public function getBSectionSubjectCount($bSectionID) {
+
+		if (empty($bSectionID)) {
+			return true;
+		}
+		
+		$select = $this->_db->select()
+			->from($this->_name,[])
+			->join('bsection_subject_match','bsection.bsection_id = bsection_subject_match.bsection_id',[
+				'total' => new Zend_Db_Expr("COUNT(bsection_subject_match.subject_id)")
+			])
+			->join('subjects','bsection_subject_match.subject_id = subjects.subject_id',[])
+			->where('bsection.bsection_id = ?', $bSectionID)
+		;
+
+		return $this->_db->fetchOne($select);
+	
+	}	
+
 	public function bSectionExist($bSection, $semesterNumber ) {
 
 		if (empty($bSection)) {

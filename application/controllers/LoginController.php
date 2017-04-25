@@ -71,6 +71,7 @@ class LoginController extends Zend_Controller_Action {
 	}
 
 	protected function __getFacebookURL() {
+		
 		if (!empty($_SESSION['facebook_access_token'])) {
 			return false;
 		}

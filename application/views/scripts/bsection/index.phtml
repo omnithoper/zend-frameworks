@@ -1,5 +1,7 @@
 
 <script src="/js/admin.js"></script>
+<script type="text/javascript" src="/js/students.js"></script>
+<script type="text/javascript" src="/js/bsection.js"></script>
 
 <nav id ="searchStudent">
 	<div id="container">
@@ -8,32 +10,47 @@
 		<a class="pull-right btn btn-success" 
 			href="/bsection/add">
 		<i class="icon-plus"></i></a>
-	</form>
+	</form action ="/bsection" method ="POST">
 		<table class="table table-bordered table-condensed table-striped">
 			
 			<tr>
 				<th>Block Section ID</th>
 				<th>Block Section</th>
-				<th>Semester Number</th>
+				<th>Semester Number</th>				
+				<th>Number Of Subject</th>				
+				<th>Details</th>
 				<th>edit </th>
 				<th>delete</th>
 			</tr>
 				<?php foreach ($this->bSection as $details):?>
-				<tr>
+			<tr>
 				<td align="center"><?php echo $details['bsection_id']; ?></td>
 				<td align="center"><?php echo $details['bsection']; ?></td>
 				<td align="center"><?php echo $details['semester_number']; ?></td>
-				<td style="width: 1px; wrap: nowrap;">
+				<td align="center"><?php echo $details['total']; ?></td>
+				<td style="width: 1px; wrap: nowrap;">	
+				<input id="studentID" type="hidden" name="studentID" value="<?php echo $this->studentID; ?>" />
+
+					<a
+						onclick="viewBSectionDetails(<?php echo $details['bsection_id']; ?>);"
+						id = "blockSectionID" 
+						class="btn" 
+						title="View Block Section"
+						data-toggle="modal" data-target="#bSection-details"> 
+							<i class="icon icon-search"></i>
+					</a>
+				</td>	
+				<td style="width: 1px; wrap: nowrap;"">	
 					<a href="/bsection/edit?bSectionID=<?php echo $details['bsection_id']; ?>" 
 				   		class="btn" 
 				   		title="edit blocksection"> 
-				   		<i class="icon icon-edit"></i>
+				   			<i class="icon icon-edit"></i>	
 					</a>
 				</td>					
 				<td style="width: 1px; wrap: nowrap;">			
 					<a href='/bsection/delete?bSection=<?php echo $details['bsection']; ?>&semesterNumber=<?php echo $details['semester_number']; ?>' 
 						class="btn btn-danger" title="blocksection"> 
-						<i class="icon icon-remove"></i>
+							<i class="icon icon-remove"></i>
 					</a>
 				</td>	
 
@@ -41,3 +58,34 @@
 			<?php endforeach;?>
 		</table>	
 	</div>
+</nav>
+
+<div id="bSection-details" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Student Details</h4>
+      </div>
+      <div class="modal-body">
+
+     	<table class="table table-bordered table-condensed table-striped">
+
+	      	<tr>
+					<th>Block Section</th>
+					<th>Subject</th>				
+				</tr>
+				<?php foreach ($this->bSectionSubject as $details):?>
+					<tr>
+						<td align="center"><?php echo $details['bsection']; ?></td>
+						<td align="center"><?php echo $details['subject']; ?></td>
+					</tr>	
+				<?php endforeach;?>
+			</tr>
+		</table>			
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default btn-danger" data-dismiss="modal">	<i class="icon icon-remove"></i></button>
+      </div>
+    </div>
+
+  </div>
+</div>
