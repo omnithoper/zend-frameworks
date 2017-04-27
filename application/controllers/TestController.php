@@ -97,6 +97,46 @@ class TestController extends Zend_Controller_Action {
 
 	}
 
+	public function cesarAction()
+	{
+   		$this->_helper->viewRenderer->setNoRender();
+   		$this->_helper->layout()->disableLayout();
+		echo '
+			<html>
+				<head>
+				<script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+				</head>
+				<body>
+					<h1>test JSON</h1>
+					<div id="dummy">
+					</div>
+					<script type="text/javascript">
+						var testJson = [{name: "cesar", student_id: 10001}, {name: "anthony", student_id: 20002}];
+						console.log(testJson);
+
+						for (ctr = 0; ctr < testJson.length; ctr++) {
+							console.log(testJson[ctr]);
+							var temp = "<dl><dt>" + testJson[ctr].name + "</dt><dd>" + testJson[ctr].student_id + "</dd></dl>";
+							$("#dummy").append(temp);
+						}
+					</script>
+				</body>
+			</html>
+		';
+		exit();
+	}
+
+	public function testjsonAction() {
+		$myObj = new stdClass();
+
+		$myObj->name = "John";
+		$myObj->age = 30;
+		$myObj->city = "New York";
+
+		$myJSON = Zend_Json::encode($myObj);
+
+		$this->view->myJSON;
+	}
 	public function fbwhatAction() {
 		$fb = new Facebook\Facebook([
 		  'app_id' => '1729933903964760',

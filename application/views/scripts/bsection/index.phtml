@@ -29,7 +29,6 @@
 				<td align="center"><?php echo $details['semester_number']; ?></td>
 				<td align="center"><?php echo $details['total']; ?></td>
 				<td style="width: 1px; wrap: nowrap;">	
-				<input id="studentID" type="hidden" name="studentID" value="<?php echo $this->studentID; ?>" />
 
 					<a
 						onclick="viewBSectionDetails(<?php echo $details['bsection_id']; ?>);"
@@ -67,21 +66,12 @@
         <h4 class="modal-title">Student Details</h4>
       </div>
       <div class="modal-body">
-
-     	<table class="table table-bordered table-condensed table-striped">
-
-	      	<tr>
-					<th>Block Section</th>
-					<th>Subject</th>				
-				</tr>
-				<?php foreach ($this->bSectionSubject as $details):?>
-					<tr>
-						<td align="center"><?php echo $details['bsection']; ?></td>
-						<td align="center"><?php echo $details['subject']; ?></td>
-					</tr>	
-				<?php endforeach;?>
-			</tr>
-		</table>			
+      	 <dl>
+        	<dt>studentID</dt><dd id="bsection"></dd>
+        	<dt>First Name</dt><dd id="semester_number"></dd>
+        	<dt>Last Name</dt><dd id="subject"></dd>
+		 </dl>
+	 </div>		
       <div class="modal-footer">
         <button type="button" class="btn btn-default btn-danger" data-dismiss="modal">	<i class="icon icon-remove"></i></button>
       </div>

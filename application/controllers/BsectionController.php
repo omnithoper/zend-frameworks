@@ -3,22 +3,11 @@ class BsectionController extends Zend_Controller_Action  {
 	protected $_bSectionID;
 
 	public function indexAction() {
-		$bSectionID =  Request::getParam('bSectionID');
-		$bSectionID =  "30";
-Zend_Debug::dump($bSectionID);
-//die("here");
+
 		$blockSection = new BSection();
 
-	//	if (empty($bSectionID)) {
-			$records = $blockSection->getViewBSection();
-			$this->view->bSection = $records;
-	//	} else 	{
-			$details = $blockSection->getBSectionSubjectDetails($bSectionID);
-			$this->view->bSectionSubject = $details;
-			$this->view->studentID = $bSectionID;
-	//	}
-		//$this->__details();
-
+		$records = $blockSection->getViewBSection();
+		$this->view->bSection = $records;
 	}
 
 	public function addAction() {
@@ -42,15 +31,14 @@ Zend_Debug::dump($bSectionID);
 		
 	public function detailsAction() {
 		$bSectionID =  Request::getParam('bSectionID');
-//Zend_Debug::dump($bSectionID);
-//die("here");
+
 		$blockSection = new BSection();
 		$details = $blockSection->getBSectionSubjectDetails($bSectionID);
 
 		$this->view->bSectionSubject = $details;
 
-	//	echo Zend_Json::encode($details);
-	//	exit;
+		echo Zend_Json::encode($details);
+		exit;
 	}
 	
 	public function editAction() {
