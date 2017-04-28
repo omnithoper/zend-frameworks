@@ -1,0 +1,15 @@
+127.0.0.1	localhost
+127.0.1.1	anthony-300E5EV-300E4EV-270E5EV-270E4EV-2470EV
+127.0.0.1   anthony.enrollment.com
+127.0.0.1   example.com
+127.0.0.1   anthony.enrollment2.com
+127.0.0.1   sample.enrollment.com
+127.0.0.1   sample.laravel.com
+127.0.0.1   laravel.enrollment.com
+
+# The following lines are desirable for IPv6 capable hosts
+::1     ip6-localhost ip6-loopback
+fe00::0 ip6-localnet
+ff00::0 ip6-mcastprefix
+ff02::1 ip6-allnodes
+ff02::2 ip6-allrouters
