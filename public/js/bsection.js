@@ -27,7 +27,7 @@ $("#bSection-details").on("hidden.bs.modal", function(){
 
 }
 
-var checkSubjectName = function() {
+var addSubjects = function() {
 	var whatID = $('.listsubject').val();
 	var idExplode = whatID.split(',');
 	var subjectID = idExplode[0];
