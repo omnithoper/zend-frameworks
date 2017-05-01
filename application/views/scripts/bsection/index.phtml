@@ -1,7 +1,4 @@
-
-<script src="/js/admin.js"></script>
-<script type="text/javascript" src="/js/students.js"></script>
-<script type="text/javascript" src="/js/bsection.js"></script>
+<script src="/js/bsection.js"></script>
 
 <nav id ="searchStudent">
 	<div id="container">
@@ -29,9 +26,10 @@
 				<td align="center"><?php echo $details['semester_number']; ?></td>
 				<td align="center"><?php echo $details['total']; ?></td>
 				<td style="width: 1px; wrap: nowrap;">	
+				<input type="hidden" name="bSectionID" value="<?php echo $details['bsection_id']; ?>" />
 
-					<a
-						onclick="viewBSectionDetails(<?php echo $details['bsection_id']; ?>);"
+					<a  
+						onclick="bSectionID(<?php echo $details['bsection_id']; ?>);viewBSectionDetails(<?php echo $details['bsection_id']; ?>);"
 						id = "blockSectionID" 
 						class="btn" 
 						title="View Block Section"
@@ -39,15 +37,17 @@
 							<i class="icon icon-search"></i>
 					</a>
 				</td>	
-				<td style="width: 1px; wrap: nowrap;"">	
-					<a href="/bsection/edit?bSectionID=<?php echo $details['bsection_id']; ?>" 
+				<td style="width: 1px; wrap: nowrap;">	
+					<a 
+						href="/bsection/edit?bSectionID=<?php echo $details['bsection_id']; ?>" 
 				   		class="btn" 
 				   		title="edit blocksection"> 
 				   			<i class="icon icon-edit"></i>	
 					</a>
 				</td>					
 				<td style="width: 1px; wrap: nowrap;">			
-					<a href='/bsection/delete?bSection=<?php echo $details['bsection']; ?>&semesterNumber=<?php echo $details['semester_number']; ?>' 
+					<a 
+						href='/bsection/delete?bSection=<?php echo $details['bsection']; ?>&semesterNumber=<?php echo $details['semester_number']; ?>' 
 						class="btn btn-danger" title="blocksection"> 
 							<i class="icon icon-remove"></i>
 					</a>
@@ -62,18 +62,19 @@
 <div id="bSection-details" class="modal fade" role="dialog">
   <div class="modal-dialog">
     <div class="modal-content">
-      <div class="modal-header">
-        <h4 class="modal-title">Student Details</h4>
+      <div class="modal-header" >
+        <h4 class="modal-title "  >Block Section Details</h4>
       </div>
-      <div class="modal-body">
-      	 <dl>
-        	<dt>studentID</dt><dd id="bsection"></dd>
-        	<dt>First Name</dt><dd id="semester_number"></dd>
-        	<dt>Last Name</dt><dd id="subject"></dd>
-		 </dl>
-	 </div>		
+    <div class="modal-body">
+		<div class = "blocksection">
+		 </div>
+			<select class="listsubject" name="getSubjectID" onchange="checkSubjectName();">		
+				
+			</select>		
+	 </div>	
       <div class="modal-footer">
-        <button type="button" class="btn btn-default btn-danger" data-dismiss="modal">	<i class="icon icon-remove"></i></button>
+       	<button data-dismiss="modal" class="btn btn-default" id="button_save" type="submit" name="edit" value="save" >save</button>
+		<button type="button" class="btn btn-default btn-danger" data-dismiss="modal">	<i class="icon icon-remove"></i></button>
       </div>
     </div>
 

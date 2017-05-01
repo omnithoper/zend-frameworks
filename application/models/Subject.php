@@ -100,14 +100,29 @@ class Subject extends BaseModel {
 		return $total;
 	}
 
-	/*
-	public function getViewSubjects() {
-		$select = $this->_db->select()
-			->from($this->_name)
+	
+	public function getBsectionSubjects($bSectionID = null) {
+	
+		if (empty($bSectionID)) {
+				return false;
+			} 
+			
+	      $select = $this->_db->select()
+				->from($this->_name,[
+					'subjects.subject_id',
+					'subjects.subject'])
+				->joinLeft (
+					'bsection_subject_match', 
+					'subjects.subject_id = bsection_subject_match.subject_id AND
+					bsection_subject_match.bsection_id = "'.$bSectionID.'"',[]
+				)
+				
+				->where('bsection_subject_match.bsection_id IS NULL')
+				->order('subjects.subject_id')
 			;	
 		return $this->_db->fetchAll($select);
 	}
-	*/
+	
 
 	public static function getNumberOfPages($subjectsCount) {
 		return ceil($subjectsCount/Subject::PAGE_SIZE);

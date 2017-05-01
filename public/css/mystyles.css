@@ -39,12 +39,23 @@ body {
 		color:green;
 		font-style:italic;
 	}
-	h1{ 
+	h4{ 
 		font-family: Arial, Helvettica, sans-serif;
-		color:blue;
+		color:white;
 		font-weight:bolder;
 		font-size: 2.5em;
 	}
+	.modal-header {
+    	padding:9px 15px;
+    	border-bottom:1px solid #eee;
+    	background-color: #0480be;
+	    -webkit-border-top-left-radius: 5px;
+	    -webkit-border-top-right-radius: 5px;
+	    -moz-border-radius-topleft: 5px;
+	    -moz-border-radius-topright: 5px;
+	     border-top-left-radius: 5px;
+	     border-top-right-radius: 5px;
+ }
 	/* 
 	#student-edit {
 		top: -150%;

@@ -4,11 +4,43 @@ class BsectionController extends Zend_Controller_Action  {
 
 	public function indexAction() {
 
-		$blockSection = new BSection();
 
+		$blockSection = new BSection();
 		$records = $blockSection->getViewBSection();
 		$this->view->bSection = $records;
+
+
 	}
+	public function listsubjectsAction() {
+		$bSectionID = Request::getParam('bSectionID');
+
+		$subjects = new Subject();
+		$listSubject = $subjects->getBsectionSubjects($bSectionID);
+	
+		echo Zend_Json::encode($listSubject);
+		exit;
+
+		//die("here");
+
+	}
+
+
+    public function addsAction() {
+			$this->_helper->viewRenderer->setNoRender();
+			$this->_helper->layout()->disableLayout();
+
+			$subjectID = Request::getParam('subjectID');
+			$bSectionID = Request::getParam('bSectionID');
+			
+			$data = array(
+		    	'bsection_id' => $bSectionID,
+		    	'subject_id' => $subjectID,
+			);
+
+			$subject = new BSectionSubjectMatch();
+			$subject->addBSectionSubject($data, $bSectionID, $subjectID);
+			exit;
+		}
 
 	public function addAction() {
 		if (isset($_POST['save'])){
@@ -34,9 +66,6 @@ class BsectionController extends Zend_Controller_Action  {
 
 		$blockSection = new BSection();
 		$details = $blockSection->getBSectionSubjectDetails($bSectionID);
-
-		$this->view->bSectionSubject = $details;
-
 		echo Zend_Json::encode($details);
 		exit;
 	}

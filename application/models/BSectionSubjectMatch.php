@@ -17,6 +17,20 @@ class  BSectionSubjectMatch extends BaseModel {
 		;	
 		return $this->_db->fetchAll($select);
 	}
+
+	public function addBSectionSubject($data, $bSectionID = null, $subjectID = null) {
+
+		if (empty($bSectionID)) {
+			return true;
+		}
+		
+		if(empty($subjectID)){
+			return true;
+		}
+	
+		$this->_db->insert($this->_name, $data);
+        header("Location: /bsection");	
+	}
 	
 	public function bSectionSubjectExist($bSectionID, $subjectID ) {
 

@@ -69,9 +69,9 @@ class SubjectsController extends Zend_Controller_Action {
         );
 
         $subject = new Subject();
-        $details = $subject->updateSubject($data, $subjectID, $subjectName);
+        $subject->updateSubject($data, $subjectID, $subjectName);
 
-        echo Zend_Json::encode($details);
+        exit;
     }
 
     public function addsAction() {
@@ -93,9 +93,8 @@ class SubjectsController extends Zend_Controller_Action {
 			);
 
 			$subject = new Subject();
-			$details = $subject->addSubject($data, $subjectName);
-
-			echo Zend_Json::encode($details);
+			$subject->addSubject($data, $subjectName);
+			exit;
 		}
 
 	function deleteAction() {

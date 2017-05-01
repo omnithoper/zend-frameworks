@@ -56,12 +56,7 @@ var updateSubject = function()
 		},
 		contentType: 'application/json; charset=utf-8',
 		success: function(response){
-			console.log('response');
-			console.log(response);
-			console.log(response.subjectName);
 			response = $.parseJSON(response);
-			console.log(response);
-			console.log(response.subjectName);
 			$('#editSubjectID').html(response.subject_id);
 			$('#editSubjectName').val(response.subject);
 			$('#editSubjectLec').val(response.lec_unit);
@@ -94,11 +89,7 @@ var addSubject = function()
 		},
 		success: function(response){
 			console.log('response');
-			console.log(response);
-			console.log(response.subjectName);
 			response = $.parseJSON(response);
-			console.log(response);
-			console.log(response.subjectName);
 			$('#addSubjectID').html(response.subject_id);
 			$('#addSubjectName').val(response.subject);
 			$('#addSubjectLec').val(response.lec_unit);
