@@ -41,7 +41,7 @@ var totalUnits = function(bSectionID) {
 
 var addSubjects = function() {
 	var whatID = $('.listsubject').val();
-	var idExplode = whatID.split(',');
+	var idExplode = whatID[0].split(',');
 	var subjectID = idExplode[0];
 	var bSectionID = idExplode[1];
 	$.ajax({
@@ -57,27 +57,30 @@ var addSubjects = function() {
 
 
 var checkSubjectName = function() {
-	var	whatID = [];  
-	whatID.push ($('.listsubject').val());
-	
-	console.log(whatID);
-/*
+	var whatID = $('.listsubject').val();
+	var idExplode = whatID[0].split(',');
+	var subjectID = idExplode[0];
+	var bSectionID = idExplode[1];
 	$.ajax({
-		url: '/bsection/displayaddsubjects', 
+		url: '/bsection/listaddsubjects', 
+		data: {
+			subjectID: subjectID,
+		},
 		contentType: 'application/json; charset=utf-8',
 		success: function(response){
 			response = $.parseJSON(response);
-			console.log(response);
-	
-		}
-	});	
-*/
-	$("#bSection-details").on("hidden.bs.modal", function(){
-    $(".listsubject").html("");
-   
-});
+			var sample  ='<option value= "' + subjectID + "," + bSectionID + '">' + response.subject +  "</option>" ;
+  			//	sample += '<option value="' + response[i].subject_id + "," + bSectionID + '">' + response[i].subject + "</option>" ;
+					
+			$(".listAddSubject").append(sample);
+
+		}	
+
+	});
 
 }
+
+
 
 var bSectionID = function(bSectionID) {
 	$.ajax({
@@ -93,7 +96,6 @@ var bSectionID = function(bSectionID) {
 		$(".listsubject").append(option);
 
 	}
-
 });
 
 

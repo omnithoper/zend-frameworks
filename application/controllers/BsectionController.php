@@ -3,7 +3,7 @@ class BsectionController extends Zend_Controller_Action  {
 	protected $_bSectionID;
 
 	public function indexAction() {
-
+	
 		$blockSection = new BSection();
 		$records = $blockSection->getViewBSection();
 		$this->view->bSection = $records;
@@ -20,6 +20,18 @@ class BsectionController extends Zend_Controller_Action  {
 		exit;
 
 	}
+
+	public function listaddsubjectsAction() {
+		$subjectID = Request::getParam('subjectID');
+
+		$subjects = new Subject();
+		$listAddSubjects = $subjects->getSubjectDetails($subjectID);
+	
+		echo Zend_Json::encode($listAddSubjects);
+		exit;
+
+	}
+
 
     public function addsAction() {
 			$this->_helper->viewRenderer->setNoRender();
