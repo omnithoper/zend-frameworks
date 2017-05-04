@@ -40,7 +40,8 @@ var totalUnits = function(bSectionID) {
 }
 
 var addSubjects = function() {
-	var whatID = $('.listsubject').val();
+	var whatID = $(".listsubject").val();
+	console.log(whatID);
 	var idExplode = whatID[0].split(',');
 	var subjectID = idExplode[0];
 	var bSectionID = idExplode[1];
@@ -72,7 +73,7 @@ var checkSubjectName = function() {
 			var sample  ='<option value= "' + subjectID + "," + bSectionID + '">' + response.subject +  "</option>" ;
   			//	sample += '<option value="' + response[i].subject_id + "," + bSectionID + '">' + response[i].subject + "</option>" ;
 					
-			$(".listAddSubject").append(sample);
+			$(".listaddsubject").append(sample);
 
 		}	
 
@@ -94,6 +95,7 @@ var bSectionID = function(bSectionID) {
 				option += '<option value="' + response[i].subject_id + "," + bSectionID + '">' + response[i].subject + "</option>" ;
 			}		
 		$(".listsubject").append(option);
+		console.log();
 
 	}
 });
