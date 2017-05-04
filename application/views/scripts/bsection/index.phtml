@@ -29,7 +29,7 @@
 				<input type="hidden" name="bSectionID" value="<?php echo $details['bsection_id']; ?>" />
 
 					<a  
-						onclick="bSectionID(<?php echo $details['bsection_id']; ?>);viewBSectionDetails(<?php echo $details['bsection_id']; ?>);"
+						onclick="bSectionID(<?php echo $details['bsection_id']; ?>);viewBSectionDetails(<?php echo $details['bsection_id']; ?>);totalUnits(<?php echo $details['bsection_id']; ?>);"
 						id = "blockSectionID" 
 						class="btn" 
 						title="View Block Section"
@@ -67,10 +67,15 @@
       </div>
     <div class="modal-body">
 		<div class = "blocksection">
+			
 		 </div>
+		   <dl>
+		        	<dt>totalUnits</dt><dd id="totalUnits"></dd>
+		        </dl>
 			<select class="listsubject" name="getSubjectID" onchange="checkSubjectName();">		
 				
-			</select>		
+			</select>	
+
 	 </div>	
       <div class="modal-footer">
        	<button data-dismiss="modal" class="btn btn-default" id="button_save" type="submit" name="edit" value="save" onclick="addSubjects()">save</button>

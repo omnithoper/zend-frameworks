@@ -32,7 +32,17 @@ class Settings extends BaseModel {
 
 		return ($allowedUnits < ($currentUnits + $subjectUnits));
 	}
+	
+	public function isBSectionEcceededUnits($bSectionID = null, $subjectID = null) {
+		
+		$subjectObject = new Subject();
 
+		$currentUnits = $subjectObject->getBSectionCurrentUnits($bSectionID);
+		$subjectUnits = $subjectObject->getSubjectUnits($subjectID);
+		$allowedUnits = $this->getAllowedUnits();
+
+		return ($allowedUnits < ($currentUnits + $subjectUnits));
+	}
 	public function getAllowedUnits() {
 		$fields = ['number_of_allowed_units',
 		];

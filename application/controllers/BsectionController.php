@@ -4,13 +4,12 @@ class BsectionController extends Zend_Controller_Action  {
 
 	public function indexAction() {
 
-
 		$blockSection = new BSection();
 		$records = $blockSection->getViewBSection();
 		$this->view->bSection = $records;
 
-
 	}
+
 	public function listsubjectsAction() {
 		$bSectionID = Request::getParam('bSectionID');
 
@@ -20,10 +19,7 @@ class BsectionController extends Zend_Controller_Action  {
 		echo Zend_Json::encode($listSubject);
 		exit;
 
-		//die("here");
-
 	}
-
 
     public function addsAction() {
 			$this->_helper->viewRenderer->setNoRender();
@@ -40,7 +36,17 @@ class BsectionController extends Zend_Controller_Action  {
 			$subject = new BSectionSubjectMatch();
 			$subject->addBSectionSubject($data, $bSectionID, $subjectID);
 			exit;
-		}
+	}
+
+    public function displayaddsubjectsAction() {
+			$subjectID = Request::getParam('subjectID');
+
+			$subjects = new Subject();
+			$listSubject = $subjects->displayAddSubjects($subjectID);
+	
+			echo Zend_Json::encode($listSubject);
+			exit;
+	}	
 
 	public function addAction() {
 		if (isset($_POST['save'])){
@@ -66,10 +72,20 @@ class BsectionController extends Zend_Controller_Action  {
 
 		$blockSection = new BSection();
 		$details = $blockSection->getBSectionSubjectDetails($bSectionID);
+
 		echo Zend_Json::encode($details);
 		exit;
 	}
-	
+
+	public function totalunitsAction() {
+		$bSectionID =  Request::getParam('bSectionID');
+
+		$subject = new Subject();
+		$totalUnits	=$subject->getBSectionCurrentUnits($bSectionID);
+
+		echo Zend_Json::encode($totalUnits);
+		exit;
+	}
 	public function editAction() {
 
 		$bSectionID = Request::getParam('bSectionID');
@@ -94,6 +110,7 @@ class BsectionController extends Zend_Controller_Action  {
 		}
 
 	}
+
     public function deleteAction() {
 	
 		$bSection = Request::getParam('bSection');

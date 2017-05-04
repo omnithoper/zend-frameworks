@@ -65,6 +65,20 @@ class Subject extends BaseModel {
 		return $this->_db->fetchOne($select);
 	}
 
+	public function getBSectionCurrentUnits($bSectionID = null)
+	{
+		if (empty($bSectionID)) {
+			return 0;
+		}
+
+		$select = $this->_db->select()
+			->from($this->_name, ['total_units' => 'SUM(subjects.subject_unit)'])
+			->join('bsection_subject_match', 'subjects.subject_id = bsection_subject_match.subject_id', [])
+			->where('bsection_subject_match.bsection_id = ?', $bSectionID)
+			;
+
+		return $this->_db->fetchOne($select);
+	}
 	public function addSubjectyy($data, $subjectName) {
         $this->_db->insert($this->_name, $data);
 	}
