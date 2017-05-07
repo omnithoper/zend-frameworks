@@ -37,17 +37,25 @@ class BsectionController extends Zend_Controller_Action  {
 			$this->_helper->viewRenderer->setNoRender();
 			$this->_helper->layout()->disableLayout();
 
-			$subjectID = Request::getParam('subjectID');
-			$bSectionID = Request::getParam('bSectionID');
-			
-			$data = array(
-		    	'bsection_id' => $bSectionID,
-		    	'subject_id' => $subjectID,
-			);
-
+			$tableData = Request::getParam('TableData');
+		//	Zend_Debug::dump($tableData);
+		//	die("here");
+		//	$bSectionID = Request::getParam('bSectionID');
 			$subject = new BSectionSubjectMatch();
-			$subject->addBSectionSubject($data, $bSectionID, $subjectID);
+			foreach ($tableData as $addSubject) {
+				
+				$data = array(
+			    	'bsection_id' => $addSubject['bSectionID'],
+			    	'subject_id' => $addSubject['subject_id'],
+				);
+			
+				$subject->addBSectionSubject($data, $addSubject['bSectionID'], $addSubject['subject_id']);
+						
+			}
+				
 			exit;
+
+		
 	}
 
     public function displayaddsubjectsAction() {

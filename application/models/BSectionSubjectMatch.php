@@ -29,6 +29,11 @@ class  BSectionSubjectMatch extends BaseModel {
 			return true;
 		}
 
+		if ($this->bSectionSubjectExist($bSectionID, $subjectID )) {
+			return [
+				'error' => 'Student Already Exist',	
+			];
+		}
 		$settings = new Settings();
 
 		if ($settings->isBSectionEcceededUnits($bSectionID, $subjectID)) {
@@ -38,8 +43,9 @@ class  BSectionSubjectMatch extends BaseModel {
 			];
 		}
 
+	
 		$this->_db->insert($this->_name, $data);
-        header("Location: /bsection");	
+    //    header("Location: /bsection");	
 		}
 
 	public function bSectionSubjectExist($bSectionID, $subjectID ) {

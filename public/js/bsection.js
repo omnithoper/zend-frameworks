@@ -40,29 +40,34 @@ var totalUnits = function(bSectionID) {
 }
 
 var addSubjects = function() {
-	var whatID = $(".addTableData").val();
-	console.log(whatID);
-		return;
+	var TableData;
+	var TableData = new Array();
+	    
+	$('#addTableData tr').each(function(row, tr){
+	    TableData[row]={
+	    	"bSectionID" : $(tr).find('td:eq(0)').text()
+	        , "subject_id" : $(tr).find('td:eq(1)').text()
+	        , "subject" :$(tr).find('td:eq(2)').text()
+	       
+	    }
 
-	var idExplode = whatID[0].split(',');
-	var subjectID = idExplode[0];
-	var bSectionID = idExplode[1];
+	}); 
+	TableData.shift();  
+
 	$.ajax({
 		url: '/bsection/adds', 
 		data: {
-			subjectID: subjectID,
-			bSectionID: bSectionID,
-
+			TableData: TableData,
 		},
 	});
-	location.reload();
+//	location.reload();
 }
 
 
 var checkSubjectName = function() {
 	var whatID = $('.listsubject').val();
 	//console.log(whatID);
-	var idExplode = whatID[0].split(',');
+	var idExplode = whatID.split(',');
 	var subjectID = idExplode[0];
 	var bSectionID = idExplode[1];
 	$.ajax({
@@ -73,15 +78,9 @@ var checkSubjectName = function() {
 		contentType: 'application/json; charset=utf-8',
 		success: function(response){
 			response = $.parseJSON(response);
-		//	var table ='<table class="table table-bordered table-condensed table-striped" >'+ "<tr><th>" + 'Block Section' +"</th><th>" + 'Subject' + "</th></tr>";
+			data =   "<tr><td>" + bSectionID + "</td><td>" + response.subject_id + "</td><td>" + response.subject + "</td></tr>";
 		
-			//for (var i = 0; i < response.length; i++) {
-				data =   "<tr><td>" + bSectionID + "</td><td>" + response.subject + "</td></tr>";
-			//}		
-		
-		//	    table +=  "</table>";
 		$("#addTableData").append(data);
-		//console.log(table);
 
 		}	
 
