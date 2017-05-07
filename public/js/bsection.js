@@ -40,8 +40,10 @@ var totalUnits = function(bSectionID) {
 }
 
 var addSubjects = function() {
-	var whatID = $(".listsubject").val();
+	var whatID = $(".addTableData").val();
 	console.log(whatID);
+		return;
+
 	var idExplode = whatID[0].split(',');
 	var subjectID = idExplode[0];
 	var bSectionID = idExplode[1];
@@ -59,6 +61,7 @@ var addSubjects = function() {
 
 var checkSubjectName = function() {
 	var whatID = $('.listsubject').val();
+	//console.log(whatID);
 	var idExplode = whatID[0].split(',');
 	var subjectID = idExplode[0];
 	var bSectionID = idExplode[1];
@@ -70,10 +73,15 @@ var checkSubjectName = function() {
 		contentType: 'application/json; charset=utf-8',
 		success: function(response){
 			response = $.parseJSON(response);
-			var sample  ='<option value= "' + subjectID + "," + bSectionID + '">' + response.subject +  "</option>" ;
-  			//	sample += '<option value="' + response[i].subject_id + "," + bSectionID + '">' + response[i].subject + "</option>" ;
-					
-			$(".listaddsubject").append(sample);
+		//	var table ='<table class="table table-bordered table-condensed table-striped" >'+ "<tr><th>" + 'Block Section' +"</th><th>" + 'Subject' + "</th></tr>";
+		
+			//for (var i = 0; i < response.length; i++) {
+				data =   "<tr><td>" + bSectionID + "</td><td>" + response.subject + "</td></tr>";
+			//}		
+		
+		//	    table +=  "</table>";
+		$("#addTableData").append(data);
+		//console.log(table);
 
 		}	
 
@@ -95,11 +103,9 @@ var bSectionID = function(bSectionID) {
 				option += '<option value="' + response[i].subject_id + "," + bSectionID + '">' + response[i].subject + "</option>" ;
 			}		
 		$(".listsubject").append(option);
-		console.log();
-
 	}
-});
 
+});
 
 $("#bSection-details").on("hidden.bs.modal", function(){
     $(".listsubject").html("");
