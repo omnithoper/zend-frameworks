@@ -39,6 +39,7 @@ var totalUnits = function(bSectionID) {
 	});
 }
 
+/*
 var addSubjects = function() {
 	var TableData;
 	var TableData = new Array();
@@ -63,6 +64,7 @@ var addSubjects = function() {
 //	location.reload();
 }
 
+*/
 
 var checkSubjectName = function() {
 	var whatID = $('.listsubject').val();
@@ -80,7 +82,17 @@ var checkSubjectName = function() {
 			response = $.parseJSON(response);
 			data =   "<tr><td>" + bSectionID + "</td><td>" + response.subject_id + "</td><td>" + response.subject + "</td></tr>";
 		
+	
 		$("#addTableData").append(data);
+
+		var seen = {};
+			$('#addTableData tr').each(function() {
+    		var txt = $(this).text();
+    		if (seen[txt])
+        		$(this).remove();
+    		else
+        		seen[txt] = true;
+		});
 
 		}	
 
@@ -113,7 +125,34 @@ $("#bSection-details").on("hidden.bs.modal", function(){
 
 }
 
+$(document).ready(function(){
+	$('#bs').click(function() {
+		var TableData;
+		var TableData = new Array();
+		    
+		$('#addTableData tr').each(function(row, tr){
+		    TableData[row]={
+		    	"bSectionID" : $(tr).find('td:eq(0)').text()
+		        , "subject_id" : $(tr).find('td:eq(1)').text()
+		        , "subject" :$(tr).find('td:eq(2)').text()
+		       
+		    }
+
+		}); 
+		TableData.shift();  
+
+		$.ajax({
+			url: '/bsection/adds', 
+			data: {
+				TableData: TableData,
+			},
+		});
+
+				alert('Subject added. Reload the page please.');
+		location.reload();
+	});
+});
+
 document.onload = function(){
 };
-
 

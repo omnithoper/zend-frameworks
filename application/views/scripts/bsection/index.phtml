@@ -8,7 +8,7 @@
 			href="/bsection/add">
 		<i class="icon-plus"></i></a>
 	</form action ="/bsection" method ="POST">
-		<table class="table table-bordered table-condensed table-striped">
+		<table id="bSectionSubjectMatchTable" class="table table-bordered table-condensed table-striped">
 			
 			<tr>
 				<th>Block Section ID</th>
@@ -30,7 +30,7 @@
 
 					<a  
 						onclick="bSectionID(<?php echo $details['bsection_id']; ?>);viewBSectionDetails(<?php echo $details['bsection_id']; ?>);totalUnits(<?php echo $details['bsection_id']; ?>);"
-						id = "blockSectionID" 
+						id = "blockSectionDetailsButton" 
 						class="btn" 
 						title="View Block Section"
 						data-toggle="modal" data-target="#bSection-details"> 
@@ -76,7 +76,7 @@
 			<select class="listsubject" name="getSubjectID" onchange="checkSubjectName();">		
 				
 			</select>	
-		        <label>Subject That will Be Added</label>
+		        <label id = "labelAddSubject">Subject That will Be Added</label>
 			<div class = "addSubjectsTable">
 		<table id = "addTableData" class="table table-bordered table-condensed table-striped">
 
@@ -91,7 +91,8 @@
 
 	 </div>	
       <div class="modal-footer">
-       	<button data-dismiss="modal" class="btn btn-default" id="button_save" type="submit" name="edit" value="save" onclick="addSubjects()">save</button>
+       	<!--<button data-dismiss="modal" class="btn btn-default" id="button_save" type="submit" name="edit" value="save" onclick="addSubjects()">save</button>-->
+       	<button id="bs" data-dismiss="modal" class="btn btn-default" id="button_save" type="submit" name="edit" value="save">save</button>
 		<button type="button" class="btn btn-default btn-danger" data-dismiss="modal">	<i class="icon icon-remove"></i></button>
       </div>
     </div>

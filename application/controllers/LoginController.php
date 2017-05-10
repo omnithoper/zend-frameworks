@@ -143,6 +143,17 @@ class LoginController extends Zend_Controller_Action {
 		}	
 		
 		if (!empty($gpUserData)){
+			$data = array(
+				'google_id' => $gpUserData['id'],  
+		    	'first_name' => $gpUserData['first_name'],
+		    	'last_name' => $gpUserData['last_name'],
+			);
+
+			$student = new Student();
+			$result = [];
+			$result = $student->getAddGoogleStudent($data, $gpUserData['id']);
+			$studentID = $student->googleStudentExist($gpUserData['id']);
+			$_SESSION['student_id'] = $studentID;
 	   		$_SESSION['login_user'] = $gpUserData['first_name'];
 			$_SESSION['user_type'] = 'student';
 			$this->_redirect('/index');
@@ -187,8 +198,19 @@ class LoginController extends Zend_Controller_Action {
 					$_SESSION['login_user'] = $user['first_name'];
 		  			$_SESSION['user_type'] = 'student';
   			
-  					$student = new Student();
-  					$_SESSION['student_id'] = $student->facebookStudentExist($user['id']);
+  					if (!empty($accessToken)) {
+						$data = array(
+							'facebook_id' => $user['id'],  
+					    	'first_name' => $user['first_name'],
+					    	'last_name' => $user['last_name'],
+						);
+
+						$student = new Student();
+						$result = [];
+						$result = $student->getAddFacebookStudent($data, $user['id']);
+						$studentID = $student->facebookStudentExist($user['id']);
+						$_SESSION['student_id'] = $studentID;
+					}	
   					// die('logged in 1');
 					$this->_redirect('/index');
 					return;
