@@ -16,6 +16,7 @@
 				<th>Semester Number</th>				
 				<th>Number Of Subject</th>				
 				<th>Details</th>
+				<th>DeleteSubjects</th>
 				<th>edit </th>
 				<th>delete</th>
 			</tr>
@@ -26,15 +27,23 @@
 				<td align="center"><?php echo $details['semester_number']; ?></td>
 				<td align="center"><?php echo $details['total']; ?></td>
 				<td style="width: 1px; wrap: nowrap;">	
-				<input type="hidden" name="bSectionID" value="<?php echo $details['bsection_id']; ?>" />
-
 					<a  
 						onclick="bSectionID(<?php echo $details['bsection_id']; ?>);viewBSectionDetails(<?php echo $details['bsection_id']; ?>);totalUnits(<?php echo $details['bsection_id']; ?>);"
 						id = "blockSectionDetailsButton" 
 						class="btn" 
 						title="View Block Section"
 						data-toggle="modal" data-target="#bSection-details"> 
-							<i class="icon icon-search"></i>
+						<i class="icon icon-search"></i>
+					</a>
+				</td>	
+				<td style="width: 1px; wrap: nowrap;">	
+					<a  
+						onclick="deletebSectionSubjects(<?php echo $details['bsection_id']; ?>);"
+						id = "blockSectionDetailsButton" 
+						class="btn btn-danger" 
+						title="View Block Section"
+						data-toggle="modal" data-target="#bSection-delete"> 
+						<i class="icon icon-remove"></i>
 					</a>
 				</td>	
 				<td style="width: 1px; wrap: nowrap;">	
@@ -42,14 +51,14 @@
 						href="/bsection/edit?bSectionID=<?php echo $details['bsection_id']; ?>" 
 				   		class="btn" 
 				   		title="edit blocksection"> 
-				   			<i class="icon icon-edit"></i>	
+				   		<i class="icon icon-edit"></i>	
 					</a>
 				</td>					
 				<td style="width: 1px; wrap: nowrap;">			
 					<a 
 						href='/bsection/delete?bSection=<?php echo $details['bsection']; ?>&semesterNumber=<?php echo $details['semester_number']; ?>' 
 						class="btn btn-danger" title="blocksection"> 
-							<i class="icon icon-remove"></i>
+						<i class="icon icon-remove"></i>
 					</a>
 				</td>	
 
@@ -69,11 +78,12 @@
 		<div class = "blocksection">
 			
 		 </div>
+
 		   <dl>
 		        	<dt>totalUnits</dt><dd id="totalUnits"></dd>
 		        </dl>
 		        <label> list of subject you one to add</label>
-			<select class="listsubject" name="getSubjectID" onchange="checkSubjectName();">		
+			<select class="listsubject" name="getSubjectID" onchange="checkSubjectAdd();">		
 				
 			</select>	
 		        <label id = "labelAddSubject">Subject That will Be Added</label>
@@ -92,10 +102,51 @@
 	 </div>	
       <div class="modal-footer">
        	<!--<button data-dismiss="modal" class="btn btn-default" id="button_save" type="submit" name="edit" value="save" onclick="addSubjects()">save</button>-->
-       	<button id="bs" data-dismiss="modal" class="btn btn-default" id="button_save" type="submit" name="edit" value="save">save</button>
+       	<button id="bs" data-dismiss="modal" class="btn btn-default"  type="submit" name="save" value="save">save</button>
 		<button type="button" class="btn btn-default btn-danger" data-dismiss="modal">	<i class="icon icon-remove"></i></button>
       </div>
     </div>
 
   </div>
 </div>
+
+<div id="bSection-delete" class="modal fade" role="dialog">
+
+	  <div class="modal-dialog">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h4 class="modal-title">Student Add</h4>
+	      </div>
+	      <div class="modal-body">
+	      		<div class = "deletebSectionIDSubjectID">
+		
+	 			</div>
+	 		<label> list of subject you one to Delete</label>
+				<select class="deleteblocksection" name="getSubjectID" onchange="checkSubjectDelete();">		
+				
+				</select>		
+				  <label id = "labelAddSubject">Subject That will Be delleted</label>
+			<div class = "addSubjectsTable">
+		<table id = "deleteTableData" class="table table-bordered table-condensed table-striped">
+
+			<tr>
+				<th>Block Section ID</th>
+				<th>Subject ID</th>
+				<th>Subjects</th>
+			</tr>
+
+		</table>
+			</div>
+		    
+
+	      </div>
+	      <div class="modal-footer">
+   			<button id="bSDelete" data-dismiss="modal" class="btn btn-default"  type="submit" name="delete" value="delete">delete</button>
+	        <button type="button" class="btn btn-default btn-danger" data-dismiss="modal">	<i class="icon icon-remove"></i></button>
+	      </div>
+	    </div>
+
+	  </div>
+	
+</div>
+

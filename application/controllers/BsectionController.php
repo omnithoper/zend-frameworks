@@ -3,7 +3,7 @@ class BsectionController extends Zend_Controller_Action  {
 	protected $_bSectionID;
 
 	public function indexAction() {
-	
+
 		$blockSection = new BSection();
 		$records = $blockSection->getViewBSection();
 		$this->view->bSection = $records;
@@ -32,15 +32,24 @@ class BsectionController extends Zend_Controller_Action  {
 
 	}
 
+	public function bsectionsubjectsAction() {
+		$bSectionID = Request::getParam('bSectionID');
+
+		$subjects = new Subject();
+		$listDeleteSubjects = $subjects->getBsectionSubjectsDetails($bSectionID);
+		
+	
+		
+		echo Zend_Json::encode($listDeleteSubjects);
+		exit;
+
+	}
 
     public function addsAction() {
 			$this->_helper->viewRenderer->setNoRender();
 			$this->_helper->layout()->disableLayout();
 
 			$tableData = Request::getParam('TableData');
-		//	Zend_Debug::dump($tableData);
-		//	die("here");
-		//	$bSectionID = Request::getParam('bSectionID');
 			$subject = new BSectionSubjectMatch();
 			foreach ($tableData as $addSubject) {
 				
@@ -55,7 +64,24 @@ class BsectionController extends Zend_Controller_Action  {
 				
 			exit;
 
-		
+	}
+
+	public function deletesubjectsAction() {
+			$this->_helper->viewRenderer->setNoRender();
+			$this->_helper->layout()->disableLayout();
+
+			$tableData = Request::getParam('TableData');
+			Zend_Debug::dump($tableData);
+			die("here");
+		//	$bSectionID = Request::getParam('bSectionID');
+			$subject = new BSectionSubjectMatch();
+			foreach ($tableData as $addSubject) {
+			
+				$subject->deleteBSectionSubject($addSubject['bSectionID'], $addSubject['subject_id']);
+						
+			}
+				
+			exit;
 	}
 
     public function displayaddsubjectsAction() {
