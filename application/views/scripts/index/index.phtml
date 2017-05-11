@@ -1,7 +1,3 @@
-  <head>
-    <link type="text/css" rel="stylesheet" href="../../../../css/bootstrap.min.css" />
-    <link type="text/css" rel="stylesheet" href="../../../../css/mystyles.css" />
-</head>
 
 <form>
 	<h1 align="center">Enrollent System</h1>
@@ -12,18 +8,18 @@
 	}
 ?>
 	<?php if (!empty($_SESSION['login_user']) &&  $_SESSION['user_type'] == 'admin' ): ?>
-		<table class="table table-bordered table-condensed table-striped"> 
-			<tr><td><a href="/students/" class="btn btn-block">View students</a></td></tr>
-			<tr><td><a href="/subjects/" class="btn btn-block">View subjects</a></td></tr>
-			<tr><td><a href="/blocksection/" class="btn btn-block">View Block Section</a></td></tr>
-			<tr><td><a href="/bsection/" class="btn btn-block">View BSection</a></td></tr>
-			<tr><td><a href="/bsectionsubject/" class="btn btn-block">View Bsection Subject Match</a></td></tr>
-			<tr><td><a href="/enrollment/" class="btn btn-block">Enroll</a></td></tr>
-			<tr><td><a href="/studentgrade/" class="btn btn-block">Student Grade</a></td></tr>
-			<tr><td><a href="/settings/" class="btn btn-block">Setting</a></td></tr>
-			<tr><td><a href="/admin/" class="btn btn-block">Admin</a></td></tr>
-			<tr><td><a href="/income/" class="btn btn-block">Income</a></td></tr>
-			<tr><td><a href="/login/logout" class="btn btn-block">Log Out</a></td></tr>
+		<table id = "index" class="table table-bordered table-condensed table-striped"> 
+			<tr><td id = "students"><a href="/students/" class="btn btn-block">View students</a></td></tr>
+			<tr><td id = "subjects"><a href="/subjects/" class="btn btn-block">View subjects</a></td></tr>
+			<tr><td id = "blocksection" ><a href="/blocksection/" class="btn btn-block">View Block Section</a></td></tr>
+			<tr><td id = "bsection"><a href="/bsection/" class="btn btn-block">View BSection</a></td></tr>
+			<tr><td id = "bsectionsubject"><a href="/bsectionsubject/" class="btn btn-block">View Bsection Subject Match</a></td></tr>
+			<tr><td id = "enrollment"><a href="/enrollment/" class="btn btn-block">Enroll</a></td></tr>
+			<tr><td id = "studentgrade"><a href="/studentgrade/" class="btn btn-block">Student Grade</a></td></tr>
+			<tr><td id = "settings"><a href="/settings/" class="btn btn-block">Setting</a></td></tr>
+			<tr><td id = "admin"><a href="/admin/" class="btn btn-block">Admin</a></td></tr>
+			<tr><td id = "income"><a href="/income/" class="btn btn-block">Income</a></td></tr>
+			<tr><td id = "login"><a href="/login/logout" class="btn btn-block">Log Out</a></td></tr>
 		</table>
     <?php elseif (!empty($_SESSION['login_user']) &&  $_SESSION['user_type'] == 'student' ): ?>
     	<table class="table table-bordered table-condensed table-striped"> 
