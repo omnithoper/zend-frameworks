@@ -71,9 +71,7 @@ class BsectionController extends Zend_Controller_Action  {
 			$this->_helper->layout()->disableLayout();
 
 			$tableData = Request::getParam('TableData');
-			Zend_Debug::dump($tableData);
-			die("here");
-		//	$bSectionID = Request::getParam('bSectionID');
+	
 			$subject = new BSectionSubjectMatch();
 			foreach ($tableData as $addSubject) {
 			

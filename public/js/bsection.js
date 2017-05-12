@@ -135,6 +135,7 @@ var checkSubjectDelete= function() {
 		}	
 
 	});
+
 $("#bSection-details").on("hidden.bs.modal", function(){
     $("#deleteTableData").html("");
    
@@ -215,13 +216,13 @@ $(document).ready(function(){
 	});
 });
 
-/*
+
 $(document).ready(function(){
 	$('#bSDelete').click(function() {
 		var TableData;
 		var TableData = new Array();
 		    
-		$('#addTableData tr').each(function(row, tr){
+		$('#deleteTableData tr').each(function(row, tr){
 		    TableData[row]={
 		    	"bSectionID" : $(tr).find('td:eq(0)').text()
 		        , "subject_id" : $(tr).find('td:eq(1)').text()
@@ -243,7 +244,7 @@ $(document).ready(function(){
 		location.reload();
 	});
 });
-*/
+
 
 document.onload = function(){
 };

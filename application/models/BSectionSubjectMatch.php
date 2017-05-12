@@ -60,9 +60,7 @@ class  BSectionSubjectMatch extends BaseModel {
 
 		$where['bsection_id= ?'] = $bSectionID;
 		$where['subject_id = ?']  = $subjectID;
-	Zend_Debug::dump($bSectionID);
-	Zend_Debug::dump($subjectID);
-	die("here");
+
 		$this->_db->delete($this->_name, $where);
 	
 		//$this->_db->insert($this->_name, $data);
