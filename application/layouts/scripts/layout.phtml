@@ -12,5 +12,50 @@
 
 </head>
 
-<body><?php echo $this->layout()->content ?></body>
+
+<?php if (!empty($_SESSION['login_user']) &&  $_SESSION['user_type'] == 'admin' ): ?>
+	<body>
+	<nav class="navbar navbar-default">
+	  <div class="container-fluid">
+	    <ul class="nav navbar-nav" id ="adminNav">
+	      <li><a href="/index">Home</a></li>
+	      <li><a href="/students/" >View students</a></li>
+	      <li><a href="/subjects/" >View subjects</a></li>
+	      <li><a href="/bsection/" >View BSection</a></li>
+	      <li><a href="/bsectionsubject/" >View Bsection Subject Match</a></li>
+	      <li><a href="/enrollment/" >Enroll</a></li>
+	      <li><a href="/settings/" >Setting</a></li>
+	      <li><a href="/admin/" >Admin</a></li>
+	      <li><a href="/income/" >Income</a></li>
+	      <li><a href="/login/logout">Log Out</a></li>
+	    </ul>
+	  </div>
+	</nav>
+	</body>
+			<?php echo $this->layout()->content ?>
+
+<?php elseif (!empty($_SESSION['login_user']) &&  $_SESSION['user_type'] == 'student' ): ?>
+<body>		
+	<nav class="navbar navbar-default">
+	  <div class="container-fluid">
+	    <ul class="nav navbar-nav" id ="adminNav">
+	      <li><a href="/index">Home</a></li>
+	      <li><a href="/students/studentedit?student_id=<?php echo $_SESSION['student_id']; ?>" >change your password</a></li>
+	      <li><a href="/enrollment/" >Enroll</a></li>
+	      <li><a href="/login/logout" >Log Out</a></li>
+	    </ul>
+	  </div>
+	</nav>
+
+	</body>
+		<?php echo $this->layout()->content ?>
+
+<?php endif; ?>	
+<?php if (empty($_SESSION['login_user'])): ?>
+
+		<?php echo $this->layout()->content ?>
+
+<?php endif; ?>	
+
+
 </html>

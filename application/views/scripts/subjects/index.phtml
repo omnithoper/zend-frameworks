@@ -1,19 +1,8 @@
 
 <script src="/js/subjects.js"></script>
 
-	<h1 align="center">Subject Records</h1>
+	<h1>Subject Records</h1>
 
-
-	<div id="container">
-		<div class="navbar">
-			<div class="navbar-inner">
-				<a class="brand" href="#">View Subjects</a>
-		
-				<form class="navbar-form pull-right">
-				  	<a type="button" class="btn" href="/index">return</a>
-				</form>
-			</div>
-		</div>
 		<a  
 			class="pull-right btn btn-success" 
 			title="add Subject"
@@ -21,7 +10,6 @@
 			> 
 			<i class="icon icon-plus"></i>
 		</a>
-		<a class="pull-right btn btn-success "  type="submit" href="/subjects/add"><i class="icon icon-plus"></i></a>
 
 	<?php if (empty($this->subjects)): ?>
 			<div class="alert alert-info">No subject yet</div>
@@ -61,7 +49,7 @@
 				class="btn" 
 				title="View Subject"
 				data-toggle="modal" data-target="#subject-details"> 
-				<i class="icon icon-search"></i>
+				<i class="glyphicon glyphicon-envelope"></i>
 			</a>
 		</td>
 		<td style="width: 1px; wrap: nowrap;">
@@ -76,13 +64,13 @@
 				title="edit Student"
 				data-toggle="modal" data-target="#subject-edit"
 				> 
-				<i class="icon icon-edit"></i>
+				<i class="glyphicon glyphicon-edit"></i>
 			</a>	
 		</td>					
 		<td style="width: 1px; wrap: nowrap;">			
 			<a href='/subjects/delete?subject_id=<?php echo $details['subject_id']; ?>' 
 						class="btn btn-danger" title="subject"> 
-								<i class="icon icon-remove"></i>
+								<i class="glyphicon glyphicon-remove"></i>
 							</a></td>
 
 	</tr>
@@ -94,7 +82,7 @@
 </form>
 
 
-<div id="subject-details" class="modal fade" role="dialog">
+<div id="subject-details" id="subjects" class="modal fade" role="dialog">
   <div class="modal-dialog">
 
     <!-- Modal content-->
@@ -117,7 +105,7 @@
 
   </div>
 </div>
-<div id="subject-edit" class="modal fade" role="dialog">
+<div id="subject-edit" id="subjects" class="modal fade" role="dialog">
 
 	  <div class="modal-dialog">
 	    <div class="modal-content">
@@ -143,12 +131,12 @@
 
 	  </div>	
 </div>
-<div id="subject-add" class="modal fade" role="dialog">
+<div id="subject-add" id="subjects" class="modal fade" role="dialog">
 
 	  <div class="modal-dialog">
 	    <div class="modal-content">
 	      <div class="modal-header">
-	        <h4 class="modal-title">Subject Edit</h4>
+	        <h4 class="modal-title">Subject Add</h4>
 	      </div>
 	      <div class="modal-body">
 	      	<h1> Subject Edit </h1>

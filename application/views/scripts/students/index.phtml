@@ -1,16 +1,6 @@
 
     <script type="text/javascript" src="/js/students.js"></script>
-
-	<nav id ="searchStudent">
-		<div id="container">
-			<div class="navbar">
-				<div class="navbar-inner">
-						<h1>Students Records</h1>
-					<form class="navbar-form pull-right">
-					  	<a type="button" class="btn" href="/index">return</a>
-					</form>
-				</div>
-			</div>
+		<h1>Students Records</h1>
 			<form>
 				<a  
 					class="pull-right btn btn-success" 
@@ -18,10 +8,6 @@
 					data-toggle="modal" data-target="#student-add"
 					> 
 					<i class="icon icon-plus"></i>
-				</a>
-
-				<a class="pull-right btn btn-success" href="/students/add">
-					<i class="icon-plus"></i>
 				</a>
 			</form>
 
@@ -60,7 +46,7 @@
 								title="View Student"
 								data-toggle="modal" data-target="#student-details"
 								> 
-								<i class="icon icon-search"></i>
+								<i class="glyphicon glyphicon-search"></i>
 							</a>	
 
 							<!--<a href="/students/edit?student_id=<?php echo $details['student_id']; ?>" class="btn" title="edit Student"> -->
@@ -89,7 +75,6 @@
 					<?php endforeach; ?>
 				</table>
 			<?php endif ?>
-		</div>
 
 
 		<div id="student-details" class="modal fade" role="dialog">
@@ -170,5 +155,4 @@
 		  </div>
 		
 	</div>
-	</nav>
 

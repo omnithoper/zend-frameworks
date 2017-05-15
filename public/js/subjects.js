@@ -34,6 +34,7 @@ var editSubject = function(subjectID)
 
 		}
 	});
+
 }
 var updateSubject = function()
 {
@@ -103,4 +104,6 @@ var addSubject = function()
 }
 
 document.onload = function(){
+	$('#subjects').hide();
+
 };
