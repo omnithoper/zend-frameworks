@@ -7,7 +7,7 @@
 		<a style="float:left" href="/index">(Return)</a>
 		<a class="pull-right btn btn-success" 
 			href="/blocksection/add">
-		<i class="icon-plus"></i></a>
+		<i class="glyphicon glyphicon-plus"></i></a>
 	</form>
 		<div id="subjects-pagination" class="pagination">
 		  <ul>
@@ -39,20 +39,20 @@
 						class="btn" 
 						title="edit Student"
 						data-toggle="modal" data-target="#admin-details"> 
-						<i class="icon icon-search"></i>
+						<i class="glyphicon glyphicon-search"></i>
 					</a>
 				</td>
 				<td style="width: 1px; wrap: nowrap;">
 					<a href="/blocksection/edit?subjectID=<?php echo $details['subject_id']; ?>&blockSection=<?php echo $details['block_section']; ?>&semesterNumber=<?php echo $details['semester_number'];?>" 
 				   		class="btn" 
 				   		title="edit blocksection"> 
-				   		<i class="icon icon-edit"></i>
+				   		<i class="glyphicon glyphicon-edit"></i>
 					</a>
 				</td>					
 				<td style="width: 1px; wrap: nowrap;">			
 					<a href='/blocksection/delete?subjectID=<?php echo $details['subject_id']; ?>&blockSection=<?php echo $details['block_section']; ?>&semesterNumber=<?php echo $details['semester_number']; ?>' 
 						class="btn btn-danger" title="blocksection"> 
-						<i class="icon icon-remove"></i>
+						<i class="glyphicon glyphicon-remove"></i>
 					</a>
 				</td>
 

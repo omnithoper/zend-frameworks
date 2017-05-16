@@ -3,7 +3,7 @@
 <head>
     <link type="text/css" rel="stylesheet" href="/css/bootstrap.min.css" />
     <link type="text/css" rel="stylesheet" href="/css/mystyles.css" />
-    <link type="text/css" rel="stylesheet" href="../../../../css/pace-theme-minimal.css" />
+   <link type="text/css" rel="stylesheet" href="../../../../css/pace-theme-flat-top.css" />
 
     <script src="/js/vendor/jquery-3.1.1.min.js"></script>
     <script src="/js/vendor/bootstrap.min.js"></script>
@@ -14,10 +14,11 @@
 
 
 <?php if (!empty($_SESSION['login_user']) &&  $_SESSION['user_type'] == 'admin' ): ?>
+
 	<body>
 	<nav class="navbar navbar-default">
 	  <div class="container-fluid">
-	    <ul class="nav navbar-nav" id ="adminNav">
+	    <ul class="nav navbar-nav "  id ="adminNav">
 	      <li><a href="/index">Home</a></li>
 	      <li><a href="/students/" >View students</a></li>
 	      <li><a href="/subjects/" >View subjects</a></li>
@@ -38,7 +39,7 @@
 <body>		
 	<nav class="navbar navbar-default">
 	  <div class="container-fluid">
-	    <ul class="nav navbar-nav" id ="adminNav">
+	    <ul class="nav navbar-nav"  id ="adminNav">
 	      <li><a href="/index">Home</a></li>
 	      <li><a href="/students/studentedit?student_id=<?php echo $_SESSION['student_id']; ?>" >change your password</a></li>
 	      <li><a href="/enrollment/" >Enroll</a></li>

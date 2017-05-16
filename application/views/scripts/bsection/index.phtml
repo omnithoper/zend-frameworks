@@ -5,7 +5,7 @@
 		<a style="float:left" href="/index">(Return)</a>
 		<a class="pull-right btn btn-success" 
 			href="/bsection/add">
-		<i class="icon-plus"></i></a>
+		<i class="glyphicon glyphicon-plus"></i></a>
 	</form action ="/bsection" method ="POST">
 		<table id="bSectionSubjectMatchTable" class="table table-bordered table-condensed table-striped">
 			
@@ -32,7 +32,7 @@
 						class="btn" 
 						title="View Block Section"
 						data-toggle="modal" data-target="#bSection-details"> 
-						<i class="icon icon-search"></i>
+						<i class="glyphicon glyphicon-search"></i>
 					</a>
 				</td>	
 				<td style="width: 1px; wrap: nowrap;">	
@@ -42,7 +42,7 @@
 						class="btn btn-danger" 
 						title="View Block Section"
 						data-toggle="modal" data-target="#bSection-delete"> 
-						<i class="icon icon-remove"></i>
+						<i class="glyphicon glyphicon-remove"></i>
 					</a>
 				</td>	
 				<td style="width: 1px; wrap: nowrap;">	
@@ -50,14 +50,14 @@
 						href="/bsection/edit?bSectionID=<?php echo $details['bsection_id']; ?>" 
 				   		class="btn" 
 				   		title="edit blocksection"> 
-				   		<i class="icon icon-edit"></i>	
+				   		<i class="glyphicon glyphicon-edit"></i>	
 					</a>
 				</td>					
 				<td style="width: 1px; wrap: nowrap;">			
 					<a 
 						href='/bsection/delete?bSection=<?php echo $details['bsection']; ?>&semesterNumber=<?php echo $details['semester_number']; ?>' 
 						class="btn btn-danger" title="blocksection"> 
-						<i class="icon icon-remove"></i>
+						<i class="glyphicon glyphicon-remove"></i>
 					</a>
 				</td>	
 
@@ -100,7 +100,7 @@
       <div class="modal-footer">
        	<!--<button data-dismiss="modal" class="btn btn-default" id="button_save" type="submit" name="edit" value="save" onclick="addSubjects()">save</button>-->
        	<button id="bs" data-dismiss="modal" class="btn btn-default"  type="submit" name="save" value="save">save</button>
-		<button type="button" class="btn btn-default btn-danger" data-dismiss="modal">	<i class="icon icon-remove"></i></button>
+		<button type="button" class="btn btn-default btn-danger" data-dismiss="modal">	<i class="glyphicon glyphicon-remove"></i></button>
       </div>
     </div>
 
@@ -139,7 +139,7 @@
 	      </div>
 	      <div class="modal-footer">
    			<button id="bSDelete" data-dismiss="modal" class="btn btn-default"  type="submit" name="delete" value="delete">delete</button>
-	        <button type="button" class="btn btn-default btn-danger" data-dismiss="modal">	<i class="icon icon-remove"></i></button>
+	        <button type="button" class="btn btn-default btn-danger" data-dismiss="modal">	<i class="glyphicon glyphicon-remove"></i></button>
 	      </div>
 	    </div>
 
