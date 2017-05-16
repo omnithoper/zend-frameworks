@@ -1,8 +1,6 @@
 
 <script src="/j	/admin.js"></script>
 
-<nav id ="searchStudent">
-	<div id="container">
 	<form>
 		<a style="float:left" href="/index">(Return)</a>
 		<a class="pull-right btn btn-success" 
@@ -18,6 +16,7 @@
 		    <li><a href="/blocksection/index?page=<?php echo ($this->currentPage >= BlockSection::getNumberOfPages($this->blockSectionCount))?$this->currentPage:$this->currentPage+1; ?>">Next</a></li>
 		  </ul>
 		</div>
+	<div class="col-md-6">
 		<table class="table table-bordered table-condensed table-striped">
 			
 			<tr>
@@ -59,8 +58,8 @@
 				</tr>
 			<?php endforeach;?>
 		</table>	
-	</div>
-
+	 </div>
+	
 
 <div id="blockSection-details" class="modal fade" role="dialog">
   <div class="modal-dialog">
@@ -86,7 +85,7 @@
   </div>
 </div>
 
-</nav>
+
 
 	
 

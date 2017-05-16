@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 5.7.17, for Linux (x86_64)
+-- MySQL dump 10.13  Distrib 5.7.18, for Linux (x86_64)
 --
 -- Host: localhost    Database: student_subjects
 -- ------------------------------------------------------
--- Server version 5.7.17-0ubuntu0.16.04.2
+-- Server version 5.7.18-0ubuntu0.17.04.1
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -108,7 +108,7 @@ CREATE TABLE `bsection_subject_match` (
 
 LOCK TABLES `bsection_subject_match` WRITE;
 /*!40000 ALTER TABLE `bsection_subject_match` DISABLE KEYS */;
-INSERT INTO `bsection_subject_match` VALUES (28,1),(28,2),(28,3);
+INSERT INTO `bsection_subject_match` VALUES (28,1),(28,2),(28,3),(28,4),(28,5),(28,6),(28,7),(28,8),(35,1),(35,2),(35,3),(35,4),(35,5),(35,6),(35,7),(35,8),(29,5),(29,16),(29,13),(29,12),(29,14),(29,7),(30,3),(31,1),(32,4),(33,1),(33,3),(32,14),(32,15),(32,13),(32,1);
 /*!40000 ALTER TABLE `bsection_subject_match` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -263,7 +263,7 @@ CREATE TABLE `semester` (
 
 LOCK TABLES `semester` WRITE;
 /*!40000 ALTER TABLE `semester` DISABLE KEYS */;
-INSERT INTO `semester` VALUES (9,'2016-01-04','2016-04-24'),(7,'2015-01-05','2015-04-21'),(35,'2016-09-12','2016-12-21'),(6,'2015-05-05','2015-08-31'),(10,'2016-05-04','2016-08-30'),(47,'2017-03-01','2017-04-18'),(39,'2015-09-13','2015-12-20'),(53,'2017-06-25','2017-12-13'),(54,'2017-04-19','2017-09-21');
+INSERT INTO `semester` VALUES (9,'2016-01-04','2016-04-24'),(7,'2015-01-05','2015-04-21'),(35,'2016-09-12','2016-12-21'),(6,'2017-05-16','2017-05-16'),(10,'2016-05-04','2016-08-30'),(47,'2017-03-01','2017-04-18'),(39,'2015-09-13','2015-12-20'),(53,'2017-06-25','2017-12-13'),(54,'2017-04-19','2017-09-21');
 /*!40000 ALTER TABLE `semester` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -311,7 +311,7 @@ CREATE TABLE `student` (
   `facebook_id` varchar(100) DEFAULT NULL,
   `google_id` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`student_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=231 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=232 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -320,7 +320,7 @@ CREATE TABLE `student` (
 
 LOCK TABLES `student` WRITE;
 /*!40000 ALTER TABLE `student` DISABLE KEYS */;
-INSERT INTO `student` VALUES (106,0,0,0,'Amanda','Cabrera',NULL,NULL,'',''),(174,0,0,0,'Michael','Guttierrez',NULL,NULL,'',''),(49,2,1,1,'Lyn','Banzon','','','',''),(50,1,3,3,'Michael ','Magtira',NULL,NULL,'',''),(51,1,3,1,'Christian','Magtira',NULL,NULL,'',''),(52,3,3,3,'Jr','Montezon',NULL,NULL,'',''),(125,0,0,0,'cesar','sanglitan',NULL,NULL,'',''),(115,0,0,0,'kevin','nash',NULL,NULL,'',''),(143,0,0,0,'ed','dno',NULL,NULL,'',''),(117,0,0,0,'scott','hall',NULL,NULL,'',''),(160,0,0,0,'Sunday','bostonterrier',NULL,NULL,'',''),(172,0,0,0,'Ronaldo','Cabrera',NULL,NULL,'',''),(215,0,0,0,'boy','Cabrera',NULL,'10a34637ad661d98ba3344717656fcc76209c2f8','',''),(225,0,0,0,'gerald','kupal','gerald','d0e75148e85bcccebd0dafc9f1e2f78707b579bd','',''),(220,0,0,0,'eric ','albano',NULL,NULL,'',''),(221,0,0,0,'amy','sitchon',NULL,NULL,'',''),(222,0,0,0,'dennis','jacobe','dennis','15afc15301f669017837a87977d777efff6865ca','',''),(223,0,0,0,'adolf','hitler','adolf','cecafb4d7ac21fe0c872533bc45e17fe39f3e433','',''),(224,0,0,0,'tests','tests','test','a94a8fe5ccb19ba61c4c0873d391e987982fbbd3','',''),(226,0,0,0,'arnold','spiritu','arnold','37857929647ce9d4c2c68e27ea26c9bbc45b2712','',''),(228,0,0,0,'Anthony','Cabrera',NULL,NULL,'10212293349758483',''),(229,0,0,0,'Omnithopter1','Anthony',NULL,NULL,NULL,'113401627230397266723'),(230,0,0,0,'Anthony','Cabrera',NULL,NULL,NULL,'108638933120139723951');
+INSERT INTO `student` VALUES (106,0,0,0,'Amanda','Cabrera',NULL,NULL,'',''),(174,0,0,0,'Michael','Guttierrez',NULL,NULL,'',''),(49,2,1,1,'Lyn','Banzon','','','',''),(50,1,3,3,'Michael ','Magtira',NULL,NULL,'',''),(51,1,3,1,'Christian','Magtira',NULL,NULL,'',''),(52,3,3,3,'Jr','Montezon',NULL,NULL,'',''),(125,0,0,0,'cesar','sanglitan',NULL,NULL,'',''),(115,0,0,0,'kevin','nash',NULL,NULL,'',''),(143,0,0,0,'ed','dno',NULL,NULL,'',''),(117,0,0,0,'scott','hall',NULL,NULL,'',''),(160,0,0,0,'Sunday','bostonterrier',NULL,NULL,'',''),(172,0,0,0,'Ronaldo','Cabrera',NULL,NULL,'',''),(215,0,0,0,'boy','Cabrera',NULL,'10a34637ad661d98ba3344717656fcc76209c2f8','',''),(225,0,0,0,'gerald','kupal','gerald','d0e75148e85bcccebd0dafc9f1e2f78707b579bd','',''),(220,0,0,0,'eric ','albano',NULL,NULL,'',''),(221,0,0,0,'amy','sitchon',NULL,NULL,'',''),(222,0,0,0,'dennis','jacobe','dennis','15afc15301f669017837a87977d777efff6865ca','',''),(223,0,0,0,'adolf','hitler','adolf','cecafb4d7ac21fe0c872533bc45e17fe39f3e433','',''),(224,0,0,0,'tests','tests','test','a94a8fe5ccb19ba61c4c0873d391e987982fbbd3','',''),(226,0,0,0,'arnold','spiritu','arnold','37857929647ce9d4c2c68e27ea26c9bbc45b2712','',''),(231,0,0,0,'Anthony',NULL,NULL,NULL,'10212293349758483',NULL),(229,0,0,0,'Omnithopter1','Anthony',NULL,NULL,NULL,'113401627230397266723'),(230,0,0,0,'Anthony','Cabrera',NULL,NULL,NULL,'108638933120139723951');
 /*!40000 ALTER TABLE `student` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -414,7 +414,7 @@ CREATE TABLE `subjects` (
   `lab_unit` int(2) DEFAULT '0',
   `subject_unit` int(2) DEFAULT '0',
   PRIMARY KEY (`subject_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=45 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=48 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -423,7 +423,7 @@ CREATE TABLE `subjects` (
 
 LOCK TABLES `subjects` WRITE;
 /*!40000 ALTER TABLE `subjects` DISABLE KEYS */;
-INSERT INTO `subjects` VALUES (1,'Communication Skills 1',3,NULL,3),(2,'College Algebra',3,0,3),(3,'Plane and Spherical Trigonometry',3,0,3),(4,'Introduction to Computing',2,1,3),(5,'Knowledge Work Software and Presentation Skills',2,1,3),(6,'Physical Fitness',2,0,2),(7,'Euthenics 1',1,0,1),(8,'National Service Training Program 1',0,0,3),(9,'Communication Skills 2',3,NULL,3),(10,'Komunikasyon sa Akademikong Filipino',3,0,3),(11,'Analytic Geometry',3,0,3),(12,'Computer Programming 1',2,1,3),(44,'bostons',3,1,4),(38,'test',1,1,2),(42,'teats',3,1,4),(13,'Introduction to Information System',2,1,3),(14,'Rhythim Activities',2,0,2),(15,'Euthenics 2',1,0,1),(16,'National Service Training Program',0,0,3);
+INSERT INTO `subjects` VALUES (1,'Communication Skills 1',3,NULL,3),(2,'College Algebra',3,0,3),(3,'Plane and Spherical Trigonometry',3,0,3),(4,'Introduction to Computing',2,1,3),(5,'Knowledge Work Software and Presentation Skills',2,1,3),(6,'Physical Fitness',2,0,2),(7,'Euthenics 1',1,0,1),(8,'National Service Training Program 1',0,0,3),(9,'Communication Skills 2',3,NULL,3),(10,'Komunikasyon sa Akademikong Filipino',3,0,3),(11,'Analytic Geometry',3,NULL,3),(12,'Computer Programming 1',2,1,3),(44,'bostons',3,1,4),(38,'test',1,1,2),(42,'teats',3,1,4),(13,'Introduction to Information System',2,1,3),(14,'Rhythim Activities',2,0,2),(15,'Euthenics 2',1,0,1),(16,'National Service Training Program',0,0,3);
 /*!40000 ALTER TABLE `subjects` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -470,4 +470,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-04-24 11:12:16
+-- Dump completed on 2017-05-17  2:41:55

@@ -3,12 +3,7 @@
 <head>
     <link type="text/css" rel="stylesheet" href="/css/bootstrap.min.css" />
     <link type="text/css" rel="stylesheet" href="/css/mystyles.css" />
-   <link type="text/css" rel="stylesheet" href="../../../../css/pace-theme-flat-top.css" />
-
-    <script src="/js/vendor/jquery-3.1.1.min.js"></script>
-    <script src="/js/vendor/bootstrap.min.js"></script>
-    <script src="../../../../js/vendor/plugins/pace.js"></script>
-
+  	<link type="text/css" rel="stylesheet" href="../../../../css/pace-theme-flat-top.css" />
 
 </head>
 
@@ -16,7 +11,7 @@
 <?php if (!empty($_SESSION['login_user']) &&  $_SESSION['user_type'] == 'admin' ): ?>
 
 	<body>
-	<nav class="navbar navbar-default">
+	<nav class="navbar navbar-inverse">
 	  <div class="container-fluid">
 	    <ul class="nav navbar-nav "  id ="adminNav">
 	      <li><a href="/index">Home</a></li>
@@ -57,6 +52,11 @@
 		<?php echo $this->layout()->content ?>
 
 <?php endif; ?>	
+
+
+    <script src="/js/vendor/jquery-3.1.1.min.js"></script>
+    <script src="/js/vendor/bootstrap.min.js"></script>
+    <script src="../../../../js/vendor/plugins/pace.js"></script>
 
 
 </html>
