@@ -21,17 +21,6 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         $frontController = Zend_Controller_Front::getInstance();
         $frontController->throwExceptions(true);
     }
- 
- /*
-	protected function _initRestRoute()
-	{
-		$front = Zend_Controller_Front::getInstance();
-		$restRoute = new Zend_Rest_Route($front, array(), array(
-			'default' => array('version')
-		));
-		$front->getRouter()->addRoute('rest', $restRoute);
-	} 
-	*/
 
 	public function _initGlobalPlugin() {
 
