@@ -1,25 +1,31 @@
-<script src="https://apis.google.com/js/platform.js" async defer></script>
-<meta name="google-signin-client_id" content="86800409401-u4ol0t7jbegcpvle0taev56lnospsbfh.apps.googleusercontent.com">
-<head>
-    <link type="text/css" rel="stylesheet" href="../../../../css/bootstrap.min.css" />
-    <link type="text/css" rel="stylesheet" href="../../../../css/mystyles.css" />
-</head>
+
 <form method = "post" action="/login/login">
     
-      <nav id="searchStudent"> 
-         <div id = "container">
-           <h2>Enter Username and Password</h2>
-   <?php if (!empty($this->error)):?>
-   <h4 class = "form-signin-heading"><?php $this->error; ?></h4>
-   <?php endif; ?>
-   <input type = "text" class = "form-control" name = "username" placeholder = "username" required autofocus></br>
-   <input type = "password" class = "form-control" name = "password" placeholder = "password" required autofocus>
-   <button class = "btn btn-lg btn-primary btn-block" type = "submit" 
-      name = "login">Login</button><br/>
-   <table class=" table table-bordered table-condensed table-striped">    
-    <tr><td><a href="<?php echo $this->fbloginurl; ?>&loginType=facebook" class="btn btn-lg btn-primary btn-block">facebook login</a></td></tr> 
-      <tr><td><a href="<?php echo $this->googleLoginUrl; ?>&loginType=google" class="btn btn-lg btn-primary btn-block">google login </a></td></tr> 
-      
-   </table>      
-      </nav>   
+
+     <!--
+    you can substitue the span of reauth email for a input with the email and
+    include the remember me checkbox
+ 
+    -->
+    <div class="container">
+        <div class="card card-container">
+            <!-- <img class="profile-img-card" src="//lh3.googleusercontent.com/-6V8xOA6M7BA/AAAAAAAAAAI/AAAAAAAAAAA/rzlHcD0KYwo/photo.jpg?sz=120" alt="" /> -->
+            <img id="profile-img" class="profile-img-card" src="//ssl.gstatic.com/accounts/ui/avatar_2x.png" />
+            <p id="profile-name" class="profile-name-card"></p>
+                <span id="reauth-email" class="reauth-email"></span>
+              <input type = "text" class = "form-control" name = "username" placeholder = "username" required autofocus></br>
+              <input type = "password" class = "form-control" name = "password" placeholder = "password" required autofocus>
+             <button  class = "btn btn-primary btn-block login" type = "submit" 
+              name = "login">Login</button><br/>
+          <label>
+              <input type="checkbox" value="remember-me"> Remember me
+          </label>
+          <table class=" table table-bordered table-condensed table-striped">    
+            <tr><td><a  href="<?php echo $this->fbloginurl; ?>&loginType=facebook" class="btn btn-primary btn-block login">facebook login</a></td></tr> 
+            <tr><td><a href="<?php echo $this->googleLoginUrl; ?>&loginType=google" class="btn btn-primary btn-block login">google login </a></td></tr> 
+          </table>
+         
+        </div><!-- /card-container -->
+    </div><!-- /container --> 
+   
 </form>
