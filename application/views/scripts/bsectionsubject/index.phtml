@@ -24,14 +24,14 @@
 				<td align="center"><?php echo $details['lab_unit']; ?></td>
 				<td align="center"><?php echo $details['subject_unit']; ?></td>
 				<td style="width: 1px; wrap: nowrap;">
-					<a href="/bsectionsubject/edit?bSectionID=<?php echo $details['bsection_id']; ?>" 
+					<a href="/bsectionsubject/edit?bSectionID=<?php echo $details['subject']; ?>" 
 				   		class="btn" 
 				   		title="edit blocksection"> 
 				   		<i class="glyphicon glyphicon-edit"></i>
 					</a>
 				</td>					
 				<td style="width: 1px; wrap: nowrap;">			
-					<a href='/bsectionsubject/delete?bSection=<?php echo $details['bsection']; ?>&semesterNumber=<?php echo $details['semester_number']; ?>' 
+					<a href='/bsectionsubject/delete?bSection=<?php echo $details['subject']; ?>&semesterNumber=<?php echo $details['subject_unit']; ?>' 
 						class="btn btn-danger" title="blocksection"> 
 						<i class="glyphicon glyphicon-remove"></i>
 					</a>
