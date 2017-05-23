@@ -3,14 +3,13 @@
 <head>
     <link type="text/css" rel="stylesheet" href="/css/bootstrap.min.css" />
     <link type="text/css" rel="stylesheet" href="/css/mystyles.css" />
-  	<link type="text/css" rel="stylesheet" href="../../../../css/pace-theme-flat-top.css" />
+  	<link type="text/css" rel="stylesheet" href="../../../../css/pace-theme-minimal.css" />
 
 </head>
 
 
 <?php if (!empty($_SESSION['login_user']) &&  $_SESSION['user_type'] == 'admin' ): ?>
 
-	<body>
 	<nav class="navbar navbar-inverse">
 	  <div class="container-fluid">
 	    <ul class="nav navbar-nav "  id ="adminNav">
@@ -18,7 +17,6 @@
 	      <li><a href="/students/" >View students</a></li>
 	      <li><a href="/subjects/" >View subjects</a></li>
 	      <li><a href="/bsection/" >View BSection</a></li>
-	      <li><a href="/bsectionsubject/" >View Bsection Subject Match</a></li>
 	      <li><a href="/enrollment/" >Enroll</a></li>
 	      <li><a href="/settings/" >Setting</a></li>
 	      <li><a href="/admin/" >Admin</a></li>
@@ -27,14 +25,14 @@
 	    </ul>
 	  </div>
 	</nav>
-	</body>
+	<body>
 			<?php echo $this->layout()->content ?>
+	</body>
 
 <?php elseif (!empty($_SESSION['login_user']) &&  $_SESSION['user_type'] == 'student' ): ?>
-<body>		
-	<nav class="navbar navbar-default">
+	<nav class="navbar navbar-inverse">
 	  <div class="container-fluid">
-	    <ul class="nav navbar-nav"  id ="adminNav">
+	    <ul class="nav navbar-nav "  id ="adminNav">
 	      <li><a href="/index">Home</a></li>
 	      <li><a href="/students/studentedit?student_id=<?php echo $_SESSION['student_id']; ?>" >change your password</a></li>
 	      <li><a href="/enrollment/" >Enroll</a></li>
@@ -42,10 +40,9 @@
 	    </ul>
 	  </div>
 	</nav>
-
-	</body>
+	<body>		
 		<?php echo $this->layout()->content ?>
-
+	</body>
 <?php endif; ?>	
 <?php if (empty($_SESSION['login_user'])): ?>
 

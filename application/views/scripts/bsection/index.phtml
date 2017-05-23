@@ -1,15 +1,13 @@
 <script src="/js/bsection.js"></script>
 	<h1>Block Section Records</h1>
-
-	<form>
+	<div class="col-md-6">
 		<a style="float:left" href="/index">(Return)</a>
 		<a class="pull-right btn btn-success" 
 			href="/bsection/add">
 		<i class="glyphicon glyphicon-plus"></i></a>
-	</form action ="/bsection" method ="POST">
-		
+				
 		<table id="bSectionSubjectMatchTable" class="table table-bordered table-condensed table-striped">
-			
+		<thead class="tHeader">	
 			<tr>
 				<th>Block Section ID</th>
 				<th>Block Section</th>
@@ -20,6 +18,7 @@
 				<th>edit </th>
 				<th>delete</th>
 			</tr>
+		</thead>	
 				<?php foreach ($this->bSection as $details):?>
 			<tr>
 				<td align="center"><?php echo $details['bsection_id']; ?></td>
@@ -65,7 +64,12 @@
 			</tr>
 			<?php endforeach;?>
 		</table>	
-
+	</div>	
+	<div class="col-md-6">
+		<h1>
+			<label class="label label-info">This is where you can view, edit, delete <br></br> blocksection  and can add, delete <br></br> blocksection subjects </label>
+		</h1>
+	</div>
 <div id="bSection-details" class="modal fade" role="dialog">
   <div class="modal-dialog">
     <div class="modal-content">

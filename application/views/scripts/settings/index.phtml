@@ -2,92 +2,107 @@
 <script src="/js/semester.js"></script>
 <script type='text/javascript' src='/js/vendor/plugins/bootstrap-datepicker.js'></script>
 <h1> Setting Records </h1>
-
-	<form>
-	
-		<table class="table table-bordered table-condensed table-striped">
-			<tr>
-				<th>Number Of Allowed Units</th>
-				<th>Price/Unit</th>
-				<th>Price/labunit</th>
-				<th>Price Of Misc</th>
-			</tr>
-			<?php foreach ($this->settings as $details): ?>
+	<div class="row">	
+		<div class="col-md-6">
+			<table class="table table-bordered table-condensed table-striped">
+			<thead class="tHeader">
 				<tr>
-				<td align="center"><?php echo $details['number_of_allowed_units']; ?></td>
-				<td align="center"><?php echo $details['price_per_unit']; ?></td>
-				<td align="center"><?php echo $details['price_per_lab_unit']; ?></td>
-				<td	align="center"><?php echo $details['price_of_misc']; ?></td>
+					<th>Number Of Allowed Units</th>
+					<th>Price/Unit</th>
+					<th>Price/labunit</th>
+					<th>Price Of Misc</th>
 				</tr>
-			<?php endforeach; ?>
-		</table>	
+			</thead>	
+				<?php foreach ($this->settings as $details): ?>
+					<tr>
+					<td align="center"><?php echo $details['number_of_allowed_units']; ?></td>
+					<td align="center"><?php echo $details['price_per_unit']; ?></td>
+					<td align="center"><?php echo $details['price_per_lab_unit']; ?></td>
+					<td	align="center"><?php echo $details['price_of_misc']; ?></td>
+					</tr>
+				<?php endforeach; ?>
+			</table>		
+		</div>		
+		<div class="col-md-6">
+			<h1>
+			    <label class="label label-info">This is where you can view settings </label>
+			</h1>
+		</div>
 				<br/>
-				<br/>
-		<table class="table table-bordered table-condensed table-striped">
-			<a  
-				class="pull-right btn btn-success" 
-				title="add Semester"
-				data-toggle="modal" data-target="#semester-add"
-				> 
-				<i class="glyphicon glyphicon-plus"></i>
-			</a>
-		
-			<tr>
-				<th>Semester ID</th>
-				<th>Date Start</th>
-				<th>Date End</th>
-				<th>Details</th>
-				<th>Edit</th>
-				<th>Delete</th>
-			</tr>
+				<br/>	
+	</div>			
+	<div class="row">	
+		<div class="col-md-6">	
+			<table class="table table-bordered table-condensed table-striped">
+				<a  
+					class="pull-right btn btn-success" 
+					title="add Semester"
+					data-toggle="modal" data-target="#semester-add"
+					> 
+					<i class="glyphicon glyphicon-plus"></i>
+				</a>
+				<thead class="tHeader">
+					<tr>
+						<th>Semester ID</th>
+						<th>Date Start</th>
+						<th>Date End</th>
+						<th>Details</th>
+						<th>Edit</th>
+						<th>Delete</th>
+					</tr>
+				</thead>
 
+				<?php foreach ($this->semesters as $details):?>
+					<?php if ($details['date_start'] < $this->date && $details['date_end'] > $this->date): ?>
+						<tr class="info" >
+						<?php else: ?>
+								<tr>
+						<?php endif ?>					
+					<td align="center"><?php echo $details['semester_id']; ?></td>
+					<td align="center"><?php echo $details['date_start']; ?></td>
+					<td align="center"><?php echo $details['date_end']; ?></td>
+					<td>
+						<a 
+							onclick="viewDetails(<?php echo $details['semester_id']; ?>);" 
+							class="btn" 
+							title="edit Student"
+							data-toggle="modal" data-target="#semester-details"
+							> 
+							<i class="glyphicon glyphicon-search"></i>
+						</a>	
+					</td>		
+					<td> 
+						<a 
+							onclick="editSemester(<?php echo $details['semester_id']; ?>)" 
+							class="btn" 
+							title="edit Semester"
+							data-toggle="modal" data-target="#semester-edit"
+							> 
+							<i class="glyphicon glyphicon-edit"></i>
+						</a>
 
-			<?php foreach ($this->semesters as $details):?>
-				<?php if ($details['date_start'] < $this->date && $details['date_end'] > $this->date): ?>
-					<tr class="info" >
-					<?php else: ?>
-							<tr>
-					<?php endif ?>					
-				<td align="center"><?php echo $details['semester_id']; ?></td>
-				<td align="center"><?php echo $details['date_start']; ?></td>
-				<td align="center"><?php echo $details['date_end']; ?></td>
-				<td>
-					<a 
-						onclick="viewDetails(<?php echo $details['semester_id']; ?>);" 
-						class="btn" 
-						title="edit Student"
-						data-toggle="modal" data-target="#semester-details"
-						> 
-						<i class="glyphicon glyphicon-search"></i>
-					</a>	
+						<!-- <a href="/semester/edit?semester_id=<?php echo $details['semester_id']; ?>" 
+								class="btn" title="edit Student"> 
+								<i class="icon icon-edit"></i>
+						</a>-->
 
-				<td> 
-					<a 
-						onclick="editSemester(<?php echo $details['semester_id']; ?>)" 
-						class="btn" 
-						title="edit Semester"
-						data-toggle="modal" data-target="#semester-edit"
-						> 
-						<i class="glyphicon glyphicon-edit"></i>
-					</a>
-
-					<!-- <a href="/semester/edit?semester_id=<?php echo $details['semester_id']; ?>" 
-							class="btn" title="edit Student"> 
-							<i class="icon icon-edit"></i>
-					</a>-->
-
-				</td>
-				<td>
-					<a id="href_delete" href='/semester/delete?semester_id=<?php echo $details['semester_id']; ?>' 
-					class="btn btn-danger" title="Delete Student"> 
-						<i class="glyphicon glyphicon-remove"></i>
-					</a>
-				</td>
-				</tr>	
-			<?php endforeach;?>
-			</form>	
-		</table>	
-	
+					</td>
+					<td>
+						<a id="href_delete" href='/semester/delete?semester_id=<?php echo $details['semester_id']; ?>' 
+						class="btn btn-danger" title="Delete Student"> 
+							<i class="glyphicon glyphicon-remove"></i>
+						</a>
+					</td>
+					</tr>	
+				<?php endforeach;?>
+			</table>
+		</div>
+		<div class="col-md-6">
+			<h1>
+			    <label class="label label-info">This is where you can view.edit, delete  
+			    <br></br> semester </label>
+			</h1>
+		</div>		
 	</div>
 <div id="semester-details" class="modal fade" role="dialog">
   <div class="modal-dialog">
@@ -109,7 +124,6 @@
         <button type="button" class="btn btn-default btn-danger" data-dismiss="modal"><i class="glyphicon glyphicon-remove"></i></button>
       </div>
     </div>
-
   </div>
 </div>
 <div id="semester-edit" class="modal fade" role="dialog">

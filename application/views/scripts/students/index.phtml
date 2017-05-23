@@ -1,82 +1,92 @@
 
     <script type="text/javascript" src="/js/students.js"></script>
 		<h1>Students Records</h1>
-			<form>
-				<a  
-					class="pull-right btn btn-success" 
-					title="Add Student"
-					data-toggle="modal" data-target="#student-add"
-					> 
-					<i class="glyphicon glyphicon-plus"></i>
-				</a>
-			</form>
-
-			<?php if (empty($this->students)): ?>
-				<div class="alert alert-info">No students yet</div>
-			<?php else: ?>
-				<div id="student-pagination" class="pagination">
-				  <ul class="pagination">
-				    <li><a href="/students/index?page=<?php echo $this->currentPage <= 1?1:$this->currentPage-1; ?>">Prev</a></li>
-				    <?php for ($pageNumber = 1; $pageNumber <= Student::getNumberOfPages($this->studentsCount); $pageNumber++) { ?>
-				    	<li class="<?php echo ($pageNumber == $this->currentPage)?'active':'';?>"><a href="/students/index?page=<?php echo $pageNumber; ?>"><?php echo $pageNumber; ?></a></li>
-				    <?php } ?>
-				    <li><a href="/students/index?page=<?php echo ($this->currentPage >= Student::getNumberOfPages($this->studentsCount))?$this->currentPage:$this->currentPage+1; ?>">Next</a></li>
-				  </ul>
-				</div>
-
-				<table class="table table-bordered table-condensed table-striped"> 
-					<p id="delete"></p>
-					<tr>
-						<th>ID</th>
-						<th>FirstName</th>
-						<th>LastName</th>
-						<th>Status</th>
-						<th>Actions</th>
-					</tr>
-					<?php foreach ($this->students as $details): ?>
+		<div class="col-md-6">
+	
+			<div class=""			
+				<?php if (empty($this->students)): ?>
+					<div class="alert alert-info">No students yet</div>
+				<?php else: ?>
+					<div id="student-pagination" class="pagination">
+					  <ul class="pagination">
+					    <li><a href="/students/index?page=<?php echo $this->currentPage <= 1?1:$this->currentPage-1; ?>">Prev</a></li>
+					    <?php for ($pageNumber = 1; $pageNumber <= Student::getNumberOfPages($this->studentsCount); $pageNumber++) { ?>
+					    	<li class="<?php echo ($pageNumber == $this->currentPage)?'active':'';?>"><a href="/students/index?page=<?php echo $pageNumber; ?>"><?php echo $pageNumber; ?></a></li>
+					    <?php } ?>
+					    <li><a href="/students/index?page=<?php echo ($this->currentPage >= Student::getNumberOfPages($this->studentsCount))?$this->currentPage:$this->currentPage+1; ?>">Next</a></li>
+					  </ul>
+					</div>
+					<div>
+						<a  
+							class="pull-right btn btn-success" 
+							title="Add Student"
+							data-toggle="modal" data-target="#student-add"> 
+							<i class="glyphicon glyphicon-plus"></i>
+						</a>
+					</div>	
+					<table class="table table-bordered table-condensed table-striped"> 
+						<p id="delete"></p>
+						<thead class="tHeader">
 						<tr>
-						<td align="center"><?php echo $details['student_id']; ?></td>
-						<td align="center"><?php echo $details['first_name']; ?></td>
-						<td	align="center"><?php echo $details['last_name']; ?></td>
-						<td align="center"><?php echo $details['payed']; ?></td>
-						<td style="width: 1px; white-space: nowrap;" nowrap>
-							<a 
-								onclick="viewDetails(<?php echo $details['student_id']; ?>);" 
-								class="btn" 
-								title="View Student"
-								data-toggle="modal" data-target="#student-details"
-								> 
-								<i class="glyphicon glyphicon-search"></i>
-							</a>	
-
-							<!--<a href="/students/edit?student_id=<?php echo $details['student_id']; ?>" class="btn" title="edit Student"> -->
-							<a 
-								onclick="editStudent(<?php echo $details['student_id']; ?>)" 
-								class="btn" 
-								title="edit Student"
-								data-toggle="modal" data-target="#student-edit"
-								> 
-								<i class="glyphicon glyphicon-edit"></i>
-							</a>
-
-							<a id="href_delete" href='/students/delete?student_id=<?php echo $details['student_id']; ?>' 
-						class="btn btn-danger" title="Delete Student"> 
-								<i class="glyphicon glyphicon-remove"></i>
-							</a>
-
-						<?php	if ($details['payed'] == 'paid'): ?>
-								<a id="href_delete"href='/students/download?student_id=<?php echo $details['student_id']; ?>' 
-								class="btn btn-success" title="download invoice"> 
-									<i class="glyphicon glyphicon-download"></i>
-								</a>
-							<?php endif; ?>
-						</td>
+							<th>ID</th>
+							<th>FirstName</th>
+							<th>LastName</th>
+							<th>Status</th>
+							<th>Actions</th>
 						</tr>
-					<?php endforeach; ?>
-				</table>
-			<?php endif ?>
+						</thead>
+						<?php foreach ($this->students as $details): ?>
+							<tr>
+							<td align="center"><?php echo $details['student_id']; ?></td>
+							<td align="center"><?php echo $details['first_name']; ?></td>
+							<td	align="center"><?php echo $details['last_name']; ?></td>
+							<td align="center"><?php echo $details['payed']; ?></td>
+							<td style="width: 1px; white-space: nowrap;" nowrap>
+								<a 
+									onclick="viewDetails(<?php echo $details['student_id']; ?>);" 
+									class="btn" 
+									title="View Student"
+									data-toggle="modal" data-target="#student-details"
+									> 
+									<i class="glyphicon glyphicon-search"></i>
+								</a>	
 
+								<!--<a href="/students/edit?student_id=<?php echo $details['student_id']; ?>" class="btn" title="edit Student"> -->
+								<a 
+									onclick="editStudent(<?php echo $details['student_id']; ?>)" 
+									class="btn" 
+									title="edit Student"
+									data-toggle="modal" data-target="#student-edit"
+									> 
+									<i class="glyphicon glyphicon-edit"></i>
+								</a>
 
+								<a id="href_delete" href='/students/delete?student_id=<?php echo $details['student_id']; ?>' 
+							class="btn btn-danger" title="Delete Student"> 
+									<i class="glyphicon glyphicon-remove"></i>
+								</a>
+
+							<?php	if ($details['payed'] == 'paid'): ?>
+									<a id="href_delete"href='/students/download?student_id=<?php echo $details['student_id']; ?>' 
+									class="btn btn-success" title="download invoice"> 
+										<i class="glyphicon glyphicon-download"></i>
+									</a>
+								<?php endif; ?>
+							</td>
+							</tr>
+						<?php endforeach; ?>
+					</table>
+
+				<?php endif ?>
+		
+			</div>
+			<div class="col-md-6">
+					<h1>
+					    <label class="label label-info">This is where you can view, edit, delete student </label>
+					    <br></br>
+					    <img id = "student-img" class="second-slide" src="/img/student.jpg" alt="Second slide">
+					</h1>
+			</div>
 		<div id="student-details" class="modal fade" role="dialog">
 		  <div class="modal-dialog">
 		    <div class="modal-content">

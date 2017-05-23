@@ -6,14 +6,16 @@
 			<a class="pull-right btn btn-success" 
 			href="/Admin/add">
 			<i class="glyphicon glyphicon-plus"></i></a>
-			<tr>
-				<th>User_id</th>
-				<th>User Name</th>
-				<th>Password</th>
-				<th>Details</th>
-				<th>Edit</th>
-				<th>Delete</th>
-			</tr>
+			<thead class="tHeader">
+				<tr>
+					<th>User_id</th>
+					<th>User Name</th>
+					<th>Password</th>
+					<th>Details</th>
+					<th>Edit</th>
+					<th>Delete</th>
+				</tr>
+			</thead>	
 				<?php foreach ($this->admin as $details):?>
 				<tr>
 				<td align="center"><?php echo $details['user_id']; ?></td>
@@ -46,7 +48,11 @@
 			<?php endforeach;?>
 		</table>	
 	</div>
-
+	<div class="col-md-6">
+			<h1>
+			    <label class="label label-info">This is where you can view, edit, delete admin </label>
+			</h1>
+	</div>
 <div id="admin-details" class="modal fade" role="dialog">
   <div class="modal-dialog">
 

@@ -1,16 +1,20 @@
 
 <title>Semester Records</title>
 <h1> Income Records </h1>
-	<form method ="post">
+<div class="row">
+	<div class="col-md-6">
+		<form method ="post">
 			<?php if (empty($this->result)): ?>
 				<div class="alert alert-info">No students yet</div>
 			<?php else: ?>
 				<table class="table table-bordered table-condensed table-striped"> 
-					<tr>
-						<th>Studend Name</th>
-						<th>Income</th>
-						<th>Date Paid</th>
-					</tr>	
+					<thead class="tHeader">
+						<tr>
+							<th>Studend Name</th>
+							<th>Income</th>
+							<th>Date Paid</th>
+						</tr>
+					</thead>			
 						<?php foreach ($this->result as $details): ?>
 							<?php if ($details['payment'] == 0): ?>
 							<?php else: ?>
@@ -21,7 +25,6 @@
 								</tr>
 							<?php endif; ?>
 						<?php endforeach; ?>	
-					</tr>
 					<tr>
 						<td></td>
 						<td>
@@ -36,49 +39,76 @@
 						</td>
 						<td><button type="submit" name="saveSemDate" >Go</button>	</td>		
 					</tr>
-				</table> 
-				<br/>
-				<br/>
+				</table> 		
+		</form>
+	</div>	
+	<div class="col-md-6">
+		<h1>
+		    <label class="label label-info">This is where you can view the income for  
+		    <br></br> every  semester </label>
+		</h1>
+	</div>	
+</div>
+	<?php endif; ?>
+	<br/>
+	<br/>
+<div>	
+<div class="row">
+	<div class="col-md-6">
+		<table class="table table-bordered table-condensed table-striped"> 
+			<thead class="tHeader">
+				<tr>
+					<th>Number of Student</th>
+					<th>Payment of all Student </th>
+					<th>Semester Period</th>
+				</tr>	
+			</thead>
+				<?php foreach ($this->semesterIncome as $details): ?>
+						<tr>
+							<td align="center"><?php echo $details['number_of_student']; ?></td>
+							<td align="center"><?php echo $details['payment_per_student']; ?></td>
+							<td	align="center"><?php echo $details['semester_period']; ?></td>
+						</tr>
+				<?php endforeach; ?>
+		</table>	
+	</div>
+	<div class="col-md-6">
+		<h1>
+		    <label class="label label-info">This is where you can view all income for  
+		    <br></br> every  semester </label>
+		</h1>
+	</div>	
+</div>
+	<br/>
+	<br/>
+<div class="row">
+	<div class="col-md-6">	
+		<table class="table table-bordered table-condensed table-striped"> 
+		<thead class="tHeader">
+				<tr>
+					<th>Student Name</th>
+					<th>Total Student Paid </th>
+					<th>Total Subject Enroled </th>
+				</tr>	
+		</thead>		
+				<?php foreach ($this->studentIncome as $details): ?>
+						<tr>
+							<td align="center"><?php echo $details['total_income']; ?></td>
+							<td align="center"><?php echo $details['student_name']; ?></td>
+							<td	align="center"><?php echo $details['total_subjects']; ?></td>
+						</tr>
+				<?php endforeach; ?>
+		</table>	
+	</div>
+	<div class="col-md-6">
+		<h1>
+		    <label class="label label-info">This is where you can view total payment  
+		    <br></br> and total subject enrolled  
+		    <br></br> per student in all semester</label>
+		</h1>
+	</div>			
+</div>
 
-				 <label id="totalAmount" for="Price">total Income <?php echo $this->totalAmount; ?></label> <br/>
-				 <label id="totalAmount" for="Price">number of student Paid <?php echo $this->numberOfStudent; ?></label> 
-			<?php endif; ?>
-			<br/>
-			<br/>
-				<table class="table table-bordered table-condensed table-striped"> 
-					<tr>
-						<th>Number of Student</th>
-						<th>Payment of all Student </th>
-						<th>Semester Period</th>
-					</tr>	
-						<?php foreach ($this->semesterIncome as $details): ?>
-								<tr>
-									<td align="center"><?php echo $details['number_of_student']; ?></td>
-									<td align="center"><?php echo $details['payment_per_student']; ?></td>
-									<td	align="center"><?php echo $details['semester_period']; ?></td>
-								</tr>
-						<?php endforeach; ?>	
-					</tr>
-				</table>	
-			<br/>
-			<br/>
-				<table class="table table-bordered table-condensed table-striped"> 
-					<tr>
-						<th>Student Name</th>
-						<th>Total Student Paid </th>
-						<th>Total Subject Enroled </th>
-					</tr>	
-						<?php foreach ($this->studentIncome as $details): ?>
-								<tr>
-									<td align="center"><?php echo $details['total_income']; ?></td>
-									<td align="center"><?php echo $details['student_name']; ?></td>
-									<td	align="center"><?php echo $details['total_subjects']; ?></td>
-								</tr>
-						<?php endforeach; ?>	
-					</tr>
-				</table>		
-		</div>
-</form>	
 
 
 
