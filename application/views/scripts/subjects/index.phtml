@@ -9,13 +9,7 @@
 	<?php else: ?>
 		
 			<div class="col-md-6">
-				<a  
-					class="pull-right btn btn-success" 
-					title="add Subject"
-					data-toggle="modal" data-target="#subject-add"
-					> 
-					<i class="glyphicon glyphicon-plus"></i>
-				</a>
+		
 				<div id="subjects-pagination" class="pagination">
 					  <ul class="pagination">
 					    <li><a href="/subjects/index?page=<?php echo $this->currentPage <= 1?1:$this->currentPage-1; ?>">Prev</a></li>
@@ -25,6 +19,15 @@
 					    <li><a href="/subjects/index?page=<?php echo ($this->currentPage >= Subject::getNumberOfPages($this->subjectsCount))?$this->currentPage:$this->currentPage+1; ?>">Next</a></li>
 					  </ul>
 				</div>
+				<div>
+					<a  
+						class="pull-right btn btn-success" 
+						title="add Subject"
+						data-toggle="modal" data-target="#subject-add"
+						> 
+						<i class="glyphicon glyphicon-plus"></i>
+					</a>
+				</div>	
 				<table class="table table-bordered table-condensed table-striped table-hover">
 				<thead class="tHeader">
 						<tr>

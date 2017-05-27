@@ -1,12 +1,12 @@
 
     <script type="text/javascript" src="/js/students.js"></script>
 		<h1>Students Records</h1>
-		<div class="col-md-6">
-	
-			<div class=""			
+			<div class="col-md-6">
+			
 				<?php if (empty($this->students)): ?>
 					<div class="alert alert-info">No students yet</div>
 				<?php else: ?>
+
 					<div id="student-pagination" class="pagination">
 					  <ul class="pagination">
 					    <li><a href="/students/index?page=<?php echo $this->currentPage <= 1?1:$this->currentPage-1; ?>">Prev</a></li>
@@ -24,6 +24,7 @@
 							<i class="glyphicon glyphicon-plus"></i>
 						</a>
 					</div>	
+
 					<table class="table table-bordered table-condensed table-striped"> 
 						<p id="delete"></p>
 						<thead class="tHeader">
