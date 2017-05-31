@@ -111,8 +111,10 @@ h4{
 	font-family: Arial, Helvettica, sans-serif;
 	color:white;
 	font-weight:bolder;
-	font-size: 2.5em;
+	font-si
+    ze: 2.5em;
 }
+
 /*
 #bSectionSubjectMatchTable{
 	font-family: Arial, Helveticca, sans-serif;
@@ -121,6 +123,7 @@ h4{
 	font-size: 2-5em;
 }
 */
+
 
 .modal-footer {
 	padding:px 15px;

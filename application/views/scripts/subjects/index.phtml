@@ -12,7 +12,7 @@
 		
 				<div id="subjects-pagination" class="pagination">
 					  <ul class="pagination">
-					    <li><a href="/subjects/index?page=<?php echo $this->currentPage <= 1?1:$this->currentPage-1; ?>">Prev</a></li>
+					    <li><a href="/subjects/index?page=<?php echo $this->currentPage <= 1?$this->currentPage=1:$this->currentPage-1; ?>">Prev</a></li>
 					    <?php for ($pageNumber = 1; $pageNumber <= Subject::getNumberOfPages($this->subjectsCount); $pageNumber++) { ?>
 					    	<li class="<?php echo ($pageNumber == $this->currentPage)?'active':'';?>"><a href="/subjects/index?page=<?php echo $pageNumber; ?>"><?php echo $pageNumber; ?></a></li>
 					    <?php } ?>
