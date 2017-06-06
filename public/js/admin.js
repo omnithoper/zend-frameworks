@@ -10,9 +10,9 @@ var viewDetails = function(adminID) {
 			response = $.parseJSON(response);
 			console.log(response);
 			console.log(response.user_id);
-			$('#adminID').html(response.user_id);
-			$('#adminUser').html(response.username);
-			$('#adminPass').html(response.password);
+			$('#adminID').val(response.user_id);
+			$('#adminUser').val(response.username);
+			$('#adminPass').val(response.password);
 		}
 	});
 }

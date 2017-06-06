@@ -2,55 +2,49 @@
 <html>
 <head>
     <link type="text/css" rel="stylesheet" href="/css/bootstrap.min.css" />
-    <link type="text/css" rel="stylesheet" href="/css/mystyles.css" />
+    <link type="text/css" rel="stylesheet" href="/css/mystyles.min.css" />
   	<link type="text/css" rel="stylesheet" href="../../../../css/pace-theme-minimal.css" />
     <script src="/js/vendor/jquery-3.1.1.min.js"></script>
     <script src="/js/vendor/bootstrap.min.js"></script>
     <script src="../../../../js/vendor/plugins/pace.js"></script>
-
 </head>
 
+
 <?php $controllerName = Zend_Controller_Front::getInstance()->getRequest()->getControllerName()?>
-<?php $actionName = Zend_Controller_Front::getInstance()->getRequest()->getControllerName()?>
+<?php $actionName = Zend_Controller_Front::getInstance()->getRequest()->getActionName()?>
 <?php if (!empty($_SESSION['login_user']) &&  $_SESSION['user_type'] == 'admin' ): ?>
-	<?php if ($controllerName === Zend_Controller_Front::getInstance()->getRequest()->getControllerName() 
-		&& $actionName === Zend_Controller_Front::getInstance()->getRequest()->getControllerName()): ?>
-	<?php endif;?>	
 	<nav class="navbar navbar-inverse ">
 	  <div class="container-fluid">
 	    <ul class="nav navbar-nav "  id ="adminNav">
-	      <li class="active"><a href="/index">Home</a></li>
-	      <li><a href="/students/" >Students</a></li>
-	      <li><a href="/subjects/" >Subjects</a></li>
-	      <li><a href="/bsection/" >Block Section</a></li>
-	      <li><a href="/enrollment/" >Enroll</a></li>
-	      <li><a href="/settings/" >Setting</a></li>
-	      <li><a href="/admin/" >Admin</a></li>
-	      <li><a href="/income/" >Income</a></li>
+	      <li <?php if($controllerName == 'index'): ?> class="active"<?php endif; ?> ><a href="/index/">Home</a></li>
+	      <li <?php if($controllerName == 'students'): ?> class="active"<?php endif; ?> ><a href="/students/" >Students</a></li>
+	      <li <?php if($controllerName == 'subjects'): ?> class="active"<?php endif; ?> ><a href="/subjects/" >Subjects</a></li>
+	      <li <?php if($controllerName == 'bsection'): ?> class="active"<?php endif; ?> ><a href="/bsection/" >Block Section</a></li>
+	      <li <?php if($controllerName == 'enrollment'): ?> class="active"<?php endif; ?> ><a href="/enrollment/" >Enroll</a></li>
+	      <li <?php if($controllerName == 'settings'): ?> class="active"<?php endif; ?> ><a href="/settings/" >Setting</a></li>
+	      <li <?php if($controllerName == 'admin'): ?> class="active"<?php endif; ?> ><a href="/admin/" >Admin</a></li>
+	      <li <?php if($controllerName == 'income'): ?> class="active"<?php endif; ?> ><a href="/income/" >Income</a></li>
 	      <li><a href="/login/logout">Log Out</a></li>
 	    </ul>
 	  </div>
 	</nav>
 	<body>
 			<?php echo $this->layout()->content ?>	 	
-			<?php Zend_Debug::dump($controllerName); ?>	 	
-			<?php Zend_Debug::dump($actionName); ?>	 	
-
 	</body>
 
 <?php elseif (!empty($_SESSION['login_user']) &&  $_SESSION['user_type'] == 'student' ): ?>
 	<nav class="navbar navbar-inverse">
 	  <div class="container-fluid">
 	    <ul class="nav navbar-nav "  id ="adminNav">
-	      <li><a href="/index">Home</a></li>
-	      <li><a href="/students/studentedit?student_id=<?php echo $_SESSION['student_id']; ?>" >Change Your Password</a></li>
-	      <li><a href="/enrollment/" >Enroll</a></li>
+	      <li <?php if($controllerName == 'index'): ?> class="active"<?php endif; ?> ><a href="/index">Home</a></li>
+	      <li <?php if($actionName == 'studentedit'): ?> class="active"<?php endif; ?> ><a href="/students/studentedit?student_id=<?php echo $_SESSION['student_id']; ?>" >Change Your Password</a></li>
+	      <li <?php if($controllerName == 'enrollment'): ?> class="active"<?php endif; ?> ><a href="/enrollment/" >Enroll</a></li>
 	      <li><a href="/login/logout" >Log Out</a></li>
 	    </ul>
 	  </div>
 	</nav>
 	<body>		
-		<?php echo $this->layout()->content ?>
+		<?php echo $this->layout()->content ?> 
 	</body>
 <?php endif; ?>	
 <?php if (empty($_SESSION['login_user'])): ?>
@@ -58,13 +52,5 @@
 		<?php echo $this->layout()->content ?>
 
 <?php endif; ?>	
-<script>
-$(".nav a ").on("click", function(){
-   $(".nav").find(".active").removeClass("active");
-   $(this).parent().addClass("active");
-});
-</script>
-
-
 
 </html>

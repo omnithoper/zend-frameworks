@@ -8,9 +8,9 @@ var viewDetails = function(subjectID) {
 			console.log(response);
 			response = $.parseJSON(response);
 			console.log(response);
-			$('#subjectID').html(response.subject_id);
-			$('#subjectName').html(response.subject);
-			$('#subjectUnit').html(response.subject_unit);
+			$('#subjectID').val(response.subject_id);
+			$('#subjectName').val(response.subject);
+			$('#subjectUnit').val(response.subject_unit);
 		}
 	});
 }
@@ -25,7 +25,7 @@ var editSubject = function(subjectID)
 			console.log(response);
 			response = $.parseJSON(response);
 			console.log(response);
-			$('#editSubjectID').html(response.subject_id);
+			$('#editSubjectID').val(response.subject_id);
 			$('#editSubjectName').val(response.subject);
 			$('#editSubjectLec').val(response.lec_unit);
 			$('#editSubjectLab').val(response.lab_unit);
@@ -38,7 +38,7 @@ var editSubject = function(subjectID)
 }
 var updateSubject = function()
 {
-	var subjectID = $('#editSubjectID').html();
+	var subjectID = $('#editSubjectID').val();
 	var subjectName = $('#editSubjectName').val();
 	var subjectLec = $('#editSubjectLec').val();
 	var subjectLab = $('#editSubjectLab').val();
@@ -58,7 +58,7 @@ var updateSubject = function()
 		contentType: 'application/json; charset=utf-8',
 		success: function(response){
 			response = $.parseJSON(response);
-			$('#editSubjectID').html(response.subject_id);
+			$('#editSubjectID').val(response.subject_id);
 			$('#editSubjectName').val(response.subject);
 			$('#editSubjectLec').val(response.lec_unit);
 			$('#editSubjectLab').val(response.lab_unit);
@@ -71,7 +71,7 @@ var updateSubject = function()
 }
 var addSubject = function()
 {
-	var subjectID = $('#addSubjectID').html();
+	var subjectID = $('#addSubjectID').val();
 	var subjectName = $('#addSubjectName').val();
 	var subjectLec = $('#addSubjectLec').val();
 	var subjectLab = $('#addSubjectLab').val();
@@ -91,7 +91,7 @@ var addSubject = function()
 		success: function(response){
 			console.log('response');
 			response = $.parseJSON(response);
-			$('#addSubjectID').html(response.subject_id);
+			$('#addSubjectID').val(response.subject_id);
 			$('#addSubjectName').val(response.subject);
 			$('#addSubjectLec').val(response.lec_unit);
 			$('#addSubjectLab').val(response.lab_unit);

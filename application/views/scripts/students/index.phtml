@@ -96,15 +96,15 @@
 		        <h4 class="modal-title">Student Details</h4>
 		      </div>
 		      <div class="modal-body">
-		      	<h1> test </h1>
+		      	<h1> Student  Details </h1>
 
 		        <dl>
-		        	<dt>studentID</dt><dd id="studenID"></dd>
-		        	<dt>First Name</dt><dd id="unang_pangalan"></dd>
-		        	<dt>Last Name</dt><dd id="apilido"></dd>
+		        	<dt><label class="modal-label"> Student ID : </label></dt><dd><input type="text" disabled id="studentID" /></dd>
+		        	<dt><label class="modal-label"> First Name : </label></dt><dd><input type="text" disabled id="unang_pangalan" /></dd>	
+		        	<dt><label class="modal-label"> Last  Name : </label></dt><dd><input type="text" disabled id="apilido" /></dd>	
 		        </dl>
 		      </div>
-		      <div class="modal-footer">
+		      <div class="modal-footer"> 
 		        <button type="button" class="btn btn-default btn-danger" data-dismiss="modal">	<i class="glyphicon glyphicon-remove"></i></button>
 		      </div>
 		    </div>
@@ -120,17 +120,19 @@
 		      <div class="modal-header">
 		        <h4 class="modal-title">Student Edit</h4>
 		      </div>
-		      <div class="modal-body">
-		      	<h1> Student Edit </h1>
 
-		        <dl>
-		        	<dt>studentID</dt><dd id="editStudentID"></dd>
-		        	<dt>First Name</dt><dd><input type="text" id="editFirstName" /></dd>
-		        	<dt>Last Name</dt><dd><input type="text" id="editLastName" /></dd>
-		        	<dt>User Name</dt><dd><input type="text" id="editUserName" /></dd>
-		        	<dt>Password </dt><dd><input type="text" id="editPassword" /></dd>
-		        </dl>
-		      </div>
+
+			  	<div class="modal-body">
+			      <h1> Student Edit </h1>
+				      <dl>
+				      	<dt><label class="modal-label"> Student ID : </label></dt><input disabled type="text" id="editStudentID" /></dd>
+				      	<dt><label class="modal-label"> First Name : </label></dt><dd><input type="text" id="editFirstName" /></dd>		
+				      	<dt><label class="modal-label"> Last  Name : </label></dt><dd><input type="text" id="editLastName" /></dd>		
+				      	<dt><label class="modal-label"> User  Name : </label></dt><dd><input id="editUserName" /></dd>		
+				      	<dt><label class="modal-label"> Password   : </label></dt><dd><input id="editPassword" /></dd>		
+				      </dl>
+
+				</div>
 		      <div class="modal-footer">
 		      	<button data-dismiss="modal" class="btn btn-default" id="button_save" type="submit" name="edit" value="save" onclick="updateStudent()">save</button>
 		        <button type="button" class="btn btn-default btn-danger" data-dismiss="modal">	<i class="glyphicon glyphicon-remove"></i></button>
@@ -152,10 +154,10 @@
 		      	<h1> student Add </h1>
 
 		        <dl>
-		        	<dt>First Name</dt><dd><input type="text" id="addFirstName" /></dd>
-		        	<dt>Last Name</dt><dd><input type="text" id="addLastName" /></dd>
-		        	<dt>User Name</dt><dd><input type="text" id="addUserName" /></dd>
-		        	<dt>Password </dt><dd><input type="text" id="addPassword" /></dd>
+		        	<dt><label class="modal-label">First Name :</label></dt><dd><input type="text" id="addFirstName" /></dd>
+		        	<dt><label class="modal-label">Last Name  :</label></dt><dd><input type="text" id="addLastName" /></dd>
+		        	<dt><label class="modal-label">User Name  :</label></dt><dd><input type="text" id="addUserName" /></dd>
+		        	<dt><label class="modal-label">Password   :</label></dt><dd><input type="text" id="addPassword" /></dd>
 		        </dl>
 		      </div>
 		      <div class="modal-footer">

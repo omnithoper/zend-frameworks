@@ -10,9 +10,9 @@ var viewDetails = function(semesterID) {
 			response = $.parseJSON(response);
 			console.log(response);
 			console.log(response.first_name);
-			$('#semesterID').html(response.semester_id);
-			$('#semesterDateStart').html(response.date_start);
-			$('#semesterDateEnd').html(response.date_end);
+			$('#semesterID').val(response.semester_id);
+			$('#semesterDateStart').val(response.date_start);
+			$('#semesterDateEnd').val(response.date_end);
 		}
 	});
 }
@@ -28,7 +28,7 @@ var editSemester = function(semesterID) {
 			response = $.parseJSON(response);
 			console.log(response);
 			console.log(response.first_name);
-			$('#editSemesterID').html(response.semester_id);
+			$('#editSemesterID').val(response.semester_id);
 			$('#editDateStart').val(response.date_start);
 			$('#editDateEnd').val(response.date_end);
 		}
@@ -36,7 +36,7 @@ var editSemester = function(semesterID) {
 }
 var updateSemester = function()
 {
-	var semesterID = $('#editSemesterID').html();
+	var semesterID = $('#editSemesterID').val();
 	var dateStart = $('#editDateStart').val();
 	var dateEnd = $('#editDateEnd').val();
 	
@@ -56,7 +56,7 @@ var updateSemester = function()
 			response = $.parseJSON(response);
 			console.log(response);
 			console.log(response.date_start);
-			$('#editStudentID').html(response.semester_id);
+			$('#editStudentID').val(response.semester_id);
 			$('#editDateStart').val(response.date_start);
 			$('#editDateEnd').val(response.date_end);
 
@@ -67,7 +67,7 @@ var updateSemester = function()
 }
 var addSemester = function()
 {
-	var semesterID = $('#addSemesterID').html();
+	var semesterID = $('#addSemesterID').val();
 	var dateStart = $('#addDateStart').val();
 	var dateEnd = $('#addDateEnd').val();
 	
@@ -87,7 +87,7 @@ var addSemester = function()
 			response = $.parseJSON(response);
 			console.log(response);
 			console.log(response.date_start);
-			$('#addSemesterID').html(response.semester_id);
+			$('#addSemesterID').val(response.semester_id);
 			$('#addDateStart').val(response.date_start);
 			$('#addDateEnd').val(response.date_end);
 

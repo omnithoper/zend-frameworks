@@ -10,9 +10,9 @@ var viewDetails = function(studentID) {
 			response = $.parseJSON(response);
 			console.log(response);
 			console.log(response.first_name);
-			$('#studenID').html(response.student_id);
-			$('#unang_pangalan').html(response.first_name);
-			$('#apilido').html(response.last_name);
+			$('#studentID').val(response.student_id);
+			$('#unang_pangalan').val(response.first_name);
+			$('#apilido').val(response.last_name);
 		}
 	});
 }
@@ -30,7 +30,7 @@ var editStudent = function(studentID)
 			response = $.parseJSON(response);
 			console.log(response);
 			console.log(response.first_name);
-			$('#editStudentID').html(response.student_id);
+			$('#editStudentID').val(response.student_id);
 			$('#editFirstName').val(response.first_name);
 			$('#editLastName').val(response.last_name);
 			$('#editUserName').val(response.username);
@@ -42,11 +42,12 @@ var editStudent = function(studentID)
 
 var updateStudent = function()
 {
-	var studentID = $('#editStudentID').html();
+	var studentID = $('#editStudentID').val();
 	var first_name = $('#editFirstName').val();
 	var last_name = $('#editLastName').val();
 	var user_name = $('#editUserName').val();
 	var password = $('#editPassword').val();
+	console.log(studentID);
 	$.ajax({
 		url: '/students/update', 
 		data: {
@@ -65,7 +66,7 @@ var updateStudent = function()
 			response = $.parseJSON(response);
 			console.log(response);
 			console.log(response.first_name);
-			$('#editStudentID').html(response.student_id);
+			$('#editStudentID').val(response.student_id);
 			$('#editFirstName').val(response.first_name);
 			$('#editLastName').val(response.last_name);
 			$('#editUserName').val(response.user_name);
@@ -77,7 +78,7 @@ var updateStudent = function()
 }
 var addStudent = function()
 {
-	var studentID = $('#addStudentID').html();
+	var studentID = $('#addStudentID').val();
 	var first_name = $('#addFirstName').val();
 	var last_name = $('#addLastName').val();
 	var user_name = $('#addUserName').val();
@@ -100,7 +101,7 @@ var addStudent = function()
 			response = $.parseJSON(response);
 			console.log(response);
 			console.log(response.first_name);
-			$('#addStudentID').html(response.student_id);
+			$('#addStudentID').val(response.student_id);
 			$('#addFirstName').val(response.first_name);
 			$('#addLastName').val(response.last_name);
 			$('#addUserName').val(response.user_name);
