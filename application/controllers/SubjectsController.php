@@ -74,6 +74,7 @@ class SubjectsController extends Zend_Controller_Action {
         exit;
     }
 
+
     public function addsAction() {
 			$this->_helper->viewRenderer->setNoRender();
 			$this->_helper->layout()->disableLayout();

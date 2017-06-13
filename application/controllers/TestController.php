@@ -16,6 +16,11 @@ class TestController extends Zend_Controller_Action {
 		
 	}
 	
+
+    public function resumeAction() {
+    	
+    }
+
 	public function googleAction(){
 		//Include Google client library 
 		require_once 'google/Google_Client.php';

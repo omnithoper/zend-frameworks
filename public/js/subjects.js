@@ -31,7 +31,6 @@ var editSubject = function(subjectID)
 			$('#editSubjectLab').val(response.lab_unit);
 			$('#editSubjectUnit').val(response.subject_unit);
 			//$('#editSemesterNumber').val(response.semester_number);
-
 		}
 	});
 
