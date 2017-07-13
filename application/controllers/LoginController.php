@@ -8,7 +8,7 @@ class LoginController extends Zend_Controller_Action {
 	public function indexAction() {
 
 		$loginType = Request::getParam('loginType');
-		
+
 		$this->__setupFacebookCredentials();
 		$this->__setupGoogleCredentials();
 
@@ -23,6 +23,7 @@ class LoginController extends Zend_Controller_Action {
 		if (!empty($loginType)) {
 			call_user_func('self::__'.$loginType.'Login');
 		}
+
 		/*
 		$connection = getConnectionWithAccessToken("447588865-0D7CFC7uhYxULcYLnnEeaTTI7eKxn9zBtUSZCFjK", "VXR0mlrx57BOEzg3On8qjRUUHWZRFPKub6ZzYSnSDrBcW");
 		$content = $connection->get("statuses/home_timeline");	
@@ -127,20 +128,7 @@ class LoginController extends Zend_Controller_Action {
 			echo '<a href="'.filter_var($authUrl, FILTER_SANITIZE_URL).'">login in gmail</a>';
 		}
 		
-		if (!empty($gpUserData)) {
-			$data = array(
-				'google_id' => $gpUserData['id'],  
-		    	'first_name' => $gpUserData['first_name'],
-		    	'last_name' => $gpUserData['last_name'],
-			);
 
-			$student = new Student();
-			$result = [];
-			$result = $student->getAddGoogleStudent($data, $gpUserData['id']);
-			$studentID = $student->googleStudentExist($gpUserData['id']);
-			$_SESSION['student_id'] = $studentID;
-
-		}	
 		
 		if (!empty($gpUserData)){
 			$data = array(

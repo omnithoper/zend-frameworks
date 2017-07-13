@@ -38,7 +38,7 @@ class IncomeController extends Zend_Controller_Action  {
 		}
 	Zend_Debug::dump($batch);
 
-		die();
+		die("here");
 		$batch2 = [];
 		foreach ($batch as $key => $details) {
 			$batch2[$key] = array_values($details); 
@@ -69,7 +69,7 @@ class IncomeController extends Zend_Controller_Action  {
 
 		Zend_Debug::dump($batch2);
 
-		die();
+		die("here");
 
 		foreach ($sample as $key => $details) {
 			$sql = '';

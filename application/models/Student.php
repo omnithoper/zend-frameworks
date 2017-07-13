@@ -268,6 +268,13 @@ class Student extends BaseModel {
 	}
 
 	public function addStudent($data, $firstName, $lastName) {
+
+		if ($this->studentExist($firstName, $lastName)) {
+			return [
+				'error' => 'Student Already Exist',	
+			];
+		}
+
 			$this->_db->insert($this->_name, $data);
 	}
 

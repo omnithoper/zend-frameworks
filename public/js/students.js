@@ -83,6 +83,11 @@ var addStudent = function()
 	var last_name = $('#addLastName').val();
 	var user_name = $('#addUserName').val();
 	var password = $('#addPassword').val();
+	console.log(first_name);
+	console.log(last_name);
+	console.log(user_name);
+	console.log(password);
+
 	$.ajax({
 		url: '/students/adds', 
 		data: {
@@ -95,12 +100,7 @@ var addStudent = function()
 		},
 		contentType: 'application/json; charset=utf-8',
 		success: function(response){
-			console.log('response');
-			console.log(response);
-			console.log(response.first_name);
-			response = $.parseJSON(response);
-			console.log(response);
-			console.log(response.first_name);
+
 			$('#addStudentID').val(response.student_id);
 			$('#addFirstName').val(response.first_name);
 			$('#addLastName').val(response.last_name);
@@ -108,8 +108,8 @@ var addStudent = function()
 			$('#addPassword').val(response.password);
 		}
 	});	
-	
 	location.reload();
+
 }
 
 document.onload = function(){
