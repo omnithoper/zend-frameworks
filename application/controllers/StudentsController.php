@@ -6,7 +6,7 @@ class StudentsController extends Zend_Controller_Action  {
 		$student = new Student();
 		$students = $student->getViewStudents($page); 
 		$studentsCount = $student->getViewStudentsCount(); 
-
+	
 		$this->view->students = $students;
 		$this->view->studentsCount = $studentsCount;
 		$this->view->currentPage = $page;
@@ -176,6 +176,9 @@ class StudentsController extends Zend_Controller_Action  {
 
 		$student = new Student();
 		$details = $student->addStudent($data, $first_name, $last_name);
+
+		$this->view->error = $details;
+		$this->indexAction();
 
 		echo Zend_Json::encode($details);
 	}

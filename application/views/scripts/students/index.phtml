@@ -170,3 +170,9 @@
 		
 	</div>
 
+						<div class="alert alert-danger">
+							<?php if (!empty($this->error)): ?>		
+								<?php echo $this->error['error']; ?>
+							<?php endif; ?>	
+						</div>
+

@@ -165,6 +165,16 @@ class Student extends BaseModel {
 		 return $this->_db->fetchRow($select);
 	}
 
+	public function studentEmailExist($email, $studentID = null) {
+
+		$select = $this->_db->select()
+			->from($this->_name)
+			->where('email = ?' , $email )
+		;
+		
+		 return $this->_db->fetchRow($select);
+	}
+
 	public function facebookStudentExist($facebookID = null) {
 
 		$select = $this->_db->select()
@@ -184,7 +194,9 @@ class Student extends BaseModel {
 		 return $this->_db->fetchOne($select);
 	}
 
-	public function getAddStudent($data, $firstName, $lastName) {
+	public function getAddStudent($data, $firstName, $lastName ) {
+
+
 		if ($this->studentExist($firstName, $lastName)) {
 			return [
 				'error' => 'Student Already Exist',	
@@ -195,6 +207,24 @@ class Student extends BaseModel {
         header("Location: /students");
 	}
 	
+	public function getSignUpStudent($data, $firstName, $lastName, $email, $psw, $pswRepeat ) {
+
+		if ($this->studentEmailExist($email)) {
+			return [
+				'error' => 'Email Already Exist',	
+			];
+		}
+
+		if ($psw != $pswRepeat ) {
+			return [
+				'error' => 'password and confirm password is the same',
+			];
+		}
+
+        $this->_db->insert($this->_name, $data);
+        header("Location: /students");
+	}
+
 	public function getAddFacebookStudent($data, $facebookID) {
 		if ($this->facebookStudentExist($facebookID)) {
 			return [
