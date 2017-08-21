@@ -1,6 +1,8 @@
 <?php
 class StudentgradeController extends Zend_Controller_Action  {
 	public function indexAction() {
+		$date = date("Y-m-d");
+
 		$studentName = Request::getParam('studentName');
 		$studentID = Request::getParam('studentID');
 		$sessionStudentID = (!empty($_SESSION['student_id']))?$_SESSION['student_id']:null;
@@ -10,8 +12,10 @@ class StudentgradeController extends Zend_Controller_Action  {
 		$subjects = new Subject();	
 		$studentSubject = new StudentSubjectMatch();
 		$student = new Student();
+		$semester = new Semester();
 
-		#Zend_Debug::dump($subject); die();
+		$semesterID = $semester->getSemesterID($date);
+	
 		if (!empty($sessionStudentID)) {
 			$students = $student->getAllStudentStudentID($sessionStudentID);
 		}
@@ -19,15 +23,13 @@ class StudentgradeController extends Zend_Controller_Action  {
 			$students = $student->getAllStudentInformation($studentName);
 		}
 		$selectedStudent = $student->getViewStudent($studentID);
-		#Zend_Debug::dump($students); die();
 
 		if (count($students) == 1) {
 			$selectedStudent = (!empty($students[0]))?$students[0]:NULL;
 			$studentID = $students[0]['student_id'];
 		}
 	
-		$allSubject = $studentSubject->getStudentSubjects($studentID);
-		
+		$allSubject = $studentSubject->getStudentSubjects($studentID, $semesterID);
 		$this->view->students = $students;
 		$this->view->studentID = $studentID;
 		$this->view->allSubject = $allSubject;
@@ -48,9 +50,12 @@ class StudentgradeController extends Zend_Controller_Action  {
 			
 		$studentID = Request::getParam('studentID');
 		$subjectID = Request::getParam('subjectID');
+		$semesterID = Request::getParam('semesterID');
+		$studentGrade = new StudentSubjectMatch();	
+	
 
-		$studentGrade = new StudentSubjectMatch();		
-		$details = $studentGrade->getStudentSubjectDetails($studentID,$subjectID);
+		$details = $studentGrade->getStudentSubjectDetails($studentID,$subjectID,$semesterID);
+	
 		$this->view->student = $details;
 		$edit = [];
 		if (isset($_POST['edit'])){
@@ -63,7 +68,7 @@ class StudentgradeController extends Zend_Controller_Action  {
 		    	'final_Term' => $finalTerm,
 			);
 
-			$edit = $studentGrade->getEditStudentGrade($data, $studentID, $subjectID);
+			$edit = $studentGrade->getEditStudentGrade($data, $studentID, $subjectID, $semesterID);
 		}
 	}
 }

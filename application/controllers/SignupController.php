@@ -22,7 +22,7 @@ class SignupController extends Zend_Controller_Action  {
 	
 			$student = new Student();
 			$result = [];
-			$result = $student->getSignUpStudent($data, $firstName, $lastName, $email, $psw, $pswRepeat);
+			$result = $student->getSignUpStudent($data, $firstName, $lastName, $email, $psw, $pswRepeat, $userName);
 			$this->view->students = $result;
 			
 		

@@ -68,12 +68,7 @@ class EnrollmentController extends Zend_Controller_Action {
 		if (Request::getParam('action') == 'delete') {
 			$delete = $studentSubject->getDeleteSubject($studentID, $subjectID, $semesterID);
 		}
-
-		if ($addStudentSubject != "true") {
-			$this->view->error = $addStudentSubject;
-		} elseif ($addBlockSection != "true") {
-			$this->view->error = $addBlockSection;
-		}	
+		
 		
 		$this->view->isStudentPayed = $isStudentPayed;
 		$this->view->students = $students;

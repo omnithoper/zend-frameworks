@@ -1,12 +1,15 @@
 /* Full-width input fields */
-input[type=text], input[type=password] , input[type=email] {
+input[type=text], input[type=password] , input[type=email]  {
     width: 100%;
     padding: 12px 20px;
-    margin: 8px 0;
     display: inline-block;
     border: 1px solid #ccc;
     box-sizing: border-box;
 }
+
+label {
+    width: 100%;
+}   
 
 /* Set a style for all buttons */
 button {
@@ -48,4 +51,12 @@ button {
     .cancelbtn, .signupbtn {
         width: 100%;
     }
+}
+
+#container{
+    width:500px;
+    margin: 10px auto 10px auto;
+    border-color:green: 2px dotted #333333;
+    background-color:white;
+    color:black;
 }

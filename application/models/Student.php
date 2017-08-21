@@ -154,7 +154,7 @@ class Student extends BaseModel {
     	return $students = $this->_db->fetchAll($select);
 	}
 
-	public function studentExist($firstName, $lastName, $studentID = null) {
+	public function studentExist($firstName, $lastName) {
 
 		$select = $this->_db->select()
 			->from($this->_name)
@@ -165,11 +165,21 @@ class Student extends BaseModel {
 		 return $this->_db->fetchRow($select);
 	}
 
-	public function studentEmailExist($email, $studentID = null) {
+	public function studentEmailExist($email) {
 
 		$select = $this->_db->select()
 			->from($this->_name)
 			->where('email = ?' , $email )
+		;
+		
+		 return $this->_db->fetchRow($select);
+	}
+
+	public function studentUserExist($userName) {
+
+		$select = $this->_db->select()
+			->from($this->_name)
+			->where('username = ?' , $userName )
 		;
 		
 		 return $this->_db->fetchRow($select);
@@ -207,7 +217,7 @@ class Student extends BaseModel {
         header("Location: /students");
 	}
 	
-	public function getSignUpStudent($data, $firstName, $lastName, $email, $psw, $pswRepeat ) {
+	public function getSignUpStudent($data, $firstName, $lastName, $email, $psw, $pswRepeat, $userName ) {
 
 		if ($this->studentEmailExist($email)) {
 			return [
@@ -215,13 +225,22 @@ class Student extends BaseModel {
 			];
 		}
 
-		if ($psw != $pswRepeat ) {
+		if ($this->studentUserExist($userName)) {
 			return [
-				'error' => 'password and confirm password is the same',
+				'error' => 'User Already Exist',	
 			];
 		}
 
+		if ($psw != $pswRepeat ) {
+			return [
+				'error' => 'password and confirm password is  not the same',
+			];
+		}
+
+
         $this->_db->insert($this->_name, $data);
+        $_SESSION['login_user'] = $userName;
+        $_SESSION['user_type'] = 'admin';
         header("Location: /students");
 	}
 

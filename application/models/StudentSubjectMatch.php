@@ -2,11 +2,14 @@
 class StudentSubjectMatch extends BaseModel {
 	protected $_name = 'student_subject_match';
 
-	public function getStudentSubjectDetails($studentID,$subjectID) {
+	public function getStudentSubjectDetails($studentID = null,$subjectID = null,$semesterID = null) {
+		
+
 		$select = $this->_db->select()
 			->from($this->_name)
 			->where('student_id = ?', $studentID)
-			->where('subject_id = ?', $subjectID )
+			->where('subject_id = ?', $subjectID)
+			->where('semester_id = ?', $semesterID)
 		;
 		return $this->_db->fetchRow($select);
 	}
@@ -29,6 +32,9 @@ class StudentSubjectMatch extends BaseModel {
 		if (empty($semesterID)) {
 			return true;
 		}
+				Zend_Debug::dump($studentID);
+				Zend_Debug::dump($semesterID);
+
 
 		$select = $this->_db->select()
 			->from($this->_name)
@@ -99,9 +105,10 @@ class StudentSubjectMatch extends BaseModel {
 		$this->_db->insert($this->_name, $data);
 	}
 
-    public function getEditStudentGrade($data, $studentID, $subjectID) {
+    public function getEditStudentGrade($data, $studentID, $subjectID,$semesterID) {
 		$where['student_id = ?'] = $studentID;
 		$where['subject_id = ?']  = $subjectID;
+		$where['semester_id = ?']  = $semesterID;
 		$this->_db->update($this->_name, $data, $where);
 
 		header("Location: /studentgrade");
