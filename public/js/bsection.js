@@ -1,5 +1,6 @@
 
 var viewBSectionDetails = function(bSectionID) {
+	//console.log(bSectionID);
 	$.ajax({
 		url: '/bsection/details', 
 		data: {bSectionID: bSectionID},

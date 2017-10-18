@@ -32,10 +32,7 @@ class StudentSubjectMatch extends BaseModel {
 		if (empty($semesterID)) {
 			return true;
 		}
-				Zend_Debug::dump($studentID);
-				Zend_Debug::dump($semesterID);
-
-
+				
 		$select = $this->_db->select()
 			->from($this->_name)
 			->join(
@@ -101,6 +98,23 @@ class StudentSubjectMatch extends BaseModel {
 			'subject_id' => $subjectID,
 			'semester_id' => $semesterID,
 		);
+
+		$this->_db->insert($this->_name, $data);
+	}
+
+
+	function addSubjectGrade($data, $studentID, $subjectID, $semesterID) {
+		if (empty($studentID)) {
+			return true;
+		}
+
+		if (empty($subjectID)) {
+			return true;
+		}
+
+		if (empty($semesterID)) {
+			return true;
+		}
 
 		$this->_db->insert($this->_name, $data);
 	}

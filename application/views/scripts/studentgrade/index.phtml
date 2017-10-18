@@ -1,9 +1,8 @@
+<script type='text/javascript' src='/js/student_grade.js'></script>
 
-<nav id="searchStudent">
-	<div id="container">
+
 		<div class="navbar">
 			<div class="navbar-inner">
-				<a class="brand" href="#">Student Grade</a>
 		
 				<form class="navbar-form pull-right">
 				  	<a type="button" class="btn" href="/index">return</a>
@@ -41,6 +40,9 @@
 			<?php if (!empty($this->selectedStudent) && !empty($this->allSubject)): ?>
 				<h1><?php echo "Student Enroll Subjects";?></br></h1>
 				<br />
+				<div class="studentGrade-ajax">
+				</div>
+
 				<table class="table table-bordered table-condensed table-striped"> 
 					<tr>
 						<th>Subejct ID</th>
@@ -48,6 +50,9 @@
 						<th>Subject UNIT</th>
 						<th>Midterm Grade</th>
 						<th>final Grade</th>
+						<th>Total Grade</th>
+						<th>Details</th>
+						<th>Edit</th>
 					</tr>
 					<?php $totalUnit = NULL;?>
 					<?php foreach ($this->allSubject as $subject):?>
@@ -55,11 +60,12 @@
 						<td><?php echo  $subject['subject_id']; ?></td>
 						<td><?php echo  $subject['subject']; ?></td>
 						<td><?php echo  $subject['subject_unit']; ?></td>
-						<td id = "midterm"><?php echo  $subject['mid_term']; ?></td>
-						<td id = "finalterm"><?php echo  $subject['final_term']; ?></td>
+						<td id = "midTerm" name="midTerm"><?php echo  $subject['mid_term']; ?></td>
+						<td id = "finalTerm" name="finalterm"><?php echo  $subject['final_term']; ?></td>
+						<td id = "totalGrade" name="totalGrade" <?php echo  $subject['total_grade']; ?></td>
 						<td style="width: 1px; wrap: nowrap;">
 							<a 
-								onclick="viewDetails(<?php echo $subject['student_id'].', '. $subject['subject_id']; ?>);" 
+								onclick="viewDetails(<?php echo $subject['student_id'].', '. $subject['subject_id'].','.$subject['semester_id']; ?>);" 
 								class="btn" 
 								title="edit Student"
 								data-toggle="modal" data-target="#studentGrade-details"
@@ -98,6 +104,7 @@
 		        	<dt>studentID</dt><dd id="studentID"></dd>
 		        	<dt>Midterm Grade</dt><dd id="midterm"></dd>
 		        	<dt>Final Grade</dt><dd id="finalterm"></dd>
+		        	<dt>Total Grade</dt><dd id="totalGrade"></dd>
 		        </dl>
 		      </div>
 		      <div class="modal-footer">
@@ -106,9 +113,7 @@
 		    </div>
 
 		  </div>
-		</div>
 
-	</nav>
  <script type="text/javascript">
 	function myFunction() {
 		$("#firstH1").attr("style", "color:red").html("Student Name")

@@ -30,45 +30,74 @@ class StudentgradeController extends Zend_Controller_Action  {
 		}
 	
 		$allSubject = $studentSubject->getStudentSubjects($studentID, $semesterID);
+		Zend_Debug::dump($studentID);
+		Zend_Debug::dump($semesterID);
+		Zend_Debug::dump($subjectID);
+		die("here");
 		$this->view->students = $students;
 		$this->view->studentID = $studentID;
+		$this->view->subjectID = $subjectID;
+		$this->view->semesterID = $semesterID;
 		$this->view->allSubject = $allSubject;
 		$this->view->selectedStudent = $selectedStudent;
 	}
-		public function detailsAction() {
-			
-			$studentID = Request::getParam('studentID');
-			$subjectID = Request::getParam('subjectID');
-	
-			$student = new StudentSubjectMatch();
-			$details = $student->getStudentSubjectDetails($studentID,$subjectID);
-			$this->view->studentGrade = $details;
-			echo Zend_Json::encode($details);
-			exit;	
-		}
-		public function editAction() {
-			
+
+	public function detailsAction() {
+		
 		$studentID = Request::getParam('studentID');
 		$subjectID = Request::getParam('subjectID');
 		$semesterID = Request::getParam('semesterID');
+
 		$studentGrade = new StudentSubjectMatch();	
-	
+
 
 		$details = $studentGrade->getStudentSubjectDetails($studentID,$subjectID,$semesterID);
-	
-		$this->view->student = $details;
-		$edit = [];
-		if (isset($_POST['edit'])){
+		$this->view->studentGrade = $details;
+		echo Zend_Json::encode($details);
+		exit
+		;	
+	}
+	public function addsAction() {
+		$this->_helper->viewRenderer->setNoRender();
+		$this->_helper->layout()->disableLayout();
 
-			$midTerm = Request::getParam('mid_term');
-			$finalTerm = Request::getParam('final_term');
+		$totalGrade = Request::getParam('totalGrade');
+		$studentID = Request::getParam('studentID');
+		$subjectID = Request::getParam('subjectID');
+		$semesterID = Request::getParam('semesterID');
+		Zend_Debug::dump($totalGrade);
+		$data = array(
+	    	'total_grade' => $totalGrade,
+		);
 
-			$data = array(
-		    	'mid_term' => $midTerm,
-		    	'final_Term' => $finalTerm,
-			);
+		$subject = new StudentSubjectMatch();
+		$subject->addSubjectGrade($data, $studentID, $subjectID, $semesterID);
+		exit;
+	}
 
-			$edit = $studentGrade->getEditStudentGrade($data, $studentID, $subjectID, $semesterID);
-		}
+	public function editAction() {
+		
+	$studentID = Request::getParam('studentID');
+	$subjectID = Request::getParam('subjectID');
+	$semesterID = Request::getParam('semesterID');
+	$studentGrade = new StudentSubjectMatch();	
+
+
+	$details = $studentGrade->getStudentSubjectDetails($studentID,$subjectID,$semesterID);
+
+	$this->view->student = $details;
+	$edit = [];
+	if (isset($_POST['edit'])){
+
+		$midTerm = Request::getParam('mid_term');
+		$finalTerm = Request::getParam('final_term');
+
+		$data = array(
+	    	'mid_term' => $midTerm,
+	    	'final_Term' => $finalTerm,
+		);
+
+		$edit = $studentGrade->getEditStudentGrade($data, $studentID, $subjectID, $semesterID);
+	}
 	}
 }
